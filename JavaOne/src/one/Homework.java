@@ -11,12 +11,14 @@ public class Homework {
     Homework.printVaraibles(); // #2.
     System.out.println("\n" + Homework.compute(5f, 10.125f, 4.1f, 9.1f)); // #3.
     System.out.println("\n" + Homework.isSumInRange(5, 7)); // #4.
-    Homework.isPositiveNumber(0); // #5.
+    Homework.isPositiveOrNegativeNumber(0); // #5.
     System.out.println("\n" + Homework.isNegativeNumber(-2)); // #6.
     Homework.greeting("Everybody"); // #7.
   }
   
-  /** #2. */
+  /**
+   *  #2. Prints variables name & value.
+   */
   public static void printVaraibles() {
     byte myByte = 2;
     short myshort = 15;
@@ -41,24 +43,24 @@ public class Homework {
   }
   
   /**
-   * #3.
+   * #3. Computes the result of a math expression.
    * 
    * @param a number
    * @param b number
    * @param c number
    * @param d number
-   * @return
+   * @return computed result
    */
   public static float compute(float a, float b, float c, float d) {
     return a * (b + (c / d));
   }
   
   /**
-   * #4.
+   * #4. Checks if the sum of numbers is in a certain range.
    * 
    * @param a number
    * @param b number
-   * @return
+   * @return true if the sum is in the range, otherwise false
    */
   public static boolean isSumInRange(int a, int b) {
     int sum = a + b;
@@ -66,11 +68,11 @@ public class Homework {
   }
   
   /**
-   * #5.
+   * #5. Prints if the argument is a positive or negative number.
    * 
    * @param a number
    */
-  public static void isPositiveNumber(int a) {
+  public static void isPositiveOrNegativeNumber(int a) {
     if (a >= 0) {
       System.out.println("\nPositive number.");
     } else {
@@ -79,17 +81,17 @@ public class Homework {
   }
   
   /**
-   * #6.
+   * #6. Checks if argument less then zero.
    * 
    * @param a number
-   * @return
+   * @return true if the argument is a negative number, otherwise false
    */
   public static boolean isNegativeNumber(int a) {
     return a < 0;
   }
   
   /**
-   * #7.
+   * #7. Prints greeting ).
    * 
    * @param name name
    */
