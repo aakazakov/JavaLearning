@@ -14,10 +14,13 @@ public class Homework {
     Homework.isPositiveOrNegativeNumber(0); // #5.
     System.out.println("\n" + Homework.isNegativeNumber(-2)); // #6.
     Homework.greeting("Everybody"); // #7.
+    Homework.isLeapYear(2100); // #8.
   }
   
   /**
-   *  #2. Prints variables name & value.
+   *  #2.
+   *  
+   *  <p>Prints variables name & value.
    */
   public static void printVaraibles() {
     byte myByte = 2;
@@ -43,7 +46,9 @@ public class Homework {
   }
   
   /**
-   * #3. Computes the result of a math expression.
+   * #3. 
+   * 
+   * <p>Computes the result of a math expression.
    * 
    * @param a number
    * @param b number
@@ -56,7 +61,9 @@ public class Homework {
   }
   
   /**
-   * #4. Checks if the sum of numbers is in a certain range.
+   * #4.
+   * 
+   * <p>Checks if the sum of numbers is in a certain range.
    * 
    * @param a number
    * @param b number
@@ -68,7 +75,9 @@ public class Homework {
   }
   
   /**
-   * #5. Prints if the argument is a positive or negative number.
+   * #5. 
+   * 
+   * <p>Prints if the argument is a positive or negative number.
    * 
    * @param a number
    */
@@ -81,7 +90,9 @@ public class Homework {
   }
   
   /**
-   * #6. Checks if argument less then zero.
+   * #6.
+   * 
+   * <p>Checks if argument less then zero.
    * 
    * @param a number
    * @return true if the argument is a negative number, otherwise false
@@ -91,11 +102,28 @@ public class Homework {
   }
   
   /**
-   * #7. Prints greeting ).
+   * #7.
+   * 
+   * <p>Prints greeting ).
    * 
    * @param name name
    */
   public static void greeting(String name) {
     System.out.println("\nHello, " + name + "!");
+  }
+  
+  /**
+   * #8.
+   * 
+   * <p>Checks if the year is a leap year and prints result.
+   * 
+   * @param year year
+   */
+  public static void isLeapYear(int year) {
+    if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+      System.out.println("\nIt's a leap year.");
+    } else {
+      System.out.println("\nIt's not a leap year.");
+    }
   }
 }
