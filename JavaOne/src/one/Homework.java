@@ -18,9 +18,9 @@ public class Homework {
   }
   
   /**
-   *  #2.
+   * #2.
    *  
-   *  <p>Prints variables name & value.
+   * <p>Prints variables name & value.
    */
   public static void printVaraibles() {
     byte myByte = 2;
