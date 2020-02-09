@@ -28,6 +28,9 @@ public class Homework {
     
     // #4.
     Homework.printSquareMatrix(5);
+    
+    // #5.
+    Homework.printMinAndMaxValues(myNewArray);
   }
   
   /**
@@ -104,5 +107,17 @@ public class Homework {
       }
       System.out.println(Arrays.toString(matrix[i]));
     }
+  }
+  
+  /**
+   * #5.
+   * 
+   * <p>Prints min and max values.
+   * 
+   * @param arr array
+   */
+  public static void printMinAndMaxValues(int[] arr) {
+    Arrays.sort(arr);
+    System.out.println("min value = " + arr[0] + "\nmax value = " + arr[arr.length - 1]);
   }
 }
