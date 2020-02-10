@@ -148,7 +148,7 @@ public class Homework {
     }
     if (arr.length > 2) {    
       int middle = 1;
-      while (middle <= arr.length - 2) {
+      while (middle <= arr.length - 1) {
         int left = 0;
         int right = 0;
         for (int i = 0; i < middle; i++) {
