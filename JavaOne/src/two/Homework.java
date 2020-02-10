@@ -32,8 +32,9 @@ public class Homework {
     // #5.
     Homework.printMinAndMaxValues(myNewArray);
     
-    // #6.
-    // Homework.isMiddleGroundExists(myNewArray);
+    // #6.   
+    int[] myNewArray1 = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
+    Homework.isMiddleGroundExists(myNewArray1);
   }
   
   /**
@@ -133,16 +134,16 @@ public class Homework {
     System.out.println("min value = " + min + ", max value = " + max);
   }
   
-//  public static void isMiddleGroundExists(int[] arr) {
-//    int middle = arr.length / 2;
-//    int left = 0;
-//    int right = 0;
-//    for (int i = 0; i <= middle; i++) {
-//      left += arr[i];
-//      if (i != middle) {
-//        right += arr[arr.length - i - 1];
-//      }
-//    }
-//    System.out.println("left = " + left + " right = " + right + " middle = " + middle);
-//  }
+  public static void isMiddleGroundExists(int[] arr) {
+    int middle = arr.length / 2;
+    int left = 0;
+    int right = 0;
+    for (int i = 0; i < middle; i++) {
+      left += arr[i];
+    }
+    for (int i = middle; i < arr.length; i++) {
+      right += arr[i];
+    }
+    System.out.println("left = " + left + " right = " + right + " middle = " + middle);
+  }
 }
