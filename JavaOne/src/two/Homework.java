@@ -32,9 +32,8 @@ public class Homework {
     // #5.
     Homework.printMinAndMaxValues(myNewArray);
     
-    // #6.   
-    int[] myNewArray1 = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
-    Homework.isMiddleGroundExists(myNewArray1);
+    // #6.
+    System.out.println(Homework.isMiddleGroundExists(myNewArray));
   }
   
   /**
@@ -134,16 +133,31 @@ public class Homework {
     System.out.println("min value = " + min + ", max value = " + max);
   }
   
-  public static void isMiddleGroundExists(int[] arr) {
-    int middle = arr.length / 2;
-    int left = 0;
-    int right = 0;
-    for (int i = 0; i < middle; i++) {
-      left += arr[i];
+  /**
+   * #6.
+   * 
+   * <p>Checks if there is a place (middle ground) in the array
+   * where the sum of the left and the sum of the right parts are equal. 
+   * 
+   * @param arr array
+   * @return true if the middle exists, otherwise false
+   */
+  public static boolean isMiddleGroundExists(int[] arr) {
+    int potentialMiddle = 1;
+    while (potentialMiddle <= arr.length - 2) {
+      int left = 0;
+      int right = 0;
+      for (int i = 0; i < potentialMiddle; i++) {
+        left += arr[i];
+      }
+      for (int i = potentialMiddle; i < arr.length; i++) {
+        right += arr[i];
+      }
+      if (left == right) {
+        return true;
+      }
+      potentialMiddle++;
     }
-    for (int i = middle; i < arr.length; i++) {
-      right += arr[i];
-    }
-    System.out.println("left = " + left + " right = " + right + " middle = " + middle);
+    return false;
   }
 }
