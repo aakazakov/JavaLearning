@@ -143,20 +143,20 @@ public class Homework {
    * @return true if the middle exists, otherwise false
    */
   public static boolean isMiddleGroundExists(int[] arr) {
-    int potentialMiddle = 1;
-    while (potentialMiddle <= arr.length - 2) {
+    int middle = 1;
+    while (middle <= arr.length - 2) {
       int left = 0;
       int right = 0;
-      for (int i = 0; i < potentialMiddle; i++) {
+      for (int i = 0; i < middle; i++) {
         left += arr[i];
       }
-      for (int i = potentialMiddle; i < arr.length; i++) {
+      for (int i = middle; i < arr.length; i++) {
         right += arr[i];
       }
       if (left == right) {
         return true;
       }
-      potentialMiddle++;
+      middle++;
     }
     return false;
   }
