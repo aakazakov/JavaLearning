@@ -27,7 +27,7 @@ public class Homework {
     System.out.println(Arrays.toString(myNewArray));
     
     // #4.
-    printSquareMatrix(5);
+    getSquareMatrix(5);
     
     // #5.
     printMinAndMaxValues(myNewArray); // myNewArray was changed on line 26.
@@ -97,7 +97,7 @@ public class Homework {
    * @param size matrix size
    * @return two-dimensional array
    */
-  public static int[][] printSquareMatrix(int size) {
+  public static int[][] getSquareMatrix(int size) {
     int[][] matrix = new int[size][size];
     for (int i = 0; i < matrix.length; i++) {
       for (int j = 0; j < matrix[i].length; j++) {
