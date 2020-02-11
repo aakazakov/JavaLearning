@@ -165,4 +165,13 @@ public class Homework {
     }
     return false;
   }
+  
+  /*
+  public static void arrayRoll(int[] arr, int step) {
+    int length = arr.length;
+    if (step % length != 0) {
+      
+    }
+  }
+  */
 }
