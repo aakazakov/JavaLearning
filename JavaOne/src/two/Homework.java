@@ -34,6 +34,10 @@ public class Homework {
     
     // #6.
     System.out.println(isMiddleGroundExists(myNewArray));
+    
+    // #7.
+    int[] arr = {0, 1, 2, 3, 4, 5, 6};
+    System.out.println(Arrays.toString(arrayRoll(arr, 3)));
   }
   
   /**
@@ -165,13 +169,42 @@ public class Homework {
     }
     return false;
   }
-  
-  /*
-  public static void arrayRoll(int[] arr, int step) {
-    int length = arr.length;
-    if (step % length != 0) {
-      
+
+  /**
+   * #7
+   * 
+   * <p>Array rock 'n' roll ).
+   * Moves array elements one step.
+   * 
+   * @param arr array
+   * @param step step length
+   * @return modified array
+   */
+  public static int[] arrayRoll(int[] arr, int step) {
+    int needToChange = arr.length;
+    if (step % arr.length != 0) {
+      int current = 0;
+      int storage = arr[current];
+      int next = current + step;
+      while (needToChange > 0) {
+        if (next > arr.length - 1) {
+          next -= arr.length;
+        }
+        if (next == current) {
+          arr[next] = storage;
+          needToChange--;
+          current++;
+          storage = arr[current];
+          next = current + step;
+          continue;
+        }
+        arr[next] = arr[next] + storage;
+        storage = arr[next] - storage;
+        arr[next] = arr[next] - storage;
+        needToChange--;
+        next += step;
+      }
     }
+    return arr;
   }
-  */
 }
