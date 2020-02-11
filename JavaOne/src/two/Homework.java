@@ -13,27 +13,27 @@ public class Homework {
     
     // #1.
     int[] myArray = {0, 1, 0, 1, 1, 0};
-    Homework.swapToOppositeValue(myArray);
+    swapToOppositeValue(myArray);
     System.out.println(Arrays.toString(myArray));
     
     // #2.
     myArray = new int[8];
-    Homework.fillTheArray(myArray);
+    fillTheArray(myArray);
     System.out.println(Arrays.toString(myArray));
     
     // #3.
     int[] myNewArray = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
-    Homework.changeSomeValuesInArray(myNewArray);
+    changeSomeValuesInArray(myNewArray);
     System.out.println(Arrays.toString(myNewArray));
     
     // #4.
-    Homework.printSquareMatrix(5);
+    printSquareMatrix(5);
     
     // #5.
-    Homework.printMinAndMaxValues(myNewArray);
+    printMinAndMaxValues(myNewArray); // myNewArray was changed on line 26.
     
     // #6.
-    System.out.println(Homework.isMiddleGroundExists(myNewArray));
+    System.out.println(isMiddleGroundExists(myNewArray));
   }
   
   /**
@@ -46,11 +46,9 @@ public class Homework {
    */
   public static int[] swapToOppositeValue(int[] arr) {
     for (int i = 0; i < arr.length; i++) {
-      int value = arr[i];
-      if (value == 1) {
+      if (arr[i] == 1) {
         arr[i] = 0;
-      }
-      if (value == 0) {
+      } else {
         arr[i] = 1;
       }
     }
@@ -94,11 +92,12 @@ public class Homework {
   /**
    * #4.
    * 
-   * <p>Square matrix printing ).
+   * <p>Square matrix creating ).
    * 
    * @param size matrix size
+   * @return two-dimensional array
    */
-  public static void printSquareMatrix(int size) {
+  public static int[][] printSquareMatrix(int size) {
     int[][] matrix = new int[size][size];
     for (int i = 0; i < matrix.length; i++) {
       for (int j = 0; j < matrix[i].length; j++) {
@@ -108,8 +107,9 @@ public class Homework {
           matrix[i][j] = 0;
         }       
       }
-      System.out.println(Arrays.toString(matrix[i]));
+      System.out.println(Arrays.toString(matrix[i])); // For visualization purposes.
     }
+    return matrix;
   }
   
   /**
@@ -122,12 +122,12 @@ public class Homework {
   public static void printMinAndMaxValues(int[] arr) {
     int min = arr[0];
     int max = arr[0];
-    for (int value : arr) {
-      if (value > max) {
-        max = value;
+    for (int i = 1; i < arr.length; i++) {
+      if (max < arr[i]) {
+        max = arr[i];
       }
-      if (value < min) {
-        min = value;
+      if (min > arr[i]) {
+        min = arr[i];
       }
     }
     System.out.println("min value = " + min + ", max value = " + max);
