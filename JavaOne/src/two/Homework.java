@@ -184,15 +184,15 @@ public class Homework {
     step = getDivisionRemainder(step, arr.length);
     if (step != 0) { 
       int startIndex = 0;
-      int currentIndex = startIndex + step;
+      int currentIndex = getCurrentIndex(startIndex, step);
       int valueStorage = arr[startIndex];
       int needToChange = arr.length;
       while (needToChange > 0) {
-        currentIndex = getCurrentIndex(currentIndex, arr.length);
+        currentIndex = correctCurrentIndex(currentIndex, arr.length);
         if (currentIndex == startIndex) {
           arr[currentIndex] = valueStorage;
           startIndex++;
-          currentIndex = startIndex + step;
+          currentIndex = getCurrentIndex(startIndex, step);
           valueStorage = arr[startIndex];
           needToChange--;
           continue;
@@ -223,13 +223,26 @@ public class Homework {
   /**
    * #7.2
    * 
+   * <p>Computes the current index.
+   * 
+   * @param startIndex index
+   * @param step step
+   * @return current index
+   */
+  public static int getCurrentIndex(int startIndex, int step) {
+    return startIndex + step;
+  }
+  
+  /**
+   * #7.3
+   * 
    * <p>Modifies the index value, if necessary.
    * 
    * @param currentIndex index
    * @param arrayLength array length
    * @return currentIndex value, modified if necessary
    */
-  public static int getCurrentIndex(int currentIndex, int arrayLength) {
+  public static int correctCurrentIndex(int currentIndex, int arrayLength) {
     if (currentIndex > arrayLength - 1) {
       return currentIndex - arrayLength;
     }
