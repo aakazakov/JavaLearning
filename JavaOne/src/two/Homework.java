@@ -185,15 +185,15 @@ public class Homework {
     if (step != 0) { 
       int startIndex = 0;
       int currentIndex = getCurrentIndex(startIndex, step);
-      int valueStorage = arr[startIndex];
+      int valueStorage = getValue(arr, startIndex);
       int needToChange = arr.length;
       while (needToChange > 0) {
-        currentIndex = correctCurrentIndex(currentIndex, arr.length);
+        currentIndex = correctCurrentIndexIfNeed(currentIndex, arr.length);
         if (currentIndex == startIndex) {
           arr[currentIndex] = valueStorage;
           startIndex++;
           currentIndex = getCurrentIndex(startIndex, step);
-          valueStorage = arr[startIndex];
+          valueStorage = getValue(arr, startIndex);
           needToChange--;
           continue;
         }
@@ -236,13 +236,26 @@ public class Homework {
   /**
    * #7.3
    * 
+   * <p>Returns the value of an array by index.
+   * 
+   * @param arr array
+   * @param index index
+   * @return value
+   */
+  public static int getValue(int[] arr, int index) {
+    return arr[index];
+  }
+  
+  /**
+   * #7.4
+   * 
    * <p>Modifies the index value, if necessary.
    * 
    * @param currentIndex index
    * @param arrayLength array length
    * @return currentIndex value, modified if necessary
    */
-  public static int correctCurrentIndex(int currentIndex, int arrayLength) {
+  public static int correctCurrentIndexIfNeed(int currentIndex, int arrayLength) {
     if (currentIndex > arrayLength - 1) {
       return currentIndex - arrayLength;
     }
