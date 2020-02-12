@@ -188,12 +188,7 @@ public class Homework {
       int valueStorage = arr[startIndex];
       int needToChange = arr.length;
       while (needToChange > 0) {
-        if (currentIndex > arr.length - 1) {
-          currentIndex -= arr.length;
-        }
-        if (currentIndex < 0) {
-          currentIndex += arr.length;          
-        }
+        currentIndex = getCurrentIndex(currentIndex, arr.length);
         if (currentIndex == startIndex) {
           arr[currentIndex] = valueStorage;
           startIndex++;
@@ -213,7 +208,7 @@ public class Homework {
   }
   
   /**
-   * # 7.1
+   * #7.1
    * 
    * <p>Computes the remainder of division.
    * 
@@ -223,5 +218,24 @@ public class Homework {
    */
   public static int getDivisionRemainder(int a, int b) {
     return a % b;
+  }
+  
+  /**
+   * #7.2
+   * 
+   * <p>Modifies the index value, if necessary.
+   * 
+   * @param currentIndex index
+   * @param arrayLength array length
+   * @return currentIndex value, modified if necessary
+   */
+  public static int getCurrentIndex(int currentIndex, int arrayLength) {
+    if (currentIndex > arrayLength - 1) {
+      return currentIndex - arrayLength;
+    }
+    if (currentIndex < 0) {
+      return currentIndex + arrayLength;
+    }
+    return currentIndex;
   }
 }
