@@ -171,7 +171,7 @@ public class Homework {
   }
 
   /**
-   * #7
+   * #7.
    * 
    * <p>Array rock 'n' roll ).
    * Moves array elements one step.
@@ -182,29 +182,46 @@ public class Homework {
    */
   public static int[] arrayRoll(int[] arr, int step) {
     int needToChange = arr.length;
-    if (step % arr.length != 0) {
-      int current = 0;
-      int storage = arr[current];
-      int next = current + step;
+    step = step % arr.length;
+    if (step != 0) { 
+      int startIndex = 0;
+      int currentIndex = startIndex + step;
+      int valueStorage = arr[startIndex];
       while (needToChange > 0) {
-        if (next > arr.length - 1) {
-          next -= arr.length;
+        if (currentIndex > arr.length - 1) {
+          currentIndex -= arr.length;
         }
-        if (next == current) {
-          arr[next] = storage;
+        if (currentIndex < 0) {
+          currentIndex += arr.length;          
+        }
+        if (currentIndex == startIndex) {
+          arr[currentIndex] = valueStorage;
           needToChange--;
-          current++;
-          storage = arr[current];
-          next = current + step;
+          startIndex++;
+          currentIndex = startIndex + step;
+          valueStorage = arr[startIndex];
           continue;
         }
-        arr[next] = arr[next] + storage;
-        storage = arr[next] - storage;
-        arr[next] = arr[next] - storage;
+        arr[currentIndex] = arr[currentIndex] + valueStorage;
+        valueStorage = arr[currentIndex] - valueStorage;
+        arr[currentIndex] = arr[currentIndex] - valueStorage;
         needToChange--;
-        next += step;
+        currentIndex += step;
       }
     }
     return arr;
+  }
+  
+  /**
+   * # 7.1
+   * 
+   * <p>Computes the remainder of division.
+   * 
+   * @param a number
+   * @param b number
+   * @return division remainder 'a' by 'b'
+   */
+  public static int getDivisionRemainder(int a, int b) {
+    return a % b;
   }
 }
