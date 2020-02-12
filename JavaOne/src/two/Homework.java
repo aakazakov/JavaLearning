@@ -37,7 +37,7 @@ public class Homework {
     
     // #7.
     int[] arr = {0, 1, 2, 3, 4, 5, 6};
-    System.out.println(Arrays.toString(arrayRoll(arr, 3)));
+    System.out.println(Arrays.toString(arrayRoll(arr, 11)));
   }
   
   /**
@@ -181,12 +181,12 @@ public class Homework {
    * @return modified array
    */
   public static int[] arrayRoll(int[] arr, int step) {
-    int needToChange = arr.length;
-    step = step % arr.length;
+    step = getDivisionRemainder(step, arr.length);
     if (step != 0) { 
       int startIndex = 0;
       int currentIndex = startIndex + step;
       int valueStorage = arr[startIndex];
+      int needToChange = arr.length;
       while (needToChange > 0) {
         if (currentIndex > arr.length - 1) {
           currentIndex -= arr.length;
@@ -196,17 +196,17 @@ public class Homework {
         }
         if (currentIndex == startIndex) {
           arr[currentIndex] = valueStorage;
-          needToChange--;
           startIndex++;
           currentIndex = startIndex + step;
           valueStorage = arr[startIndex];
+          needToChange--;
           continue;
         }
         arr[currentIndex] = arr[currentIndex] + valueStorage;
         valueStorage = arr[currentIndex] - valueStorage;
         arr[currentIndex] = arr[currentIndex] - valueStorage;
-        needToChange--;
         currentIndex += step;
+        needToChange--;
       }
     }
     return arr;
