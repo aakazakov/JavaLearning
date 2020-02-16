@@ -22,11 +22,38 @@ public class Homework {
    * <p>Guess the number game.
    */
   public static void guessTheNumber() {
-    int number = getRandomNumber(9);
-    System.out.println(number); // test
-    System.out.print("input number: ");
-    int userNumber = getUserInputValue();
-    System.out.println(userNumber); // test
+    String repeat = "1";
+    while (repeat.equals("1")) {
+      int number = getRandomNumber(9);
+      int attempts = 3;
+      System.out.println(number); // test
+      System.out.println("The game started.");
+      while (attempts > 0) {
+        System.out.printf("%nAttempts: %d%nEnter your number: ", attempts);
+        if (scanner.hasNextInt()) {
+          int userNumber = scanner.nextInt();
+          if (userNumber > number) {
+            System.out.println("Try less.");
+            attempts--;
+          } else if (userNumber < number) {
+            System.out.println("Try greater.");
+            attempts--;
+          } else {
+            System.out.println("You guest it!");
+            break;
+          }
+        } else {
+          String value = scanner.nextLine();
+          System.out.printf("The value '%s' you entered is not a number.%n", value);
+        }
+      }     
+      System.out.println("\nGame over."
+          + "\nWant to play again?"
+          + "\nEnter 1, otherwise 0\n");
+      repeat = scanner.next();
+    }
+    scanner.close();
+    System.out.println("Good bye!");
   }
   
   /**
@@ -37,16 +64,5 @@ public class Homework {
    */
   public static int getRandomNumber(int edge) {
     return rand.nextInt(edge + 1);
-  }
-  
-  /**
-   * Scans user input.
-   * 
-   * @return user input value
-   */
-  public static int getUserInputValue() {
-    int number = scanner.nextInt();
-    scanner.close();
-    return number;
   }
 }
