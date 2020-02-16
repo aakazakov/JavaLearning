@@ -17,7 +17,8 @@ public class Homework {
    * @param args arguments
    */
   public static void main(String[] args) {
-    guessTheNumber();
+    // guessTheNumber();
+    guessTheWord();
   }
   
   /**
@@ -58,6 +59,30 @@ public class Homework {
     }
     scanner.close();
     System.out.println("Good bye!");
+  }
+  
+  public static void guessTheWord() {
+    int i = getRandomNumber(words.length);
+    String word = words[i];
+    System.out.println(word); // test
+    
+    System.out.print("Enter your word: ");
+    String userWord = scanner.nextLine();
+    
+    String result;
+    if (userWord.length() >= word.length()) {
+      result = compare(userWord, word);
+    } else {
+      result = compare(word, userWord);
+    }
+    
+    System.out.println(result);
+    
+    scanner.close();
+  }
+  
+  public static String compare(String firstStr, String secondStr) {
+    return "compare: " + firstStr + " & " + secondStr;
   }
   
   /**
