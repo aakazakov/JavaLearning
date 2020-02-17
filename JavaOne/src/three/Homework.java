@@ -87,8 +87,8 @@ public class Homework {
         System.out.println(getComparisonResult(userWord, word));
       }
     }
-    System.out.println("\nGame over.");
     scanner.close();
+    System.out.println("\nGame over.");
   }
   
   /**
