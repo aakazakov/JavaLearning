@@ -66,23 +66,38 @@ public class Homework {
     String word = words[i];
     System.out.println(word); // test
     
-    System.out.print("Enter your word: ");
-    String userWord = scanner.nextLine();
-    
-    String result;
-    if (userWord.length() >= word.length()) {
-      result = compare(userWord, word);
-    } else {
-      result = compare(word, userWord);
+    while (true) {     
+      System.out.print("Enter your word: ");
+      String userWord = scanner.nextLine();
+      
+      if (userWord.equals(word)) {
+        System.out.println("You guessed it");
+        break;
+      }
+      
+      if (userWord.length() >= word.length()) {
+        System.out.println(getComparisonResult(word, userWord));
+      } else {
+        System.out.println(getComparisonResult(userWord, word));
+      }
     }
-    
-    System.out.println(result);
-    
+    System.out.println("Game over.");
     scanner.close();
   }
   
-  public static String compare(String firstStr, String secondStr) {
-    return "compare: " + firstStr + " & " + secondStr;
+  public static StringBuilder getComparisonResult(String strOne, String strTwo) {
+    
+    StringBuilder sharps = new StringBuilder(15);
+    
+    for (int i = 0; i < sharps.capacity(); i++) {
+      if (i < strOne.length() && strOne.charAt(i) == strTwo.charAt(i)) {
+        sharps.append(strOne.charAt(i));
+        continue;
+      }
+      sharps.append('#');
+    }
+        
+    return sharps;
   }
   
   /**
