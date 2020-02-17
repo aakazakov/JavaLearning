@@ -17,8 +17,12 @@ public class Homework {
    * @param args arguments
    */
   public static void main(String[] args) {
+    
+    // #1.
     // guessTheNumber();
-    guessTheWord();
+    
+    // #2.
+    // guessTheWord();
   }
   
   /**
@@ -44,7 +48,7 @@ public class Homework {
             System.out.println("Try greater.");
             attempts--;
           } else {
-            System.out.println("You guest it!");
+            System.out.println("You guessed it!");
             break;
           }
         } else {
@@ -61,34 +65,41 @@ public class Homework {
     System.out.println("Good bye!");
   }
   
+  /**
+   * #2.
+   * 
+   * <p>Guess the word game.
+   */
   public static void guessTheWord() {
-    int i = getRandomNumber(words.length);
-    String word = words[i];
+    String word = getWord();
     System.out.println(word); // test
-    
+    System.out.println("The game started.");
     while (true) {     
-      System.out.print("Enter your word: ");
-      String userWord = scanner.nextLine();
-      
+      System.out.print("\nEnter your word: ");
+      String userWord = scanner.nextLine(); 
       if (userWord.equals(word)) {
-        System.out.println("You guessed it");
+        System.out.println("You guessed it!");
         break;
       }
-      
       if (userWord.length() >= word.length()) {
         System.out.println(getComparisonResult(word, userWord));
       } else {
         System.out.println(getComparisonResult(userWord, word));
       }
     }
-    System.out.println("Game over.");
+    System.out.println("\nGame over.");
     scanner.close();
   }
   
-  public static StringBuilder getComparisonResult(String strOne, String strTwo) {
-    
+  /**
+   * Returns a formatted StringBuilder string.
+   * 
+   * @param strOne word whose length is less than or equal to the second
+   * @param strTwo word
+   * @return something like '###a#b#####')
+   */
+  private static StringBuilder getComparisonResult(String strOne, String strTwo) {
     StringBuilder sharps = new StringBuilder(15);
-    
     for (int i = 0; i < sharps.capacity(); i++) {
       if (i < strOne.length() && strOne.charAt(i) == strTwo.charAt(i)) {
         sharps.append(strOne.charAt(i));
@@ -96,7 +107,6 @@ public class Homework {
       }
       sharps.append('#');
     }
-        
     return sharps;
   }
   
@@ -106,7 +116,17 @@ public class Homework {
    * @param edge max edge
    * @return random number
    */
-  public static int getRandomNumber(int edge) {
+  private static int getRandomNumber(int edge) {
     return rand.nextInt(edge + 1);
+  }
+ 
+  /**
+   * Random word getter.
+   * 
+   * @return word
+   */
+  private static String getWord() {
+    int i = getRandomNumber(words.length);
+    return words[i];
   }
 }
