@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Homework {
   private static final int SIZE = 3;
   private static final char[][] MAP = new char[SIZE][SIZE];
-  private static final char CHAR_SHARP = 35;
+  private static final char CHAR_SHARP = '#';
   private static final char CHAR_X = 'X';
   private static final char CHAR_O = 'O';
 
