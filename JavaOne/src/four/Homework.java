@@ -35,6 +35,10 @@ public class Homework {
   
   private static void printTheMap() {
     for (int i = 0; i <= SIZE; i++) {
+      if (i == 0) {
+        System.out.print("  ");
+        continue;
+      }
       System.out.print(i + " ");
     }
     System.out.println();
