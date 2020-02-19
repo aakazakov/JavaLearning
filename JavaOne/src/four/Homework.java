@@ -65,6 +65,7 @@ public class Homework {
     int x = sc.nextInt();
     int y = sc.nextInt();
     putTheChar(x, y, CHAR_X);
+    sc.close();
   }
   
   /**
