@@ -25,6 +25,10 @@ public class Homework {
     System.out.println("Game started!");
     fillTheMap();
     printTheMap();
+    
+    putTheChar(3, 1, CHAR_O);
+    printTheMap();
+
   }
   
   private static void fillTheMap() {
@@ -49,5 +53,16 @@ public class Homework {
       }
       System.out.println();
     }
+  }
+  
+  /**
+   * Puts the character in a specific place.
+   * 
+   * @param x x coordinate
+   * @param y y coordinate
+   * @param ch character
+   */
+  private static void putTheChar(int x, int y, char ch) {
+    MAP[y - 1][x - 1] = ch;
   } 
 }
