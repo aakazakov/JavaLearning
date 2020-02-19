@@ -25,21 +25,27 @@ public class Homework {
    */
   public static void ticTacToe() {
     System.out.println("Game started!");
-    fillTheMap();
-    printTheMap();
+    fillMap();
+    printMap();
     
     humanStep();
-    printTheMap();
+    printMap();
 
   }
   
-  private static void fillTheMap() {
+  /**
+   * Fills a map with chars.
+   */
+  private static void fillMap() {
     for (int i = 0; i < SIZE; i++) {
       Arrays.fill(MAP[i], CHAR_SHARP);
     }
   }
   
-  private static void printTheMap() {
+  /**
+   * Prints a map.
+   */
+  private static void printMap() {
     for (int i = 0; i <= SIZE; i++) {
       if (i == 0) {
         System.out.print("  ");
@@ -61,11 +67,28 @@ public class Homework {
    * Human step.
    */
   private static void humanStep() {
-    System.out.print("Enter the coordinates 'X' (x y): ");
-    int x = sc.nextInt();
-    int y = sc.nextInt();
-    putTheChar(x, y, CHAR_X);
+    while (true) {
+      System.out.print("Enter the coordinates 'X' (x y): ");
+      int x = sc.nextInt();
+      int y = sc.nextInt();
+      if (isValidStep(x, y)) {
+        putChar(x, y, CHAR_X);
+        break;
+      }
+    }
     sc.close();
+  }
+  
+  /**
+   * Checks if a step can be taken.
+   * 
+   * @param x x coordinate
+   * @param y y coordinate
+   * @return true if a step can be taken., otherwise false
+   */
+  private static boolean isValidStep(int x, int y) {
+    return x > 0 && x <= SIZE && y > 0 && y <= SIZE
+        && MAP[y - 1][x - 1] == CHAR_SHARP;
   }
   
   /**
@@ -75,7 +98,7 @@ public class Homework {
    * @param y y coordinate
    * @param ch character
    */
-  private static void putTheChar(int x, int y, char ch) {
+  private static void putChar(int x, int y, char ch) {
     MAP[y - 1][x - 1] = ch;
-  } 
+  }
 }
