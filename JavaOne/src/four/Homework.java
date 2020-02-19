@@ -30,11 +30,15 @@ public class Homework {
     fillMap();
     printMap();
     
-    humanStep();
-    printMap();
-
-    aiStep();
-    printMap();
+    for (int i = 0; i < 4; i++) {
+      System.out.println("\nstep " + i);
+      
+      humanStep();
+      printMap();
+  
+      aiStep();
+      printMap();
+    }
   }
   
   /**
@@ -72,15 +76,20 @@ public class Homework {
    */
   private static void humanStep() {
     while (true) {
-      System.out.print("Enter the coordinates 'X' (x y): ");
-      int x = sc.nextInt();
-      int y = sc.nextInt();
-      if (isValidStep(x, y)) {
-        putChar(x, y, CHAR_O);
+      // System.out.print("Enter the coordinates 'X' (x y): ");
+      // int x = sc.nextInt();
+      // int y = sc.nextInt();
+      
+      int x = rand.nextInt(SIZE) + 1; // test
+      int y = rand.nextInt(SIZE) + 1; // test
+      
+      if (canStep(x, y)) {
+        putChar(x, y, CHAR_X);
+        isWin(x, y);
         break;
       }
     }
-    sc.close();
+    // sc.close();
   }
   
   /**
@@ -90,8 +99,8 @@ public class Homework {
     while (true) {
       int x = rand.nextInt(SIZE) + 1;
       int y = rand.nextInt(SIZE) + 1;
-      if (isValidStep(x, y)) {
-        putChar(x, y, CHAR_X);
+      if (canStep(x, y)) {
+        putChar(x, y, CHAR_O);
         break;
       }
     }
@@ -104,7 +113,7 @@ public class Homework {
    * @param y y coordinate
    * @return true if a step can be taken., otherwise false
    */
-  private static boolean isValidStep(int x, int y) {
+  private static boolean canStep(int x, int y) {
     return x > 0 && x <= SIZE && y > 0 && y <= SIZE
         && MAP[y - 1][x - 1] == CHAR_SHARP;
   }
@@ -119,4 +128,14 @@ public class Homework {
   private static void putChar(int x, int y, char ch) {
     MAP[y - 1][x - 1] = ch;
   }
+  
+  private static void isWin(int x, int y) {
+    System.out.println("win " + x + " " + y);
+  }
+  
+  private static void horizontally(int x, int y) {}
+  
+  private static void vertically(int x, int y) {}
+  
+  private static void diagonally(int x, int y) {}
 }
