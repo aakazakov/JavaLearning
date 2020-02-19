@@ -1,6 +1,7 @@
 package four;
 
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Homework {
@@ -10,6 +11,7 @@ public class Homework {
   private static final char CHAR_X = 'X';
   private static final char CHAR_O = 'O';
   private static Scanner sc = new Scanner(System.in);
+  private static Random rand = new Random();
 
   /**
    * The main method.)
@@ -31,6 +33,8 @@ public class Homework {
     humanStep();
     printMap();
 
+    aiStep();
+    printMap();
   }
   
   /**
@@ -64,7 +68,7 @@ public class Homework {
   }
   
   /**
-   * Human step.
+   * Human takes a step.
    */
   private static void humanStep() {
     while (true) {
@@ -72,11 +76,25 @@ public class Homework {
       int x = sc.nextInt();
       int y = sc.nextInt();
       if (isValidStep(x, y)) {
-        putChar(x, y, CHAR_X);
+        putChar(x, y, CHAR_O);
         break;
       }
     }
     sc.close();
+  }
+  
+  /**
+   * AI takes a step.
+   */
+  private static void aiStep() {
+    while (true) {
+      int x = rand.nextInt(SIZE) + 1;
+      int y = rand.nextInt(SIZE) + 1;
+      if (isValidStep(x, y)) {
+        putChar(x, y, CHAR_X);
+        break;
+      }
+    }
   }
   
   /**
