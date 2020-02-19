@@ -1,6 +1,7 @@
 package four;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Homework {
   private static final int SIZE = 3;
@@ -8,6 +9,7 @@ public class Homework {
   private static final char CHAR_SHARP = '#';
   private static final char CHAR_X = 'X';
   private static final char CHAR_O = 'O';
+  private static Scanner sc = new Scanner(System.in);
 
   /**
    * The main method.)
@@ -26,7 +28,7 @@ public class Homework {
     fillTheMap();
     printTheMap();
     
-    putTheChar(3, 1, CHAR_O);
+    humanStep();
     printTheMap();
 
   }
@@ -53,6 +55,16 @@ public class Homework {
       }
       System.out.println();
     }
+  }
+  
+  /**
+   * Human step.
+   */
+  private static void humanStep() {
+    System.out.print("Enter the coordinates 'X' (x y): ");
+    int x = sc.nextInt();
+    int y = sc.nextInt();
+    putTheChar(x, y, CHAR_X);
   }
   
   /**
