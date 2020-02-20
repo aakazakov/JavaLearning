@@ -86,7 +86,9 @@ public class Homework {
       
       if (canStep(x, y)) {
         putChar(x, y, CHAR_X);
-        isWin(x, y, CHAR_X);
+        if (isWin(x, y, CHAR_X)) {
+          System.out.println("WINNER.");
+        }
         break;
       }
     }
@@ -130,13 +132,27 @@ public class Homework {
     MAP[y - 1][x - 1] = ch;
   }
   
-  private static void isWin(int x, int y, char ch) {
-    // horizontally(x, y, ch);
-    // vertically(x, y, ch);
-    diagonallyOne(x, y, ch);
-    diagonallyTwo(x, y, ch);
+  /**
+   * Checks player for victory.
+   * 
+   * @param x x coordinate
+   * @param y y coordinate
+   * @param ch character
+   * @return true if the player won, otherwise false
+   */
+  private static boolean isWin(int x, int y, char ch) {
+    return vertically(x, y, ch) || horizontally(x, y, ch)
+        || diagonallyOne(x, y, ch) || diagonallyTwo(x, y, ch);
   }
   
+  /**
+   * Checks if player won horizontally.
+   * 
+   * @param x x coordinate
+   * @param y y coordinate
+   * @param ch character
+   * @return true if the player won, otherwise false
+   */
   private static boolean horizontally(int x, int y, char ch) {
     int charCount = 0;
     for (int i = x - 1; i < SIZE; i++) {
@@ -151,12 +167,17 @@ public class Homework {
       }
       charCount++;
     }
-    
-    System.out.println("count_x: " + charCount); // test
-    
     return charCount == WIN_CHARS;
   }
   
+  /**
+   * Checks if player won vertically.
+   * 
+   * @param x x coordinate
+   * @param y y coordinate
+   * @param ch character
+   * @return true if the player won, otherwise false
+   */
   private static boolean vertically(int x, int y, char ch) {
     int charCount = 0;
     for (int i = y - 1; i < SIZE; i++) {
@@ -171,16 +192,18 @@ public class Homework {
       }
       charCount++;
     }
-    
-    System.out.println("count_y: " + charCount); // test
-    
     return charCount == WIN_CHARS;
   }
   
+  /**
+   * Checks if player won diagonally (from up-left to down-right).
+   * 
+   * @param x x coordinate
+   * @param y y coordinate
+   * @param ch character
+   * @return true if the player won, otherwise false
+   */
   private static boolean diagonallyOne(int x, int y, char ch) {
-    
-    System.out.println("x: " + x + " y: " + y); // test
-    
     if (x != y) {
       return false;
     }  
@@ -197,13 +220,18 @@ public class Homework {
       }
       charCount++;
     }
-      
-    System.out.println("count_d1: " + charCount); // test
-    
     return charCount == WIN_CHARS;
   }
   
-  private static boolean diagonallyTwo(int x, int y, char ch) {   
+  /**
+   * Checks if player won diagonally (from up-right to down-left).
+   * 
+   * @param x x coordinate
+   * @param y y coordinate
+   * @param ch character
+   * @return true if the player won, otherwise false
+   */
+  private static boolean diagonallyTwo(int x, int y, char ch) {
     if (y != SIZE - x + 1) {
       return false;
     }
@@ -220,9 +248,6 @@ public class Homework {
       }
       charCount++;
     }
-    
-    System.out.println("count_d2: " + charCount); // test
-    
     return charCount == WIN_CHARS;
   }
 }
