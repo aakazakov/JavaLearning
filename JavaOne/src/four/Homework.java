@@ -132,7 +132,8 @@ public class Homework {
   
   private static void isWin(int x, int y, char ch) {
     // horizontally(x, y, ch);
-    vertically(x, y, ch);
+    // vertically(x, y, ch);
+    diagonallyOne(x, y, ch);
   }
   
   private static boolean horizontally(int x, int y, char ch) {
@@ -175,5 +176,33 @@ public class Homework {
     return charCount == WIN_CHARS;
   }
   
-  private static void diagonally(int x, int y) {}
+  private static boolean diagonallyOne(int x, int y, char ch) {
+    
+    System.out.println("x: " + x + " y: " + y); // test
+    
+    if (x != y) {
+      return false;
+    }  
+    int charCount = 0;
+    for (int i = y - 1; i < SIZE; i++) {
+      if (MAP[i][i] != ch) {
+        break;
+      }
+      charCount++;
+    }
+    for (int i = y - 2; i >= 0; i--) {
+      if (MAP[i][i] != ch) {
+        break;
+      }
+      charCount++;
+    }
+      
+    System.out.println("count_d1: " + charCount); // test
+    
+    return charCount == WIN_CHARS;
+  }
+  
+  private static void diagonallyTwo(int x, int y, char ch) {
+    int charCount = 0;
+  }
 }
