@@ -5,12 +5,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Homework {
-  private static final int SIZE = 3;
+  private static final int SIZE = 5;
   private static final char[][] MAP = new char[SIZE][SIZE];
   private static final char CHAR_SHARP = '#';
   private static final char CHAR_X = 'X';
   private static final char CHAR_O = 'O';
-  private static final char WIN_CHARS = 3;
+  private static final char WIN_CHARS = 4;
   private static boolean winner;
   private static Scanner sc = new Scanner(System.in);
   private static Random rand = new Random();
@@ -94,12 +94,12 @@ public class Homework {
    */
   private static void humanStep() {
     while (true) {
-      System.out.print("Enter the coordinates 'X' (x y): ");
-      int x = sc.nextInt();
-      int y = sc.nextInt();
+//      System.out.print("Enter the coordinates 'X' (x y): ");
+//      int x = sc.nextInt();
+//      int y = sc.nextInt();
       
-      // int x = rand.nextInt(SIZE) + 1; // test
-      // int y = rand.nextInt(SIZE) + 1; // test
+       int x = rand.nextInt(SIZE) + 1; // test
+       int y = rand.nextInt(SIZE) + 1; // test
       
       if (isValidStep(x, y)) {
         step(x, y, CHAR_X);
@@ -182,7 +182,7 @@ public class Homework {
       }
       charCount++;
     }
-    return charCount == WIN_CHARS;
+    return charCount >= WIN_CHARS;
   }
   
   /**
@@ -207,7 +207,7 @@ public class Homework {
       }
       charCount++;
     }
-    return charCount == WIN_CHARS;
+    return charCount >= WIN_CHARS;
   }
   
   /**
@@ -235,7 +235,7 @@ public class Homework {
       }
       charCount++;
     }
-    return charCount == WIN_CHARS;
+    return charCount >= WIN_CHARS;
   }
   
   /**
@@ -263,6 +263,6 @@ public class Homework {
       }
       charCount++;
     }
-    return charCount == WIN_CHARS;
+    return charCount >= WIN_CHARS;
   }
 }
