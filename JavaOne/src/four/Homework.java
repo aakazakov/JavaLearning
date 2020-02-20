@@ -10,6 +10,7 @@ public class Homework {
   private static final char CHAR_SHARP = '#';
   private static final char CHAR_X = 'X';
   private static final char CHAR_O = 'O';
+  private static final char WIN_CHARS = 3;
   private static Scanner sc = new Scanner(System.in);
   private static Random rand = new Random();
 
@@ -85,7 +86,7 @@ public class Homework {
       
       if (canStep(x, y)) {
         putChar(x, y, CHAR_X);
-        isWin(x, y);
+        isWin(x, y, CHAR_X);
         break;
       }
     }
@@ -129,13 +130,50 @@ public class Homework {
     MAP[y - 1][x - 1] = ch;
   }
   
-  private static void isWin(int x, int y) {
-    System.out.println("win " + x + " " + y);
+  private static void isWin(int x, int y, char ch) {
+    // horizontally(x, y, ch);
+    vertically(x, y, ch);
   }
   
-  private static void horizontally(int x, int y) {}
+  private static boolean horizontally(int x, int y, char ch) {
+    int charCount = 0;
+    for (int i = x - 1; i < SIZE; i++) {
+      if (MAP[y - 1][i] != ch) {
+        break;
+      }
+      charCount++;
+    }
+    for (int i = x - 2; i >= 0; i--) {
+      if (MAP[y - 1][i] != ch) {
+        break;
+      }
+      charCount++;
+    }
+    
+    System.out.println("count_x: " + charCount); // test
+    
+    return charCount == WIN_CHARS;
+  }
   
-  private static void vertically(int x, int y) {}
+  private static boolean vertically(int x, int y, char ch) {
+    int charCount = 0;
+    for (int i = y - 1; i < SIZE; i++) {
+      if (MAP[i][x - 1] != ch) {
+        break;
+      }
+      charCount++;
+    }
+    for (int i = y - 2; i >= 0; i--) {
+      if (MAP[i][x - 1] != ch) {
+        break;
+      }
+      charCount++;
+    }
+    
+    System.out.println("count_y: " + charCount); // test
+    
+    return charCount == WIN_CHARS;
+  }
   
   private static void diagonally(int x, int y) {}
 }
