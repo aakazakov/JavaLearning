@@ -11,6 +11,7 @@ public class Homework {
   private static final char CHAR_X = 'X';
   private static final char CHAR_O = 'O';
   private static final char WIN_CHARS = 3;
+  private static int stepCount = SIZE * SIZE;
   private static Scanner sc = new Scanner(System.in);
   private static Random rand = new Random();
 
@@ -31,15 +32,24 @@ public class Homework {
     fillMap();
     printMap();
     
-    for (int i = 0; i < 4; i++) {
-      System.out.println("\nstep " + i);
+    while (true) {
       
-      humanStep();
-      printMap();
-  
-      aiStep();
-      printMap();
-    }
+      if (stepCount > 0) {
+        humanStep();
+        printMap();
+        stepCount--;
+      }
+      if (stepCount > 0) {
+        aiStep();
+        printMap();
+        stepCount--;
+      }
+      if (stepCount == 0) {
+        System.out.println("\nDead heat. )");
+        break;
+      }
+    } 
+    System.out.println("\nGame over.");
   }
   
   /**
@@ -87,12 +97,11 @@ public class Homework {
       if (canStep(x, y)) {
         putChar(x, y, CHAR_X);
         if (isWin(x, y, CHAR_X)) {
-          System.out.println("WINNER.");
+          System.out.println("WINNER. " + CHAR_X);
         }
         break;
       }
     }
-    // sc.close();
   }
   
   /**
@@ -104,6 +113,9 @@ public class Homework {
       int y = rand.nextInt(SIZE) + 1;
       if (canStep(x, y)) {
         putChar(x, y, CHAR_O);
+        if (isWin(x, y, CHAR_O)) {
+          System.out.println("WINNER. " + CHAR_O);
+        }
         break;
       }
     }
