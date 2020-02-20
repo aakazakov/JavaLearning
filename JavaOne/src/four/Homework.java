@@ -11,7 +11,6 @@ public class Homework {
   private static final char CHAR_X = 'X';
   private static final char CHAR_O = 'O';
   private static final char WIN_CHARS = 3;
-  private static int stepCount = SIZE * SIZE;
   private static Scanner sc = new Scanner(System.in);
   private static Random rand = new Random();
 
@@ -29,6 +28,8 @@ public class Homework {
    */
   public static void ticTacToe() {
     System.out.println("Game started!");
+    
+    int stepCount = SIZE * SIZE;
     fillMap();
     printMap();
     
@@ -94,8 +95,8 @@ public class Homework {
       int x = rand.nextInt(SIZE) + 1; // test
       int y = rand.nextInt(SIZE) + 1; // test
       
-      if (canStep(x, y)) {
-        putChar(x, y, CHAR_X);
+      if (isValidStep(x, y)) {
+        step(x, y, CHAR_X);
         if (isWin(x, y, CHAR_X)) {
           System.out.println("WINNER. " + CHAR_X);
         }
@@ -111,8 +112,8 @@ public class Homework {
     while (true) {
       int x = rand.nextInt(SIZE) + 1;
       int y = rand.nextInt(SIZE) + 1;
-      if (canStep(x, y)) {
-        putChar(x, y, CHAR_O);
+      if (isValidStep(x, y)) {
+        step(x, y, CHAR_O);
         if (isWin(x, y, CHAR_O)) {
           System.out.println("WINNER. " + CHAR_O);
         }
@@ -122,13 +123,13 @@ public class Homework {
   }
   
   /**
-   * Checks if a step can be taken.
+   * Checks if a step is valid.
    * 
    * @param x x coordinate
    * @param y y coordinate
    * @return true if a step can be taken., otherwise false
    */
-  private static boolean canStep(int x, int y) {
+  private static boolean isValidStep(int x, int y) {
     return x > 0 && x <= SIZE && y > 0 && y <= SIZE
         && MAP[y - 1][x - 1] == CHAR_SHARP;
   }
@@ -140,7 +141,7 @@ public class Homework {
    * @param y y coordinate
    * @param ch character
    */
-  private static void putChar(int x, int y, char ch) {
+  private static void step(int x, int y, char ch) {
     MAP[y - 1][x - 1] = ch;
   }
   
