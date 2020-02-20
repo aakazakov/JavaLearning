@@ -11,7 +11,7 @@ public class Homework {
   private static final char CHAR_X = 'X';
   private static final char CHAR_O = 'O';
   private static final char WIN_CHARS = 3;
-  private static boolean win;
+  private static boolean winner;
   private static Scanner sc = new Scanner(System.in);
   private static Random rand = new Random();
 
@@ -36,7 +36,7 @@ public class Homework {
       if (stepCount > 0) {
         humanStep();
         printMap();
-        if (win) {
+        if (winner) {
           System.out.println("\nHUMAN WON!");
           break;
         }
@@ -45,7 +45,7 @@ public class Homework {
       if (stepCount > 0) {
         aiStep();
         printMap();
-        if (win) {
+        if (winner) {
           System.out.println("\nAI WON!");
           break;
         }
@@ -103,7 +103,7 @@ public class Homework {
       
       if (isValidStep(x, y)) {
         step(x, y, CHAR_X);
-        win = isWin(x, y, CHAR_X);
+        winner = isWin(x, y, CHAR_X);
         break;
       }
     }
@@ -118,7 +118,7 @@ public class Homework {
       int y = rand.nextInt(SIZE) + 1;
       if (isValidStep(x, y)) {
         step(x, y, CHAR_O);
-        win = isWin(x, y, CHAR_O);
+        winner = isWin(x, y, CHAR_O);
         break;
       }
     }
