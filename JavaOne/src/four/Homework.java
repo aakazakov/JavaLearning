@@ -134,6 +134,7 @@ public class Homework {
     // horizontally(x, y, ch);
     // vertically(x, y, ch);
     diagonallyOne(x, y, ch);
+    diagonallyTwo(x, y, ch);
   }
   
   private static boolean horizontally(int x, int y, char ch) {
@@ -202,7 +203,26 @@ public class Homework {
     return charCount == WIN_CHARS;
   }
   
-  private static void diagonallyTwo(int x, int y, char ch) {
+  private static boolean diagonallyTwo(int x, int y, char ch) {   
+    if (y != SIZE - x + 1) {
+      return false;
+    }
     int charCount = 0;
+    for (int i = y - 1; i < SIZE; i++) {
+      if (MAP[i][SIZE - i - 1] != ch) {
+        break;
+      }
+      charCount++;
+    }
+    for (int i = y - 2; i >= 0; i--) {
+      if (MAP[i][SIZE - i - 1] != ch) {
+        break;
+      }
+      charCount++;
+    }
+    
+    System.out.println("count_d2: " + charCount); // test
+    
+    return charCount == WIN_CHARS;
   }
 }
