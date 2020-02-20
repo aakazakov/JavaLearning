@@ -11,6 +11,7 @@ public class Homework {
   private static final char CHAR_X = 'X';
   private static final char CHAR_O = 'O';
   private static final char WIN_CHARS = 3;
+  private static boolean win;
   private static Scanner sc = new Scanner(System.in);
   private static Random rand = new Random();
 
@@ -27,22 +28,27 @@ public class Homework {
    * TicTacToe game.
    */
   public static void ticTacToe() {
-    System.out.println("Game started!");
-    
+    System.out.println("Game started!");   
     int stepCount = SIZE * SIZE;
-    fillMap();
-    printMap();
-    
+    initMap();
+    printMap();    
     while (true) {
-      
       if (stepCount > 0) {
         humanStep();
         printMap();
+        if (win) {
+          System.out.println("\nHUMAN WON!");
+          break;
+        }
         stepCount--;
       }
       if (stepCount > 0) {
         aiStep();
         printMap();
+        if (win) {
+          System.out.println("\nAI WON!");
+          break;
+        }
         stepCount--;
       }
       if (stepCount == 0) {
@@ -56,7 +62,7 @@ public class Homework {
   /**
    * Fills a map with chars.
    */
-  private static void fillMap() {
+  private static void initMap() {
     for (int i = 0; i < SIZE; i++) {
       Arrays.fill(MAP[i], CHAR_SHARP);
     }
@@ -88,18 +94,16 @@ public class Homework {
    */
   private static void humanStep() {
     while (true) {
-      // System.out.print("Enter the coordinates 'X' (x y): ");
-      // int x = sc.nextInt();
-      // int y = sc.nextInt();
+      System.out.print("Enter the coordinates 'X' (x y): ");
+      int x = sc.nextInt();
+      int y = sc.nextInt();
       
-      int x = rand.nextInt(SIZE) + 1; // test
-      int y = rand.nextInt(SIZE) + 1; // test
+      // int x = rand.nextInt(SIZE) + 1; // test
+      // int y = rand.nextInt(SIZE) + 1; // test
       
       if (isValidStep(x, y)) {
         step(x, y, CHAR_X);
-        if (isWin(x, y, CHAR_X)) {
-          System.out.println("WINNER. " + CHAR_X);
-        }
+        win = isWin(x, y, CHAR_X);
         break;
       }
     }
@@ -114,9 +118,7 @@ public class Homework {
       int y = rand.nextInt(SIZE) + 1;
       if (isValidStep(x, y)) {
         step(x, y, CHAR_O);
-        if (isWin(x, y, CHAR_O)) {
-          System.out.println("WINNER. " + CHAR_O);
-        }
+        win = isWin(x, y, CHAR_O);
         break;
       }
     }
