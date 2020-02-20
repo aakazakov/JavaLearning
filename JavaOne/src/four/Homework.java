@@ -219,18 +219,15 @@ public class Homework {
    * @return true if the player won, otherwise false
    */
   private static boolean diagonallyOne(int x, int y, char ch) {
-    if (x != y) {
-      return false;
-    }  
     int charCount = 0;
-    for (int i = y - 1; i < SIZE; i++) {
-      if (MAP[i][i] != ch) {
+    for (int i = y - 1, j = x - 1; i < SIZE && j < SIZE; i++, j++) {
+      if (MAP[i][j] != ch) {
         break;
       }
       charCount++;
     }
-    for (int i = y - 2; i >= 0; i--) {
-      if (MAP[i][i] != ch) {
+    for (int i = y - 2, j = x - 2; i >= 0 && j >= 0; i--, j--) {
+      if (MAP[i][j] != ch) {
         break;
       }
       charCount++;
@@ -247,9 +244,6 @@ public class Homework {
    * @return true if the player won, otherwise false
    */
   private static boolean diagonallyTwo(int x, int y, char ch) {
-    if (y != SIZE - x + 1) {
-      return false;
-    }
     int charCount = 0;
     for (int i = y - 1; i < SIZE; i++) {
       if (MAP[i][SIZE - i - 1] != ch) {
