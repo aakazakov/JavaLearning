@@ -28,6 +28,9 @@ public class TicTacToe {
     humanTurn();
     printMap();
     
+    computerTurn();
+    printMap();
+    
     System.out.println("launch");
   }
   
@@ -70,6 +73,19 @@ public class TicTacToe {
       y = sc.nextInt() - 1;
     } while (!isValidStep(x, y));
     makeStep(x, y, CHAR_X);
+  }
+  
+  /**
+   * Computer turn.
+   */
+  private static void computerTurn() {
+    int x;
+    int y;
+    do {
+      x = rand.nextInt(SIZE);
+      y = rand.nextInt(SIZE);
+    } while (!isValidStep(x, y));
+    makeStep(x, y, CHAR_O);
   }
   
   /**
