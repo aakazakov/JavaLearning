@@ -26,9 +26,12 @@ public class TicTacToe {
     printMap();
     
     while (true) {
-      humanTurn();
-//      computerTurn(); // test
+//      humanTurn();
+      computerTurn(); // test
       printMap();
+      if (isWin(CHAR_X)) {
+        System.out.println("\nHuman win.");
+      }
       if (!isTherePlaceForStep()) {
         System.out.println("\nDead heat...");
         break;
@@ -36,6 +39,9 @@ public class TicTacToe {
       
       computerTurn();
       printMap();
+      if (isWin(CHAR_O)) {
+        System.out.println("\nComputer win.");
+      }
       if (!isTherePlaceForStep()) {
         System.out.println("\nDead heat...");
         break;
@@ -137,4 +143,64 @@ public class TicTacToe {
     }
     return false;
   }
+  
+  private static boolean isWin(char ch) {
+    for (int i = 0; i < SIZE; i++) {
+      for (int j = 0; j < SIZE; j++) {
+        if (diagonally(i, j, ch) || vertically(i, j, ch) || diagonally(i, j, ch)) {
+          return true;
+        } 
+      }
+    }
+    return false;
+  }
+  
+  private static boolean horizontally(int row, int col, char ch) {
+    for (int i = 0; i < QUANTITY_TO_WIN; i++) {
+      if (col + i >= SIZE || MAP[row][col + i] != ch) {
+        break;
+      }
+      if (i == QUANTITY_TO_WIN - 1) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  private static boolean vertically(int row, int col, char ch) {
+    for (int i = 0; i < QUANTITY_TO_WIN; i++) {
+      if (row + i >= SIZE || MAP[row + i][col] != ch) {
+        break;
+      }
+      if (i == QUANTITY_TO_WIN - 1) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  private static boolean diagonally(int row, int col, char ch) {
+    for (int i = 0; i < QUANTITY_TO_WIN; i++) {
+      if (row + i >= SIZE && col + i >= SIZE || MAP[row + i][col + i] != ch) {
+        break;
+      }
+      if (i == QUANTITY_TO_WIN - 1) {
+        return true;
+      }
+    }
+    for (int i = 0; i < QUANTITY_TO_WIN; i++) {
+      if (row - i < 0 && col + i >= SIZE || MAP[row - i][col + i] != ch) {
+        break;
+      }
+      if (i == QUANTITY_TO_WIN - 1) {
+        return true;
+      }
+    }   
+    return false;
+  }
 }
+
+// MAP[row][col + i]
+// MAP[row + i][col]
+// MAP[row + i][col + i]
+// MAP[row - i][col + i]
