@@ -25,11 +25,22 @@ public class TicTacToe {
     fillMap();
     printMap();
     
-    humanTurn();
-    printMap();
-    
-    computerTurn();
-    printMap();
+    while (true) {
+      humanTurn();
+//      computerTurn(); // test
+      printMap();
+      if (!isTherePlaceForStep()) {
+        System.out.println("\nDead heat...");
+        break;
+      }
+      
+      computerTurn();
+      printMap();
+      if (!isTherePlaceForStep()) {
+        System.out.println("\nDead heat...");
+        break;
+      }
+    }
     
     System.out.println("launch");
   }
@@ -62,7 +73,7 @@ public class TicTacToe {
   }
   
   /**
-   * Human turn.
+   * Human takes a step.
    */
   private static void humanTurn() {
     int x;
@@ -76,7 +87,7 @@ public class TicTacToe {
   }
   
   /**
-   * Computer turn.
+   * Computer takes a step.
    */
   private static void computerTurn() {
     int x;
@@ -96,7 +107,7 @@ public class TicTacToe {
    * @return true if a step can be taken., otherwise false
    */
   private static boolean isValidStep(int x, int y) {
-    return x > 0 && x < SIZE && y > 0 && y < SIZE
+    return x >= 0 && x < SIZE && y >= 0 && y < SIZE
         && MAP[y][x] == CHAR_EMPTY;
   }
   
@@ -111,4 +122,19 @@ public class TicTacToe {
     MAP[y][x] = ch;
   }
 
+  /**
+   * Checks if there is a place on the map for a step.
+   * 
+   * @return true if there is, otherwise false
+   */
+  private static boolean isTherePlaceForStep() {
+    for (int i = 0; i < SIZE; i++) {
+      for (int j = 0; j < SIZE; j++) {
+        if (MAP[i][j] == CHAR_EMPTY) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }
