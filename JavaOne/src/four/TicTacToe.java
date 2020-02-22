@@ -13,42 +13,36 @@ public class TicTacToe {
   private static final char QUANTITY_TO_WIN = 4;
   private static Scanner sc = new Scanner(System.in);
   private static Random rand = new Random();
-
-  public static void main(String[] args) {
-    launch();
-  }
   
   /**
    * Launches the game TicTacToe.
    */
   public static void launch() {
     fillMap();
-    printMap();
-    
+    printMap();    
     while (true) {
-//      humanTurn();
-      computerTurn(); // test
+      humanTurn();
       printMap();
       if (isWin(CHAR_X)) {
         System.out.println("\nHuman win.");
+        break;
       }
       if (!isTherePlaceForStep()) {
         System.out.println("\nDead heat...");
         break;
-      }
-      
+      }     
       computerTurn();
       printMap();
       if (isWin(CHAR_O)) {
         System.out.println("\nComputer win.");
+        break;
       }
       if (!isTherePlaceForStep()) {
         System.out.println("\nDead heat...");
         break;
       }
-    }
-    
-    System.out.println("launch");
+    }   
+    System.out.println("Game over.");
   }
   
   /**
@@ -88,7 +82,7 @@ public class TicTacToe {
       System.out.print("Enter the coordinates 'X' (x y): ");
       x = sc.nextInt() - 1;
       y = sc.nextInt() - 1;
-    } while (!isValidStep(x, y));
+    } while (!moveOn(x, y, CHAR_EMPTY));
     makeStep(x, y, CHAR_X);
   }
   
@@ -101,7 +95,7 @@ public class TicTacToe {
     do {
       x = rand.nextInt(SIZE);
       y = rand.nextInt(SIZE);
-    } while (!isValidStep(x, y));
+    } while (!moveOn(x, y, CHAR_EMPTY));
     makeStep(x, y, CHAR_O);
   }
   
@@ -110,11 +104,12 @@ public class TicTacToe {
    * 
    * @param x x coordinate
    * @param y y coordinate
+   * @param ch character
    * @return true if a step can be taken., otherwise false
    */
-  private static boolean isValidStep(int x, int y) {
+  private static boolean moveOn(int x, int y, char ch) {
     return x >= 0 && x < SIZE && y >= 0 && y < SIZE
-        && MAP[y][x] == CHAR_EMPTY;
+        && MAP[y][x] == ch;
   }
   
   /**
@@ -144,63 +139,47 @@ public class TicTacToe {
     return false;
   }
   
+  /**
+   * Win checking.
+   * 
+   * @param ch character
+   * @return true if the player won, otherwise true
+   */
   private static boolean isWin(char ch) {
     for (int i = 0; i < SIZE; i++) {
       for (int j = 0; j < SIZE; j++) {
-        if (diagonally(i, j, ch) || vertically(i, j, ch) || diagonally(i, j, ch)) {
+        if (checking(i, j, ch)) {
+         return true;
+        }
+      }
+    }
+    return false;
+  }
+  
+  /**
+   * Finds the winning sequence.
+   * 
+   * @param r row
+   * @param c column
+   * @param ch character
+   * @return true if the winning sequence is find in one of four directions, otherwise false.
+   */
+  private static boolean checking(int r, int c, char ch) {
+    int[][] value = {{0, 1}, {1, 0}, {1, 1}, {-1, 1}};
+    for (int i = 0; i < value.length; i++ ) {     
+      int row = r;
+      int col = c;
+      for (int j = 0; j < QUANTITY_TO_WIN; j++) {
+        if (!moveOn(col, row, ch)) {
+          break;
+        }
+        if (j == QUANTITY_TO_WIN - 1) {
           return true;
-        } 
+        }
+        row += value[i][0];
+        col += value[i][1];
       }
     }
-    return false;
-  }
-  
-  private static boolean horizontally(int row, int col, char ch) {
-    for (int i = 0; i < QUANTITY_TO_WIN; i++) {
-      if (col + i >= SIZE || MAP[row][col + i] != ch) {
-        break;
-      }
-      if (i == QUANTITY_TO_WIN - 1) {
-        return true;
-      }
-    }
-    return false;
-  }
-  
-  private static boolean vertically(int row, int col, char ch) {
-    for (int i = 0; i < QUANTITY_TO_WIN; i++) {
-      if (row + i >= SIZE || MAP[row + i][col] != ch) {
-        break;
-      }
-      if (i == QUANTITY_TO_WIN - 1) {
-        return true;
-      }
-    }
-    return false;
-  }
-  
-  private static boolean diagonally(int row, int col, char ch) {
-    for (int i = 0; i < QUANTITY_TO_WIN; i++) {
-      if (row + i >= SIZE && col + i >= SIZE || MAP[row + i][col + i] != ch) {
-        break;
-      }
-      if (i == QUANTITY_TO_WIN - 1) {
-        return true;
-      }
-    }
-    for (int i = 0; i < QUANTITY_TO_WIN; i++) {
-      if (row - i < 0 && col + i >= SIZE || MAP[row - i][col + i] != ch) {
-        break;
-      }
-      if (i == QUANTITY_TO_WIN - 1) {
-        return true;
-      }
-    }   
     return false;
   }
 }
-
-// MAP[row][col + i]
-// MAP[row + i][col]
-// MAP[row + i][col + i]
-// MAP[row - i][col + i]
