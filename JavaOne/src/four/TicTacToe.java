@@ -165,8 +165,8 @@ public class TicTacToe {
    * @return true if the winning sequence is find in one of four directions, otherwise false.
    */
   private static boolean checking(int r, int c, char ch) {
-    int[][] value = {{0, 1}, {1, 0}, {1, 1}, {-1, 1}};
-    for (int i = 0; i < value.length; i++ ) {     
+    int[][] dirValue = {{0, 1}, {1, 0}, {1, 1}, {-1, 1}};
+    for (int i = 0; i < dirValue.length; i++ ) {     
       int row = r;
       int col = c;
       for (int j = 0; j < QUANTITY_TO_WIN; j++) {
@@ -176,8 +176,8 @@ public class TicTacToe {
         if (j == QUANTITY_TO_WIN - 1) {
           return true;
         }
-        row += value[i][0];
-        col += value[i][1];
+        row += dirValue[i][0];
+        col += dirValue[i][1];
       }
     }
     return false;
