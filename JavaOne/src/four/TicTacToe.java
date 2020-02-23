@@ -161,7 +161,7 @@ public class TicTacToe {
    * @param x x coordinate
    * @param y y coordinate
    * @param ch character
-   * @return true if a step can be taken., otherwise false
+   * @return true if a step can be taken, otherwise false
    */
   private static boolean moveOn(int x, int y, char ch) {
     return x >= 0 && x < SIZE && y >= 0 && y < SIZE
