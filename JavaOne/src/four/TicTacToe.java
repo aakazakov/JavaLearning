@@ -5,12 +5,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToe {
-  private static final int SIZE = 3;
+  private static final int SIZE = 5;
+  private static final char QUANTITY_TO_WIN = 4;
   private static final char[][] MAP = new char[SIZE][SIZE];
   private static final char CHAR_EMPTY = '#';
   private static final char CHAR_X = 'X';
   private static final char CHAR_O = 'O';
-  private static final char QUANTITY_TO_WIN = 3;
   private static Scanner sc = new Scanner(System.in);
   private static Random rand = new Random();
   
@@ -94,7 +94,7 @@ public class TicTacToe {
     for (int i = 0; i < SIZE; i++) {
       for (int j = 0; j < SIZE; j++) {
         
-        if (moveOn(j, j, CHAR_EMPTY)) {
+        if (moveOn(j, i, CHAR_EMPTY)) {
           
           makeStep(j, i, CHAR_O);
           
@@ -112,18 +112,30 @@ public class TicTacToe {
     
     for (int i = 0; i < SIZE; i++) {
       for (int j = 0; j < SIZE; j++) {
-        // code
+        
+        if (moveOn(j, i, CHAR_EMPTY)) {
+          
+          makeStep(j, i, CHAR_X);
+          
+          if (isWin(CHAR_X)) {
+            makeStep(j, i, CHAR_O);
+            return;
+          }
+          
+          makeStep(j, i, CHAR_EMPTY);
+          
+        }
       }
       
     }
     
-//    int x;
-//    int y;
-//    do {
-//      x = rand.nextInt(SIZE);
-//      y = rand.nextInt(SIZE);
-//    } while (!moveOn(x, y, CHAR_EMPTY));
-//    makeStep(x, y, CHAR_O);
+    int x;
+    int y;
+    do {
+      x = rand.nextInt(SIZE);
+      y = rand.nextInt(SIZE);
+    } while (!moveOn(x, y, CHAR_EMPTY));
+    makeStep(x, y, CHAR_O);
   }
   
   /**
