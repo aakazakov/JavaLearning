@@ -5,8 +5,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToe {
-  private static final int SIZE = 5;
-  private static final char QUANTITY_TO_WIN = 4;
+  private static final int SIZE = 3;
+  private static final char QUANTITY_TO_WIN = 3;
   private static final char[][] MAP = new char[SIZE][SIZE];
   private static final char CHAR_EMPTY = '#';
   private static final char CHAR_X = 'X';
@@ -89,53 +89,70 @@ public class TicTacToe {
   /**
    * Computer takes a step.
    */
-  private static void computerTurn() {
-    
-    for (int i = 0; i < SIZE; i++) {
-      for (int j = 0; j < SIZE; j++) {
-        
-        if (moveOn(j, i, CHAR_EMPTY)) {
-          
-          makeStep(j, i, CHAR_O);
-          
-          if (isWin(CHAR_O)) {
-            return;
-          }
-          
-          makeStep(j, i, CHAR_EMPTY);
-          
-        }
-        
-      }
-      
+  private static void computerTurn() {  
+    boolean success = tryToWin();
+    if (!success) {
+      success = tryNotToLose();
     }
-    
+    if (!success) {
+      randomStep(CHAR_O);
+    }
+  }
+  
+  /**
+   * Tries to win.
+   * 
+   * @return true if success, otherwise false
+   */
+  private static boolean tryToWin() {
     for (int i = 0; i < SIZE; i++) {
-      for (int j = 0; j < SIZE; j++) {
-        
-        if (moveOn(j, i, CHAR_EMPTY)) {
-          
-          makeStep(j, i, CHAR_X);
-          
+      for (int j = 0; j < SIZE; j++) {        
+        if (moveOn(j, i, CHAR_EMPTY)) {          
+          makeStep(j, i, CHAR_O);         
+          if (isWin(CHAR_O)) {
+            return true;
+          }          
+          makeStep(j, i, CHAR_EMPTY);          
+        }       
+      }     
+    }
+    return false;
+  }
+  
+  /**
+   * Prevents a human from winning ).
+   * 
+   * @return true if success, otherwise false
+   */
+  private static boolean tryNotToLose() {
+    for (int i = 0; i < SIZE; i++) {
+      for (int j = 0; j < SIZE; j++) {        
+        if (moveOn(j, i, CHAR_EMPTY)) {          
+          makeStep(j, i, CHAR_X);          
           if (isWin(CHAR_X)) {
             makeStep(j, i, CHAR_O);
-            return;
-          }
-          
-          makeStep(j, i, CHAR_EMPTY);
-          
+            return true;
+          }         
+          makeStep(j, i, CHAR_EMPTY);         
         }
-      }
-      
+      }     
     }
-    
+    return false;
+  }
+  
+  /**
+   * Random step.
+   * 
+   * @param ch character
+   */
+  private static void randomStep(char ch) {
     int x;
     int y;
     do {
       x = rand.nextInt(SIZE);
       y = rand.nextInt(SIZE);
     } while (!moveOn(x, y, CHAR_EMPTY));
-    makeStep(x, y, CHAR_O);
+    makeStep(x, y, ch);
   }
   
   /**
@@ -182,7 +199,7 @@ public class TicTacToe {
    * Win checking.
    * 
    * @param ch character
-   * @return true if the player won, otherwise true
+   * @return true if the player won, otherwise false
    */
   private static boolean isWin(char ch) {
     for (int i = 0; i < SIZE; i++) {
