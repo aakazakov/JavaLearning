@@ -95,7 +95,7 @@ public class TicTacToe {
       success = tryNotToLose();
     }
     if (!success) {
-      randomStep(CHAR_O);
+      randomStep();
     }
   }
   
@@ -145,14 +145,14 @@ public class TicTacToe {
    * 
    * @param ch character
    */
-  private static void randomStep(char ch) {
+  private static void randomStep() {
     int x;
     int y;
     do {
       x = rand.nextInt(SIZE);
       y = rand.nextInt(SIZE);
     } while (!moveOn(x, y, CHAR_EMPTY));
-    makeStep(x, y, ch);
+    makeStep(x, y, CHAR_O);
   }
   
   /**
