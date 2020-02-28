@@ -10,16 +10,15 @@ public class Homework {
     cat.setPhysicalPowerParams(200f, 0f, 2f);
     dog.setPhysicalPowerParams(500f, 10f, 0.5f);
     
-    System.out.println(cat.run(20f));
-    System.out.println(dog.run(300f));
+    cat.printResultOfRun(200f);
+    cat.printResultOfSwim(5f);
+    cat.printResultOfjump(1.5f);
     
-    System.out.println(cat.swim(10f));
-    System.out.println(dog.swim(10f));
+    dog.printResultOfRun(200f);
+    dog.printResultOfSwim(5f);
+    dog.printResultOfjump(1.5f);
     
-    System.out.println(cat.jumpOverAnObstacle(1f));
-    System.out.println(dog.jumpOverAnObstacle(1f));
-    
-    System.out.println(Animal.animalCount);
+    Animal.printAnimalsCount();
   }
 
 }

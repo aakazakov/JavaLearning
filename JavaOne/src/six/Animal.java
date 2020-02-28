@@ -6,12 +6,12 @@ public class Animal {
   float maxRunDistance = 0;
   float maxSwimDistance = 0;
   float maxJumpHeight = 0;
-  static int animalCount = 0;
+  static int animalsCount = 0;
   
   public Animal(String name, int yearOfBirth) {
     this.name = name;
     this.yearOfBirth = yearOfBirth;
-    animalCounter();
+    animalsCounter();
   }
    
   public void setPhysicalPowerParams(float maxRunDistance,
@@ -21,20 +21,36 @@ public class Animal {
     this.maxJumpHeight = maxJumpHeight;
   }
   
-  public boolean run(float distance) {
+  public void printResultOfRun(float distance) {
+    System.out.println(name + ". Run: " + run(distance));
+  }
+  
+  public void printResultOfSwim(float distance) {
+    System.out.println(name + ". Swim: " + swim(distance));
+  }
+  
+  public void printResultOfjump(float height) {
+    System.out.println(name + ". Jump: " + jumpOverAnObstacle(height));
+  }
+  
+  boolean run(float distance) {
     return distance <= maxRunDistance;
   }
   
-  public boolean swim(float distance) {
+  boolean swim(float distance) {
     return distance <= maxSwimDistance;
   }
   
-  public boolean jumpOverAnObstacle(float height) {
+  boolean jumpOverAnObstacle(float height) {
     return height <= maxJumpHeight;
   }
   
-  static void animalCounter() {
-    animalCount++;
+  static void animalsCounter() {
+    animalsCount++;
+  }
+  
+  public static void printAnimalsCount() {
+    System.out.printf("Number of animals: %d.%n", animalsCount);
   }
   
 }
