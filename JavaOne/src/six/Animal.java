@@ -1,12 +1,12 @@
 package six;
 
 public class Animal {
+  private static int animalsCount;
   String name;
   int yearOfBirth;
-  float maxRunDistance = 0;
-  float maxSwimDistance = 0;
-  float maxJumpHeight = 0;
-  static int animalsCount = 0;
+  float canRunDistance;
+  float canSwimDistance;
+  float canJumpHeight;
   
   public Animal(String name, int yearOfBirth) {
     this.name = name;
@@ -14,38 +14,40 @@ public class Animal {
     animalsCounter();
   }
    
-  public void setPhysicalPowerParams(float maxRunDistance,
-      float maxSwimDistance, float maxJumpHeight) {
-    this.maxRunDistance = maxRunDistance;
-    this.maxSwimDistance = maxSwimDistance;
-    this.maxJumpHeight = maxJumpHeight;
+  public void setPhysicalPowerParams(float canRunDistance,
+      float canSwimDistance, float canJumpHeight) {
+    if (canRunDistance >= 0 && canSwimDistance >= 0 && canJumpHeight >= 0) {
+      this.canRunDistance = canRunDistance;
+      this.canSwimDistance = canSwimDistance;
+      this.canJumpHeight = canJumpHeight;
+    }
   }
   
   public void printResultOfRun(float distance) {
-    System.out.println(name + ". Run: " + run(distance));
+    System.out.printf("%s. Run: %b.%n", name, run(distance));
   }
   
   public void printResultOfSwim(float distance) {
-    System.out.println(name + ". Swim: " + swim(distance));
+    System.out.printf("%s. Swim: %b.%n", name, swim(distance));
   }
   
   public void printResultOfjump(float height) {
-    System.out.println(name + ". Jump: " + jumpOverAnObstacle(height));
+    System.out.printf("%s. Jump: %b.%n", name, jumpOverAnObstacle(height));
   }
   
   boolean run(float distance) {
-    return distance <= maxRunDistance;
+    return distance <= canRunDistance && distance >= 0;
   }
   
   boolean swim(float distance) {
-    return distance <= maxSwimDistance;
+    return distance <= canSwimDistance && distance >= 0;
   }
   
   boolean jumpOverAnObstacle(float height) {
-    return height <= maxJumpHeight;
+    return height <= canJumpHeight && height >= 0;
   }
   
-  static void animalsCounter() {
+  private static void animalsCounter() {
     animalsCount++;
   }
   
