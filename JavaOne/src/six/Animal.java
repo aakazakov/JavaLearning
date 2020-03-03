@@ -8,6 +8,10 @@ public class Animal {
   float canSwimDistance;
   float canJumpHeight;
   
+  static {
+    animalsCount = 0;
+  }
+   
   public Animal(String name, int yearOfBirth) {
     this.name = name;
     this.yearOfBirth = yearOfBirth;
