@@ -48,7 +48,7 @@ public abstract class Sprite {
       return 2f * halfHeight;
   }
   
-  protected Color getRandomColor() {
+  public static Color getRandomColor() {
     return new Color(
         (int) (Math.random() * 255),
         (int) (Math.random() * 255),
