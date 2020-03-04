@@ -1,7 +1,6 @@
 package circles;
 
 import java.awt.Graphics;
-
 import javax.swing.*;
 
 public class MainCircles extends JFrame {
@@ -9,6 +8,8 @@ public class MainCircles extends JFrame {
   private static final int POS_Y = 200;
   private static final int WINDOW_WIDTH = 800;
   private static final int WINDOW_HEIGHT = 600;
+  
+  private Sprite[] sprites = new Sprite[10];
   
   public static void main(String[] args) {
     SwingUtilities.invokeLater(new Runnable() {
@@ -24,9 +25,16 @@ public class MainCircles extends JFrame {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setBounds(POS_X, POS_Y, WINDOW_WIDTH, WINDOW_HEIGHT);
     setTitle("Circles");
+    initApplication();
     MainCanvas canvas = new MainCanvas(this);
     add(canvas);
     setVisible(true);
+  }
+  
+  private void initApplication() {
+    for (int i = 0; i < sprites.length; i++) {
+        sprites[i] = new Ball();
+    }
   }
   
   public void onCanvasRepainted(MainCanvas canvas, Graphics g, float deltaTime) {
