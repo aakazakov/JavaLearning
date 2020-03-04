@@ -14,7 +14,9 @@ public class Homework {
     
     plateOfFood.info();
     System.out.println();
+    
     feed(hungryCats, plateOfFood);
+    
     plateOfFood.info();
   }
   

@@ -13,10 +13,10 @@ public class Cat {
 
   public void eat(Plate plateOfFood) {
     full = plateOfFood.decreaseFood(appetite);
-    printDidTheCatEat(full);
+    printDidTheCatEat();
   }
   
-  private void printDidTheCatEat(boolean full) {
+  private void printDidTheCatEat() {
     if (full) {
       System.out.println(name + " ate.");
     } else {
