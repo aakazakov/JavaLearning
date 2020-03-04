@@ -3,11 +3,7 @@ package circles;
 import java.awt.*;
 
 public class Ball extends Sprite {
-  private final Color color = new Color(
-      (int) (Math.random() * 255),
-      (int) (Math.random() * 255),
-      (int) (Math.random() * 255)
-  );
+  private final Color color = getRandomColor();
   private float vX = (float) (100f + (Math.random() * 200f));
   private float vY = (float) (100f + (Math.random() * 200f));
   
