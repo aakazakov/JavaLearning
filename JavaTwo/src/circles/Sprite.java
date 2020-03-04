@@ -1,6 +1,6 @@
 package circles;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 public abstract class Sprite {
   protected float x;
@@ -46,6 +46,14 @@ public abstract class Sprite {
   
   protected float getHeight() {
       return 2f * halfHeight;
+  }
+  
+  protected Color getRandomColor() {
+    return new Color(
+        (int) (Math.random() * 255),
+        (int) (Math.random() * 255),
+        (int) (Math.random() * 255)
+    );
   }
   
   public abstract void update(MainCanvas canvas, float deltaTime);
