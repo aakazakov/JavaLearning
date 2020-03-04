@@ -10,6 +10,7 @@ public class MainCircles extends JFrame {
   private static final int WINDOW_HEIGHT = 600;
   
   private Sprite[] sprites = new Sprite[10];
+  private Background bg; // Background.
   
   public static void main(String[] args) {
     SwingUtilities.invokeLater(new Runnable() {
@@ -32,6 +33,7 @@ public class MainCircles extends JFrame {
   }
   
   private void initApplication() {
+    bg = new Background(5);
     for (int i = 0; i < sprites.length; i++) {
         sprites[i] = new Ball();
     }
@@ -43,12 +45,14 @@ public class MainCircles extends JFrame {
   }
   
   private void update(MainCanvas canvas, float deltaTime) {
+    bg.update(canvas, deltaTime); // Background.
     for (int i = 0; i < sprites.length; i++) {
         sprites[i].update(canvas, deltaTime);
     }
   }
 
   private void render(MainCanvas canvas, Graphics g) {
+      bg.render(canvas, g); // Background.
       for (int i = 0; i < sprites.length; i++) {
           sprites[i].render(canvas, g);
       }
