@@ -1,8 +1,6 @@
 package circles;
 
-import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
 import java.util.Arrays;
 
 import javax.swing.*;
