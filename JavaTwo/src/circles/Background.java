@@ -4,13 +4,13 @@ import java.awt.*;
 
 public class Background extends Sprite {
   private float multiplier;
-  private long initialTime;
   private Color color;
+  private long initialTime;
   
   public Background() {
-    initialTime = System.nanoTime();
     multiplier = 100;
     color = getRandomColor();
+    initialTime = System.nanoTime();
   }
 
   @Override
@@ -26,7 +26,8 @@ public class Background extends Sprite {
   @Override
   public void render(MainCanvas canvas, Graphics g) {
     g.setColor(color);
-    g.fillRect(0, 0, 800, 600);    
+    g.fillRect(canvas.getLeft(), canvas.getTop(),
+        canvas.getWidth(), canvas.getHeight());
   }
   
 }
