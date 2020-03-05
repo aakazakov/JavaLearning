@@ -37,7 +37,12 @@ public class MainCircles extends JFrame {
     this.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        addBall();
+        if (e.getButton() == 1) {
+          addBall();
+        }
+        if (e.getButton() == 3) {
+          removeBall();
+        }
       }
     });
     
@@ -65,6 +70,15 @@ public class MainCircles extends JFrame {
       if (arr[i] == null
           && (i == 0 || arr[i - 1] != null)) {
         arr[i] = new Ball();
+      }
+    }
+  }
+  
+  private void removeBall() {
+    for (int i = sprites.length - 1; i >= 0; i--) {
+      if (sprites[i] != null) {
+        sprites[i] = null;
+        break;
       }
     }
   }
