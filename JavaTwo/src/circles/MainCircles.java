@@ -1,6 +1,9 @@
 package circles;
 
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.*;
 
 public class MainCircles extends JFrame {
@@ -29,6 +32,14 @@ public class MainCircles extends JFrame {
     initApplication();
     MainCanvas canvas = new MainCanvas(this);
     add(canvas);
+    
+    this.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        System.out.println("clicked");
+      }
+    });
+    
     setVisible(true);
   }
   
