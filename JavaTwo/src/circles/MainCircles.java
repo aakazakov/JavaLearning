@@ -52,21 +52,28 @@ public class MainCircles extends JFrame {
   }
   
   private void addBall() {
-    if (isEmptyArray(sprites)) {
-      for (int i = sprites.length - 1; i >= 0; i--) {
-        if (sprites[i] == null
-            && (i == 0 || sprites[i - 1] != null)) {
-          sprites[i] = new Ball();
-        }
-      }
+    if (isThereSpaseIn(sprites)) {
+      add(sprites);
     } else {      
       sprites = Arrays.copyOf(sprites, sprites.length * 2);
+      add(sprites);
     }
   }
   
-  private boolean isEmptyArray(Sprite[] arr) {
+  private void add(Sprite[] arr) {
+    for (int i = arr.length - 1; i >= 0; i--) {
+      if (arr[i] == null
+          && (i == 0 || arr[i - 1] != null)) {
+        arr[i] = new Ball();
+      }
+    }
+  }
+  
+  private boolean isThereSpaseIn(Sprite[] arr) {
     return arr[arr.length - 1] == null;
   }
+  
+  
   
   public void onCanvasRepainted(MainCanvas canvas, Graphics g, float deltaTime) {
     update(canvas, deltaTime);
