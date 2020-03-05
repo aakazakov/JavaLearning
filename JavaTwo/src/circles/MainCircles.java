@@ -36,7 +36,7 @@ public class MainCircles extends JFrame {
     this.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        System.out.println("clicked");
+        addBall();
       }
     });
     
@@ -48,6 +48,23 @@ public class MainCircles extends JFrame {
     for (int i = 0; i < sprites.length; i++) {
         sprites[i] = new Ball();
     }
+  }
+  
+  private void addBall() {
+    if (isEmptyArray(sprites)) {
+      for (int i = sprites.length - 1; i >= 0; i--) {
+        if (sprites[i] == null
+            && (i == 0 || sprites[i - 1] != null)) {
+          sprites[i] = new Ball();
+        }
+      }
+    } else {
+      System.out.println("not add");
+    }
+  }
+  
+  private boolean isEmptyArray(Sprite[] arr) {
+    return arr[arr.length - 1] == null;
   }
   
   public void onCanvasRepainted(MainCanvas canvas, Graphics g, float deltaTime) {
