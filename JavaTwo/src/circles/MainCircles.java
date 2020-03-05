@@ -3,6 +3,7 @@ package circles;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 
 import javax.swing.*;
 
@@ -58,8 +59,8 @@ public class MainCircles extends JFrame {
           sprites[i] = new Ball();
         }
       }
-    } else {
-      System.out.println("not add");
+    } else {      
+      sprites = Arrays.copyOf(sprites, sprites.length * 2);
     }
   }
   
@@ -75,14 +76,16 @@ public class MainCircles extends JFrame {
   private void update(MainCanvas canvas, float deltaTime) {
     bg.update(canvas, deltaTime);
     for (int i = 0; i < sprites.length; i++) {
-        sprites[i].update(canvas, deltaTime);
+      if (sprites[i] == null) { break; }
+      sprites[i].update(canvas, deltaTime);
     }
   }
 
   private void render(MainCanvas canvas, Graphics g) {
       bg.render(canvas, g);
       for (int i = 0; i < sprites.length; i++) {
-          sprites[i].render(canvas, g);
+        if (sprites[i] == null) { break; }
+        sprites[i].render(canvas, g);
       }
   }
 
