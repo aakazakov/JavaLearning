@@ -1,29 +1,32 @@
 package circles;
 
-import javax.swing.JPanel;
+import java.awt.*;
 
-public class Background {
-  private float multiplier; 
-  private JPanel p;
+public class Background extends Sprite {
+  private float multiplier;
   private long initialTime;
+  private Color color;
   
-  public Background(JPanel p) {
+  public Background() {
     initialTime = System.nanoTime();
     multiplier = 100;
-    this.p = p;
-    setColor();
+    color = getRandomColor();
   }
-  
-  public void setColor() {
-    p.setBackground(Sprite.getRandomColor());
-  }
-  
-  public void changeColor(float time) {
+
+  @Override
+  public void update(MainCanvas canvas, float deltaTime) {
     long currentTime = System.nanoTime();
-    float deltaTime = (currentTime - initialTime) * 0.000000001f;
-    if (deltaTime >= time * multiplier) {
-      setColor();
+    float timePeriod = (currentTime - initialTime) * 0.000000001f;
+    if (timePeriod >= deltaTime * multiplier) {
+      color = getRandomColor();
       initialTime = currentTime;
     }    
   }
+
+  @Override
+  public void render(MainCanvas canvas, Graphics g) {
+    g.setColor(color);
+    g.fillRect(0, 0, 800, 600);    
+  }
+  
 }

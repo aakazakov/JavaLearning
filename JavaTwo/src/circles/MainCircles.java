@@ -28,30 +28,31 @@ public class MainCircles extends JFrame {
     setTitle("Circles");
     initApplication();
     MainCanvas canvas = new MainCanvas(this);
-    bg = new Background(canvas);
     add(canvas);
     setVisible(true);
   }
   
   private void initApplication() {
+    bg = new Background();
     for (int i = 0; i < sprites.length; i++) {
         sprites[i] = new Ball();
     }
   }
   
   public void onCanvasRepainted(MainCanvas canvas, Graphics g, float deltaTime) {
-    bg.changeColor(deltaTime);
     update(canvas, deltaTime);
     render(canvas, g);
   }
   
   private void update(MainCanvas canvas, float deltaTime) {
+    bg.update(canvas, deltaTime);
     for (int i = 0; i < sprites.length; i++) {
         sprites[i].update(canvas, deltaTime);
     }
   }
 
   private void render(MainCanvas canvas, Graphics g) {
+      bg.render(canvas, g);
       for (int i = 0; i < sprites.length; i++) {
           sprites[i].render(canvas, g);
       }
