@@ -56,7 +56,7 @@ public class MainCircles extends JFrame {
   }
   
   private void addBall() {
-    if (isThereSpaseIn(sprites)) {
+    if (isThereSpaceIn(sprites)) {
       add(sprites);
     } else {      
       sprites = Arrays.copyOf(sprites, sprites.length * 2);
@@ -82,7 +82,7 @@ public class MainCircles extends JFrame {
     }
   }
   
-  private boolean isThereSpaseIn(Sprite[] arr) {
+  private boolean isThereSpaceIn(Sprite[] arr) {
     return arr[arr.length - 1] == null;
   }
   
