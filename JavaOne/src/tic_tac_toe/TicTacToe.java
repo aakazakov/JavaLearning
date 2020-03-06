@@ -1,6 +1,7 @@
 package tic_tac_toe;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ public class TicTacToe extends JFrame {
   static final int WINDOW_HEIGHT = 550;
   
   private GameSettingsWindow gsw;
+  private GameField field;
 
   public TicTacToe() {
     setTitle("Tic Tac Toe");
@@ -20,10 +22,14 @@ public class TicTacToe extends JFrame {
     
     JPanel panel = new JPanel(new GridLayout(1, 1));
     JButton start = new JButton("Start the game");
+    start.setBackground(Color.GRAY);
     panel.add(start);
     add(panel, BorderLayout.SOUTH);
     
     gsw = new GameSettingsWindow();
+    
+    field = new GameField();
+    add(field, BorderLayout.CENTER);
     
     start.addActionListener(e -> 
       gsw.setVisible(true)
