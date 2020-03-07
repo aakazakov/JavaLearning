@@ -1,6 +1,5 @@
 package tic_tac_toe;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.*;
@@ -10,8 +9,6 @@ public class GameSettingsWindow extends JFrame {
   private static final int MAX_FIELD_SIZE = 10;
   private static final int MIN_WIN_LENGTH = 3;
   private static final int MAX_WIN_LENGTH = MIN_WIN_LENGTH;
-  
-  private final TicTacToe mainWindow;
   
   private int windowX;
   private int windowY;
@@ -26,7 +23,6 @@ public class GameSettingsWindow extends JFrame {
   private JSlider winLength;
   
   public GameSettingsWindow(TicTacToe mainWindow) {
-    this.mainWindow = mainWindow;
     windowX = TicTacToe.WINDOW_X + TicTacToe.WINDOW_WIDTH / 10;
     windowY = TicTacToe.WINDOW_Y + TicTacToe.WINDOW_HEIGHT / 10;
     windowW = TicTacToe.WINDOW_WIDTH * 8 / 10;

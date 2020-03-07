@@ -2,22 +2,23 @@ package tic_tac_toe;
 
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 public class GameLogic {
   static int fieldSize;
   static char[][] field;
   static int winLength;
   static int level;
   static boolean gameOver = false;
-  static boolean humanWin = false;
-  static boolean computerWin = false;
-  static boolean deadHeat = false;
+  static int humanWin = 1;
+  static int computerWin = 2;
+  static int deadHeat = 0;
   
   static final char CHAR_EMPTY = '#';
   static final char CHAR_X = 'X';
   static final char CHAR_O = 'O';
     
-  static Scanner sc = new Scanner(System.in);
-  static Random rand = new Random();
+  static Random rand = new Random();  
   
   public static void launch() {
       
@@ -25,30 +26,29 @@ public class GameLogic {
     
     printField();
     if (isWin(CHAR_X)) {
-      humanWin = true;
+      JOptionPane.showMessageDialog(null, "Human win.");
       System.out.println("\nHuman win.");
       return;
     }
     if (!isTherePlaceForStep()) {
-      deadHeat = true;
+      JOptionPane.showMessageDialog(null, "Dead heat...");
       System.out.println("\nDead heat...");
       return;
     }     
     computerTurn();
     printField();
     if (isWin(CHAR_O)) {
-      computerWin = true;
+      JOptionPane.showMessageDialog(null, "Computer win.");
       System.out.println("\nComputer win.");
       return;
     }
     if (!isTherePlaceForStep()) {
-      deadHeat = true;
+      JOptionPane.showMessageDialog(null, "Dead heat...");
       System.out.println("\nDead heat...");
       return;
     }
       
     gameOver = false;
-    System.out.println("Game over.");
   }
   
   static void fieldInit() {
@@ -73,19 +73,28 @@ public class GameLogic {
     }
   }
   
-  static void setHumanTurnParams(int x, int y) {
+  public static void setHumanTurnParams(int x, int y) {
     if (moveOn(x, y, CHAR_EMPTY)) {
       field[y][x] = CHAR_X;
       launch();
     }
   }
   
-  private static void computerTurn() {  
-    boolean success = tryToWin();
-    if (!success) {
-      success = tryNotToLose();
-    }
-    if (!success) {
+  private static void computerTurn() {
+    if (level == 3) {
+      boolean success = tryToWin();
+      if (!success) {
+        success = tryNotToLose();
+      }
+      if (!success) {
+        randomStep();
+      }
+    } else if (level == 2) {
+        boolean success = tryNotToLose();
+        if (!success) {
+          randomStep();
+        }
+    } else {
       randomStep();
     }
   }
@@ -98,7 +107,7 @@ public class GameLogic {
           if (isWin(CHAR_O)) {
             return true;
           }          
-          makeStep(j, i, CHAR_EMPTY);          
+          makeStep(j, i, CHAR_EMPTY);
         }       
       }     
     }
