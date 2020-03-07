@@ -25,16 +25,19 @@ public class TicTacToe extends JFrame {
     start.setBackground(Color.GRAY);
     panel.add(start);
     add(panel, BorderLayout.SOUTH);
-    
-    gsw = new GameSettingsWindow();
-    
-    field = new GameField();
-    add(field, BorderLayout.CENTER);
-    
+    gsw = new GameSettingsWindow(this);
     start.addActionListener(e -> 
       gsw.setVisible(true)
     );
     
+    field = new GameField();
+    add(field, BorderLayout.CENTER);
+    
+    
     setVisible(true);
+  }
+  
+  public void takeGameSettings(int level, int fieldSize, int winLength) {
+    System.out.println(level + " " + fieldSize + " " + winLength);
   }
 }
