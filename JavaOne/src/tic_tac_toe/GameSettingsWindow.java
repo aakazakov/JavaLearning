@@ -64,17 +64,23 @@ public class GameSettingsWindow extends JFrame {
     winLength.setPaintLabels(true);
     add(new JLabel("=== Choose win line lenght: ==="));
     add(winLength);
-    winLength.addChangeListener(e ->
-        System.out.println(winLength.getValue())
-    );
     
     JButton settingsOk = new JButton("Ok");
     add(settingsOk);
     settingsOk.addActionListener(e -> {
-      System.out.println("OK");
+      int level = getLevel();
+      int fSize = fieldSize.getValue();
+      int wLength = winLength.getValue();
+      mainWindow.takeGameSettings(level, fSize, wLength);
       setVisible(false);
     });
     
     setVisible(false);
+  }
+  
+  private int getLevel() {
+    if (hardLevel.isSelected()) { return 3; }
+    if (middleLevel.isSelected()) { return 2; }
+    return 1;
   }
 }

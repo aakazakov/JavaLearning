@@ -38,6 +38,6 @@ public class TicTacToe extends JFrame {
   }
   
   public void takeGameSettings(int level, int fieldSize, int winLength) {
-    System.out.println(level + " " + fieldSize + " " + winLength);
+    field.takeGameSettings(level, fieldSize, winLength);
   }
 }
