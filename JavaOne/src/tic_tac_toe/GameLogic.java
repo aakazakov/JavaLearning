@@ -24,27 +24,21 @@ public class GameLogic {
       
     gameOver = true;
     
-    printField();
     if (isWin(CHAR_X)) {
       JOptionPane.showMessageDialog(null, "Human win.");
-      System.out.println("\nHuman win.");
       return;
     }
     if (!isTherePlaceForStep()) {
       JOptionPane.showMessageDialog(null, "Dead heat...");
-      System.out.println("\nDead heat...");
       return;
     }     
     computerTurn();
-    printField();
     if (isWin(CHAR_O)) {
       JOptionPane.showMessageDialog(null, "Computer win.");
-      System.out.println("\nComputer win.");
       return;
     }
     if (!isTherePlaceForStep()) {
       JOptionPane.showMessageDialog(null, "Dead heat...");
-      System.out.println("\nDead heat...");
       return;
     }
       

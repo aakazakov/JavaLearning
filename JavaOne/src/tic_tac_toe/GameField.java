@@ -24,7 +24,6 @@ public class GameField extends JPanel {
   public void takeGameSettings(int fieldSize, int winLength) {
     this.fieldSize = fieldSize;
     isInit = true;
-    repaint();
   }
   
   private void clickHandler(MouseEvent e) {
@@ -33,13 +32,13 @@ public class GameField extends JPanel {
     if (!GameLogic.gameOver) {
       GameLogic.setHumanTurnParams(clickX, clickY);
     }
-    repaint();
   }
 
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     render(g);
+    repaint();
   }
   
   private void render(Graphics g) {
