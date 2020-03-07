@@ -37,7 +37,7 @@ public class TicTacToe extends JFrame {
     setVisible(true);
   }
   
-  public void takeGameSettings(int level, int fieldSize, int winLength) {
-    field.takeGameSettings(level, fieldSize, winLength);
+  public void takeGameSettings(int fieldSize, int winLength) {
+    field.takeGameSettings(fieldSize, winLength);
   }
 }

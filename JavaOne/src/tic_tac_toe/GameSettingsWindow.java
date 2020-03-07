@@ -71,7 +71,11 @@ public class GameSettingsWindow extends JFrame {
       int level = getLevel();
       int fSize = fieldSize.getValue();
       int wLength = winLength.getValue();
-      mainWindow.takeGameSettings(level, fSize, wLength);
+      GameLogic.level = level;
+      GameLogic.fieldSize = fSize;
+      GameLogic.winLength = wLength;
+      GameLogic.fieldInit();
+      mainWindow.takeGameSettings(fSize, wLength);
       setVisible(false);
     });
     
