@@ -4,6 +4,7 @@ import java.util.*;
 
 public class GameLogic {
   static int fieldSize;
+  static char[][] field;
   static int winLength;
   static int level;
   static boolean gameOver = false;
@@ -11,13 +12,12 @@ public class GameLogic {
   static boolean computerWin = false;
   static boolean deadHeat = false;
   
-  private static char[][] field;
-  private static final char CHAR_EMPTY = '#';
-  private static final char CHAR_X = 'X';
-  private static final char CHAR_O = 'O';
+  static final char CHAR_EMPTY = '#';
+  static final char CHAR_X = 'X';
+  static final char CHAR_O = 'O';
     
-  private static Scanner sc = new Scanner(System.in);
-  private static Random rand = new Random();
+  static Scanner sc = new Scanner(System.in);
+  static Random rand = new Random();
   
   public static void launch() {
       
@@ -71,17 +71,6 @@ public class GameLogic {
       }
       System.out.println();
     }
-  }
-  
-  private static void humanTurn() {
-    int x;
-    int y;
-    do {
-      System.out.print("Enter the coordinates 'X' (x y): ");
-      x = sc.nextInt() - 1;
-      y = sc.nextInt() - 1;
-    } while (!moveOn(x, y, CHAR_EMPTY));
-    makeStep(x, y, CHAR_X);
   }
   
   static void setHumanTurnParams(int x, int y) {

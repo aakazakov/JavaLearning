@@ -35,6 +35,7 @@ public class GameField extends JPanel {
     if (!GameLogic.gameOver) {
       GameLogic.setHumanTurnParams(clickX, clickY);
     }
+    repaint();
   }
 
   @Override
@@ -43,19 +44,42 @@ public class GameField extends JPanel {
     render(g);
   }
   
-  private void render (Graphics g) {
+  private void render(Graphics g) {
     if (isInit) {
       int panelSize = getWidth();
       cellSide = panelSize / fieldSize;
+      Graphics2D g2 = (Graphics2D) g;
       for (int i = 0; i < fieldSize; i++) {
         int x = i * cellSide;
         int y = x;
-        Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(3f));
         g2.drawLine(x, 0, x, panelSize);
         g2.drawLine(0, y, panelSize, y);
         g2.setColor(Color.GRAY);        
       }
+      
+      for (int i = 0; i < fieldSize; i++) {
+        for (int j = 0; j < fieldSize; j++) {
+          if (GameLogic.field[i][j] ==  GameLogic.CHAR_X) {
+            drawCross(g2, j, i);
+          }
+          if (GameLogic.field[i][j] ==  GameLogic.CHAR_O) {
+            drawRound(g2, j, i);
+          }
+        }
+      }
     }
+  }
+  
+  void drawCross(Graphics2D g2, int x, int y) {
+    g2.setStroke(new BasicStroke(3f));
+    g2.drawLine(x * cellSide, y * cellSide, (x + 1) * cellSide, (y + 1) * cellSide);
+    g2.setColor(Color.WHITE);
+  }
+  
+  void drawRound(Graphics2D g2, int x, int y) {
+    g2.setStroke(new BasicStroke(3f));
+    g2.drawOval(x * cellSide, y * cellSide, cellSide, cellSide);
+    g2.setColor(Color.WHITE);
   }
 }
