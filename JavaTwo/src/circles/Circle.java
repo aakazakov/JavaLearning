@@ -2,14 +2,20 @@ package circles;
 
 import java.awt.*;
 
-public class Ball extends Sprite {
+public class Circle extends Sprite {
   private final Color color = getRandomColor();
   private float vX = (float) (100f + (Math.random() * 200f));
   private float vY = (float) (100f + (Math.random() * 200f));
   
-  Ball() {
+  Circle() {
     halfHeight = 20 + (float) (Math.random() * 50f);
     halfWidth = halfHeight;
+  }
+  
+  Circle(int x, int y) {
+    this();
+    this.x = x;
+    this.y = y;
   }
 
   @Override

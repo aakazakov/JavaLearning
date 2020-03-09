@@ -13,7 +13,7 @@ public class MainCircles extends JFrame {
   private static final int WINDOW_HEIGHT = 600;
   
   private Sprite[] sprites = new Sprite[10];
-  private Background bg;
+  private int spritesCount;
   
   public static void main(String[] args) {
     SwingUtilities.invokeLater(new Runnable() {
@@ -37,10 +37,10 @@ public class MainCircles extends JFrame {
       @Override
       public void mousePressed(MouseEvent e) {
         if (e.getButton() == 1) {
-          addBall();
+          addSprite(new Circle(e.getX(), e.getY()));
         }
         if (e.getButton() == 3) {
-          removeBall();
+          removeSprite();
         }
       }
     });
@@ -49,41 +49,28 @@ public class MainCircles extends JFrame {
   }
   
   private void initApplication() {
-    bg = new Background();
-    for (int i = 0; i < sprites.length; i++) {
-        sprites[i] = new Ball();
+    sprites[0] =  new Background();
+    for (int i = 1; i < sprites.length; i++) {
+        sprites[i] = new Circle();
+        spritesCount++;
     }
   }
   
-  private void addBall() {
-    if (isThereSpaceIn(sprites)) {
-      add(sprites);
-    } else {      
+  private void addSprite(Sprite s) {
+    if (!isThereSpaceIn(sprites)) {
       sprites = Arrays.copyOf(sprites, sprites.length * 2);
-      add(sprites);
     }
+    sprites[spritesCount++] = s;
   }
   
-  private void add(Sprite[] arr) {
-    for (int i = arr.length - 1; i >= 0; i--) {
-      if (arr[i] == null
-          && (i == 0 || arr[i - 1] != null)) {
-        arr[i] = new Ball();
-      }
-    }
+  private void removeSprite() {
+    if (spritesCount > 1) {
+      spritesCount--;
+    } 
   }
   
-  private void removeBall() {
-    for (int i = sprites.length - 1; i >= 0; i--) {
-      if (sprites[i] != null) {
-        sprites[i] = null;
-        break;
-      }
-    }
-  }
-  
-  private boolean isThereSpaceIn(Sprite[] arr) {
-    return arr[arr.length - 1] == null;
+  private boolean isThereSpaceIn(Sprite[] sprites) {
+    return spritesCount < sprites.length;
   }
   
   
@@ -94,17 +81,13 @@ public class MainCircles extends JFrame {
   }
   
   private void update(MainCanvas canvas, float deltaTime) {
-    bg.update(canvas, deltaTime);
-    for (int i = 0; i < sprites.length; i++) {
-      if (sprites[i] == null) { break; }
+    for (int i = 0; i < spritesCount; i++) {
       sprites[i].update(canvas, deltaTime);
     }
   }
 
   private void render(MainCanvas canvas, Graphics g) {
-      bg.render(canvas, g);
-      for (int i = 0; i < sprites.length; i++) {
-        if (sprites[i] == null) { break; }
+      for (int i = 0; i < spritesCount; i++) {
         sprites[i].render(canvas, g);
       }
   }
