@@ -33,8 +33,9 @@ public class TicTacToe extends JFrame {
     field = new GameField();
     add(field, BorderLayout.CENTER);
     
-    
     setVisible(true);
+    
+    GameLogic.ttt = this;
   }
   
   public void takeGameSettings(int fieldSize, int winLength) {

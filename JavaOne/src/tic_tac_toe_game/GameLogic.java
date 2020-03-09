@@ -13,32 +13,33 @@ public class GameLogic {
   static int humanWin = 1;
   static int computerWin = 2;
   static int deadHeat = 0;
+  static TicTacToe ttt;
   
   static final char CHAR_EMPTY = '#';
   static final char CHAR_X = 'X';
   static final char CHAR_O = 'O';
-    
-  static Random rand = new Random();  
   
+  static Random rand = new Random();
+    
   public static void launch() {
       
     gameOver = true;
     
     if (isWin(CHAR_X)) {
-      JOptionPane.showMessageDialog(null, "Human win.");
+      JOptionPane.showMessageDialog(ttt, "Human win.");
       return;
     }
     if (!isTherePlaceForStep()) {
-      JOptionPane.showMessageDialog(null, "Dead heat...");
+      JOptionPane.showMessageDialog(ttt, "Dead heat...");
       return;
     }     
     computerTurn();
     if (isWin(CHAR_O)) {
-      JOptionPane.showMessageDialog(null, "Computer win.");
+      JOptionPane.showMessageDialog(ttt, "Computer win.");
       return;
     }
     if (!isTherePlaceForStep()) {
-      JOptionPane.showMessageDialog(null, "Dead heat...");
+      JOptionPane.showMessageDialog(ttt, "Dead heat...");
       return;
     }
       
@@ -49,21 +50,6 @@ public class GameLogic {
     field  = new char[fieldSize][fieldSize];
     for (int i = 0; i < fieldSize; i++) {
       Arrays.fill(field[i], CHAR_EMPTY);
-    }
-  }
-  
-  private static void printField() {
-    System.out.print("  ");
-    for (int i = 1; i <= fieldSize; i++) {
-      System.out.print(i + " ");
-    }
-    System.out.println();
-    for (int i = 0; i < fieldSize; i++) {
-      System.out.print(i + 1 + " ");
-      for (int j = 0; j < fieldSize; j++) {
-        System.out.print(field[i][j] + " ");
-      }
-      System.out.println();
     }
   }
   
