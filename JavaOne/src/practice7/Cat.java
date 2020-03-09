@@ -1,4 +1,4 @@
-package seven;
+package practice7;
 
 public class Cat {
   private String name;

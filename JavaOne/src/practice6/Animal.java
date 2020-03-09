@@ -1,4 +1,4 @@
-package six;
+package practice6;
 
 public class Animal {
   private static int animalsCount;

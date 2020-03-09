@@ -1,4 +1,4 @@
-package four;
+package practice4;
 
 public class Homework {
 

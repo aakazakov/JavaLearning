@@ -1,4 +1,4 @@
-package six;
+package practice6;
 
 public class Dog extends Animal{
 

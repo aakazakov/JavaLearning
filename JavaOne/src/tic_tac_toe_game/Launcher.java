@@ -1,4 +1,4 @@
-package tic_tac_toe;
+package tic_tac_toe_game;
 
 public class Launcher {
 

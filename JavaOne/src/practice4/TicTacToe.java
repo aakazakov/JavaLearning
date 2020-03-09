@@ -1,4 +1,4 @@
-package four;
+package practice4;
 
 import java.util.Arrays;
 import java.util.Random;
