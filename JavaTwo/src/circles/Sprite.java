@@ -2,7 +2,7 @@ package circles;
 
 import java.awt.*;
 
-public abstract class Sprite {
+public abstract class Sprite implements FormedObject {
   protected float x;
   protected float y;
   protected float halfWidth;
@@ -13,23 +13,23 @@ public abstract class Sprite {
   }
   
   protected void setLeft(float left) {
-      x = left + halfWidth;
+    x = left + halfWidth;
   }
   
   protected float getRight() {
-      return x + halfWidth;
+    return x + halfWidth;
   }
   
   protected void setRight(float right) {
-      x = right - halfWidth;
+    x = right - halfWidth;
   }
   
   protected float getTop() {
-      return y - halfHeight;
+    return y - halfHeight;
   }
   
   protected void setTop(float top) {
-      y = top + halfHeight;
+    y = top + halfHeight;
   }
   
   protected float getBottom() {
@@ -55,7 +55,4 @@ public abstract class Sprite {
         (int) (Math.random() * 255)
     );
   }
-  
-  public abstract void update(MainCanvas canvas, float deltaTime);
-  public abstract void render(MainCanvas canvas, Graphics g);
 }

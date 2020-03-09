@@ -12,8 +12,8 @@ public class MainCircles extends JFrame {
   private static final int WINDOW_WIDTH = 800;
   private static final int WINDOW_HEIGHT = 600;
   
-  private Sprite[] sprites = new Sprite[10];
-  private int spritesCount;
+  private FormedObject[] formedObjects = new FormedObject[10];
+  private int formedObjectsCount;
   
   public static void main(String[] args) {
     SwingUtilities.invokeLater(new Runnable() {
@@ -37,7 +37,7 @@ public class MainCircles extends JFrame {
       @Override
       public void mousePressed(MouseEvent e) {
         if (e.getButton() == 1) {
-          addSprite(new Circle(e.getX(), e.getY()));
+          addFormedObject(new Circle(e.getX(), e.getY()));
         }
         if (e.getButton() == 3) {
           removeSprite();
@@ -49,28 +49,28 @@ public class MainCircles extends JFrame {
   }
   
   private void initApplication() {
-    sprites[0] =  new Background();
-    for (int i = 1; i < sprites.length; i++) {
-        sprites[i] = new Circle();
-        spritesCount++;
+    formedObjects[0] =  new Background();
+    for (int i = 1; i < formedObjects.length; i++) {
+        formedObjects[i] = new Circle();
+        formedObjectsCount++;
     }
   }
   
-  private void addSprite(Sprite s) {
-    if (!isThereSpaceIn(sprites)) {
-      sprites = Arrays.copyOf(sprites, sprites.length * 2);
+  private void addFormedObject(FormedObject fo) {
+    if (!isThereSpaceIn(formedObjects)) {
+      formedObjects = Arrays.copyOf(formedObjects, formedObjects.length * 2);
     }
-    sprites[spritesCount++] = s;
+    formedObjects[formedObjectsCount++] = fo;
   }
   
   private void removeSprite() {
-    if (spritesCount > 1) {
-      spritesCount--;
+    if (formedObjectsCount > 1) {
+      formedObjectsCount--;
     } 
   }
   
-  private boolean isThereSpaceIn(Sprite[] sprites) {
-    return spritesCount < sprites.length;
+  private boolean isThereSpaceIn(FormedObject[] fo) {
+    return formedObjectsCount < fo.length;
   }
   
   
@@ -81,14 +81,14 @@ public class MainCircles extends JFrame {
   }
   
   private void update(MainCanvas canvas, float deltaTime) {
-    for (int i = 0; i < spritesCount; i++) {
-      sprites[i].update(canvas, deltaTime);
+    for (int i = 0; i < formedObjectsCount; i++) {
+      formedObjects[i].update(canvas, deltaTime);
     }
   }
 
   private void render(MainCanvas canvas, Graphics g) {
-      for (int i = 0; i < spritesCount; i++) {
-        sprites[i].render(canvas, g);
+      for (int i = 0; i < formedObjectsCount; i++) {
+        formedObjects[i].render(canvas, g);
       }
   }
 
