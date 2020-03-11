@@ -1,18 +1,17 @@
 package practice1;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Words {
   private Set<String> uniqueWords = new HashSet<>();
+  
+  public Set<String> getUniqueWords(String[] arr) {
+    uniqueWords(arr);
+    return uniqueWords;
+  }
   
   private void uniqueWords(String[] arr) {
     Collections.addAll(uniqueWords, arr);
   }
 
-  public Set<String> getUniqueWords(String[] arr) {
-    uniqueWords(arr);
-    return uniqueWords;
-  }
 }
