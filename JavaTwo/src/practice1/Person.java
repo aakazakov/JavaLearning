@@ -4,54 +4,48 @@ import java.util.*;
 
 public class Person {
   private String surname;
+  private Map<String, List<String>> contacts = new HashMap<>();
   private List<String> email = new ArrayList<>();
   private List<String> phone = new ArrayList<>();
   
-  public Person(String surname) {
-    this.surname = surname;
+  public Person(String surname, String[] emails, String[] numbers) {
+    this.surname = surname.toLowerCase();
+    addToEmail(emails);
+    addToPhone(numbers);
   }
   
-  public void addEmail(String address) {
+  private void addToEmail(String[] address) {
     try {
-      email.add(address);
+      email.addAll(Arrays.asList(address));
     } catch (RuntimeException e) {
       e.printStackTrace();
     }
   }
   
-  public void addEmail(List<String> address) {
+  private void addToPhone(String[] numbers) {
     try {
-      email.addAll(address);
+      phone.addAll(Arrays.asList(numbers));
     } catch (RuntimeException e) {
       e.printStackTrace();
     }
   }
   
-  public void addPhone(String number) {
+  public Map<String, List<String>> getContacts() {
+    fillContacts();
+    return contacts;
+  }
+  
+  private void fillContacts() {
     try {
-      phone.add(number);
+      contacts.put(PhoneBook.EMAIL, email);
+      contacts.put(PhoneBook.PHONE, phone);
     } catch (RuntimeException e) {
       e.printStackTrace();
     }
   }
   
-  public void addPhone(List<String> numbers) {
-    try {
-      phone.addAll(numbers);
-    } catch (RuntimeException e) {
-      e.printStackTrace();
-    }
-  }
-
   public String getSurname() {
     return surname;
   }
-
-  public List<String> getEmail() {
-    return email;
-  }
-
-  public List<String> getPhone() {
-    return phone;
-  }
+  
 }
