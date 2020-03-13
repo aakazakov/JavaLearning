@@ -33,7 +33,7 @@ public class Words {
           wordsMap.put(arr[i], 1);
         }
       } catch (RuntimeException e) {
-          e.printStackTrace();
+        e.printStackTrace();
       }
     }
   }
