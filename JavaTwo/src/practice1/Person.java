@@ -46,5 +46,12 @@ public class Person {
   public String getSurname() {
     return surname;
   }
-  
+
+  public List<String> getEmail() {
+    return email;
+  }
+
+  public List<String> getPhone() {
+    return phone;
+  }
 }
