@@ -5,8 +5,8 @@ import java.util.*;
 public class Person {
   private String surname;
   private Map<String, List<String>> contacts = new HashMap<>();
-  private List<String> email = new ArrayList<>();
-  private List<String> phone = new ArrayList<>();
+  private List<String> emails = new ArrayList<>();
+  private List<String> phones = new ArrayList<>();
   
   public Person(String surname, String[] emails, String[] numbers) {
     this.surname = surname.toLowerCase();
@@ -14,9 +14,9 @@ public class Person {
     addToPhone(numbers);
   }
   
-  private void addToEmail(String[] address) {
+  private void addToEmail(String[] addresses) {
     try {
-      email.addAll(Arrays.asList(address));
+      emails.addAll(Arrays.asList(addresses));
     } catch (RuntimeException e) {
       e.printStackTrace();
     }
@@ -24,7 +24,7 @@ public class Person {
   
   private void addToPhone(String[] numbers) {
     try {
-      phone.addAll(Arrays.asList(numbers));
+      phones.addAll(Arrays.asList(numbers));
     } catch (RuntimeException e) {
       e.printStackTrace();
     }
@@ -37,8 +37,8 @@ public class Person {
   
   private void fillContacts() {
     try {
-      contacts.put(PhoneBook.EMAIL, email);
-      contacts.put(PhoneBook.PHONE, phone);
+      contacts.put(PhoneBook.EMAIL, emails);
+      contacts.put(PhoneBook.PHONE, phones);
     } catch (RuntimeException e) {
       e.printStackTrace();
     }
