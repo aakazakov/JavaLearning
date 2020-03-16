@@ -46,15 +46,6 @@ public class ServerGUI extends JFrame implements ActionListener, Thread.Uncaught
   }
 
   @Override
-  public void uncaughtException(Thread t, Throwable e) {
-    e.printStackTrace();
-    StackTraceElement[] ste = e.getStackTrace();
-    String msg = "Exception in thread " + t.getName() + " " + e.getClass().getCanonicalName() + ": "
-        + e.getMessage() + "\n\t" + ste[0];
-    JOptionPane.showMessageDialog(null, msg, "Oops!", JOptionPane.ERROR_MESSAGE);
-  }
-
-  @Override
   public void actionPerformed(ActionEvent e) {
     Object src = e.getSource();
     if (src == btnStart) {
@@ -64,7 +55,15 @@ public class ServerGUI extends JFrame implements ActionListener, Thread.Uncaught
     } else {
       throw new UnknownSourceException("Unknown source: " + src);
     }
-    
+  }
+  
+  @Override
+  public void uncaughtException(Thread t, Throwable e) {
+    e.printStackTrace();
+    StackTraceElement[] ste = e.getStackTrace();
+    String msg = "Exception in thread " + t.getName() + " " + e.getClass().getCanonicalName() + ": "
+        + e.getMessage() + "\n\t" + ste[0];
+    JOptionPane.showMessageDialog(null, msg, "Oops!", JOptionPane.ERROR_MESSAGE);
   }
   
 }
