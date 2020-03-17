@@ -5,10 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.io.FileWriter;
 
 import javax.swing.*;
 
+import chat.exceptions.FileWritingException;
 import chat.exceptions.UnknownSourceException;
 
 public class ClientGUI extends JFrame implements ActionListener,
@@ -101,9 +102,16 @@ Thread.UncaughtExceptionHandler {
   }
 
   private void messageHandler() {
-    String msg = getMessage();
-    appendToLogField(msg);
-    clearMessageField();
+      String msg = getMessage();
+      appendToLogField(msg);
+      
+      try {
+        writeMessageTo("log.txt", msg);
+      } catch (FileWritingException e) {
+        e.printStackTrace();
+      }
+      
+      clearMessageField();
   }
   
   private String getMessage() {
@@ -113,6 +121,14 @@ Thread.UncaughtExceptionHandler {
   private void appendToLogField(String str) {
     if (str.isEmpty()) { return; }
     log.append(str + "\n");
+  }
+  
+  private void writeMessageTo(String path, String msg) throws FileWritingException {
+    try (FileWriter fw = new FileWriter(path)) {
+      fw.write(msg + "\n");
+    } catch (Exception e) {
+      throw new FileWritingException(path);
+    }
   }
   
   private void clearMessageField() {
