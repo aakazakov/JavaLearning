@@ -34,15 +34,6 @@ Thread.UncaughtExceptionHandler {
   private final JTextField tfMessage = new JTextField();
   private final JButton btnSend = new JButton("Send");
   
-  private KeyListener kl = new KeyAdapter() {
-    @Override
-    public void keyPressed(KeyEvent e) {
-      if (e.getKeyCode() == 10) {
-        messageHandler();
-      }
-    }
-  };
-  
   public static void main(String[] args) {
     SwingUtilities.invokeLater(new Runnable() {
       
@@ -85,7 +76,14 @@ Thread.UncaughtExceptionHandler {
     
     cbAlwaysOnTop.addActionListener(this);
     btnSend.addActionListener(this);
-    tfMessage.addKeyListener(kl);
+    tfMessage.addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+          messageHandler();
+        }
+      }
+    });
     
     setVisible(true);
   }
