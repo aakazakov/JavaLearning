@@ -3,15 +3,19 @@ package chat.client;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
 import chat.exceptions.UnknownSourceException;
 
-public class ClientGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler {
+public class ClientGUI extends JFrame implements ActionListener,
+Thread.UncaughtExceptionHandler {
   private static final int WIDTH = 400;
   private static final int HEIGHT = 300;
-  private static final int USERS_LIST_WIDTH = 100;
+  private static final int USERS_LIST_WIDTH = WIDTH / 4;
   private static final int USERS_LIST_HEIGHT = 0;
   
   private final JPanel panelTop = new JPanel(new GridLayout(2, 3));
@@ -29,6 +33,15 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
   private final JButton btnDisconnect = new JButton("Disconnect");
   private final JTextField tfMessage = new JTextField();
   private final JButton btnSend = new JButton("Send");
+  
+  private KeyListener kl = new KeyAdapter() {
+    @Override
+    public void keyPressed(KeyEvent e) {
+      if (e.getKeyCode() == 10) {
+        messageHandler();
+      }
+    }
+  };
   
   public static void main(String[] args) {
     SwingUtilities.invokeLater(new Runnable() {
@@ -71,19 +84,41 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     add(panelBottom, BorderLayout.SOUTH);
     
     cbAlwaysOnTop.addActionListener(this);
+    btnSend.addActionListener(this);
+    tfMessage.addKeyListener(kl);
     
     setVisible(true);
   }
-
 
   @Override
   public void actionPerformed(ActionEvent e) {
     Object src = e.getSource();
     if (src == cbAlwaysOnTop) {
       setAlwaysOnTop(cbAlwaysOnTop.isSelected());
+    } else if (src == btnSend) {
+      messageHandler();
     } else {
       throw new UnknownSourceException("Unknown source: " + src);
     }
+  }
+
+  private void messageHandler() {
+    String msg = getMessage();
+    appendToLogField(msg);
+    clearMessageField();
+  }
+  
+  private String getMessage() {
+    return tfMessage.getText();
+  }
+  
+  private void appendToLogField(String str) {
+    if (str.isEmpty()) { return; }
+    log.append(str + "\n");
+  }
+  
+  private void clearMessageField() {
+    tfMessage.setText("");
   }
   
   @Override
