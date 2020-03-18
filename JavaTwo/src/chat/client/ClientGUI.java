@@ -3,13 +3,11 @@ package chat.client;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.*;
 
-import chat.exceptions.FileWritingException;
 import chat.exceptions.UnknownSourceException;
 
 public class ClientGUI extends JFrame implements ActionListener,
@@ -77,14 +75,7 @@ Thread.UncaughtExceptionHandler {
     
     cbAlwaysOnTop.addActionListener(this);
     btnSend.addActionListener(this);
-    tfMessage.addKeyListener(new KeyAdapter() {
-      @Override
-      public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-          messageHandler();
-        }
-      }
-    });
+    tfMessage.addActionListener(this);
     
     setVisible(true);
   }
@@ -94,53 +85,69 @@ Thread.UncaughtExceptionHandler {
     Object src = e.getSource();
     if (src == cbAlwaysOnTop) {
       setAlwaysOnTop(cbAlwaysOnTop.isSelected());
-    } else if (src == btnSend) {
-      messageHandler();
+    } else if (src == btnSend || src == tfMessage) {
+      sendMassage();
     } else {
       throw new UnknownSourceException("Unknown source: " + src);
     }
   }
 
-  private void messageHandler() {
-      String msg = getMessage();
-      appendToLogField(msg);
-      
-      try {
-        writeMessageTo("log.txt", msg);
-      } catch (FileWritingException e) {
-        e.printStackTrace();
-      }
-      
-      clearMessageField();
+  private void sendMassage() {
+    if (getMessage().isEmpty()) return;
+    String str = String.format("%s: %s%n", getUserName(), getMessage());
+    appendToLogField(str);
+    writeToLogFile(str);
+    clearMessageField();
+    stayFocusedOnMessageField();
   }
   
   private String getMessage() {
     return tfMessage.getText();
   }
   
-  private void appendToLogField(String str) {
-    if (str.isEmpty()) { return; }
-    log.append(str + "\n");
+  private String getUserName() {
+    return tfLogin.getText();
   }
   
-  private void writeMessageTo(String path, String msg) throws FileWritingException {
-    try (FileWriter fw = new FileWriter(path)) {
-      fw.write(msg + "\n");
-    } catch (Exception e) {
-      throw new FileWritingException(path);
+  private void appendToLogField(String str) {
+    SwingUtilities.invokeLater(() -> 
+      log.append(str)
+    );
+  }
+  
+  private void writeToLogFile(String str) {
+    try (FileWriter out = new FileWriter("log.txt", true)) {
+      out.write(str);
+      out.flush();
+    } catch (IOException e) {
+      showException(Thread.currentThread(), e);
     }
   }
   
   private void clearMessageField() {
-    tfMessage.setText("");
+    tfMessage.setText(null);
+  }
+  
+  private void stayFocusedOnMessageField() {
+    tfMessage.grabFocus();
+  }
+  
+  private void showException(Thread t, Throwable e) {
+    String msg;
+    StackTraceElement[] ste = e.getStackTrace();
+    if (ste.length == 0) {
+      msg = "No stack trace";
+    } else {
+      msg = "Exception in thread " + t.getName() + " " + e.getClass().getCanonicalName() + ": "
+    + e.getMessage() + "\n\t" + ste[0];
+    }
+    JOptionPane.showMessageDialog(null, msg, "Oops!", JOptionPane.ERROR_MESSAGE);
   }
   
   @Override
   public void uncaughtException(Thread t, Throwable e) {
     e.printStackTrace();
-    StackTraceElement[] ste = e.getStackTrace();
-    String msg = "Exception in thread " + t.getName() + " " + e.getClass().getCanonicalName() + ": "
-        + e.getMessage() + "\n\t" + ste[0];
-    JOptionPane.showMessageDialog(null, msg, "Oops!", JOptionPane.ERROR_MESSAGE);
+    showException(t, e);
+    System.exit(1);
   }
 }
