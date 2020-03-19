@@ -11,15 +11,15 @@ public class Homework {
     float[] arr = new float[SIZE];
     Arrays.fill(arr, 1f);
     
-//    inOneThread(arr); // 1212 ms
+//    inOneThread(arr); // 1205 ms
     
-//    inTwoThreads(arr); // 644 ms
+//    inTwoThreads(arr); // 670 ms
     
   }
   
   static void inOneThread(float[] arr) {
     long start = System.currentTimeMillis();
-    goThroughTheArrayAndDoSomethingAmazing(arr);
+    goThroughTheArrayAndDoSomethingAmazing(arr, 0);
     System.out.println(System.currentTimeMillis() - start);
   }
   
@@ -32,10 +32,10 @@ public class Homework {
     System.arraycopy(arr, H, a2, 0, H);
     
     Thread t1 = new Thread(() -> 
-      goThroughTheArrayAndDoSomethingAmazing(a1)
+      goThroughTheArrayAndDoSomethingAmazing(a1, 0)
     );
     Thread t2 = new Thread(() -> 
-      goThroughTheArrayAndDoSomethingAmazing(a2)
+      goThroughTheArrayAndDoSomethingAmazing(a2, H)
     );
     
     t1.start();
@@ -54,10 +54,10 @@ public class Homework {
     System.out.println(System.currentTimeMillis() - start);
   }
   
-  static void goThroughTheArrayAndDoSomethingAmazing(float[] arr) {
+  static void goThroughTheArrayAndDoSomethingAmazing(float[] arr, int step) {
     for (int i = 0; i < arr.length; i++) {
-      arr[i] = (float)(arr[i] * Math.sin(0.2f + i / 5) 
-          * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+      arr[i] = (float)(arr[i] * Math.sin(0.2f + (i + step) / 5) 
+          * Math.cos(0.2f + (i + step) / 5) * Math.cos(0.4f + (i + step) / 2));
     }
   }
 }
