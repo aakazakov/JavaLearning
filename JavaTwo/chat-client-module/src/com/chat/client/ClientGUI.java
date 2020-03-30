@@ -3,12 +3,9 @@ package com.chat.client;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import javax.swing.*;
 
-import com.chat.ibrary.exceptions.UnknownSourceException;
+import com.chat.library.exceptions.UnknownSourceException;
 
 public class ClientGUI extends JFrame implements ActionListener,
 Thread.UncaughtExceptionHandler {

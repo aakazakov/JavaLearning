@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import com.chat.ibrary.exceptions.UnknownSourceException;
+import com.chat.library.exceptions.UnknownSourceException;
 import com.chat.server.core.ChatServer;
 
 public class ServerGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler {
