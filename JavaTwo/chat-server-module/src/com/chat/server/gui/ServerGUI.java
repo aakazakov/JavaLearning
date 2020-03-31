@@ -10,6 +10,7 @@ import com.chat.library.exceptions.UnknownSourceException;
 import com.chat.server.core.*;
 
 public class ServerGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler, ChatServerListener {
+  private static final long serialVersionUID = 1L;
   private static final int POS_X = 800;
   private static final int POS_Y = 200;
   private static final int WIDTH = 600;
@@ -77,7 +78,7 @@ public class ServerGUI extends JFrame implements ActionListener, Thread.Uncaught
   @Override
   public void onChatServerMessage(String msg) {
     SwingUtilities.invokeLater(() ->
-      log.append(msg + "\n")
+      log.append("> " + msg + "...\n")
     );
   }
   

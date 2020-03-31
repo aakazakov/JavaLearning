@@ -13,6 +13,7 @@ import com.chat.network.*;
 
 public class ClientGUI extends JFrame implements ActionListener,
 Thread.UncaughtExceptionHandler, SocketThreadListener {
+  private static final long serialVersionUID = 1L;
   private static final int WIDTH = 400;
   private static final int HEIGHT = 300;
   private static final int USERS_LIST_WIDTH = WIDTH / 4;
@@ -92,7 +93,7 @@ Thread.UncaughtExceptionHandler, SocketThreadListener {
     } else if (src == btnLogin) {
       connect();
     } else if (src == btnSend || src == tfMessage) {
-      sendMassage();
+      sendMessage();
     } else {
       throw new UnknownSourceException("Unknown source: " + src);
     }
@@ -106,36 +107,22 @@ Thread.UncaughtExceptionHandler, SocketThreadListener {
       showException(Thread.currentThread(), e);
     }
   }
+  
+  private void sendMessage() {
+    String msg = tfMessage.getText();
+    if (msg.isEmpty()) return;
+    tfMessage.setText(null);
+    tfMessage.grabFocus();
+    socketThread.sendMessage(msg);
+  }
 
-  private void sendMassage() {
-    if (getMessage().isEmpty()) return;
-    String str = String.format("%s: %s%n", getUserName(), getMessage());
-    appendToLogField(str);
-    clearMessageField();
-    stayFocusedOnMessageField();
-  }
-  
-  private String getMessage() {
-    return tfMessage.getText();
-  }
-  
-  private String getUserName() {
-    return tfLogin.getText();
-  }
-  
-  private void appendToLogField(String str) {
-    SwingUtilities.invokeLater(() -> 
-      log.append(str)
+  private void putLog(String msg) {
+    if (msg.isEmpty()) return;
+    SwingUtilities.invokeLater(() ->
+      log.append(msg + "\n")
     );
   }
-  
-  private void clearMessageField() {
-    tfMessage.setText(null);
-  }
-  
-  private void stayFocusedOnMessageField() {
-    tfMessage.grabFocus();
-  }
+
   
   private void showException(Thread t, Throwable e) {
     String msg;
@@ -157,28 +144,28 @@ Thread.UncaughtExceptionHandler, SocketThreadListener {
   }
 
   @Override
-  public void onSocketStarted() {
-    System.out.println("Client socket started");
+  public void onSocketStarted(SocketThread thread, Socket socket) {
+    putLog("Launch...");
   }
 
   @Override
-  public void onSocketReady() {
-    System.out.println("Client socket ready");
+  public void onSocketReady(SocketThread thread, Socket socket) {
+    putLog("Ready");
     
   }
 
   @Override
-  public void onReceivedString(String str) {
-    System.out.println(str);
+  public void onReceivedString(SocketThread thread, Socket socket, String str) {
+    putLog(str);
   }
 
   @Override
-  public void onSocketStopped() {
-    System.out.println("Client socket stopped");    
+  public void onSocketStopped(SocketThread thread) {
+    putLog("Stopped");    
   }
 
   @Override
-  public void onSocketException() {
-    System.out.println("client socket thread exception");
+  public void onSocketException(SocketThread thread, Throwable e) {
+    showException(thread, e);
   }
 }

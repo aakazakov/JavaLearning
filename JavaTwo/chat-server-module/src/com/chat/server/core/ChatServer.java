@@ -22,7 +22,11 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
   }
   
   public void stop() {
-    putLog("Server stopped");
+    if (server != null && server.isAlive()) {
+      server.interrupt();
+    } else {
+      putLog("Server is not running");
+    }
   }
   
   private void putLog(String str) {
@@ -30,22 +34,22 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
   }
 
   @Override
-  public void onServerStarted() {
+  public void onServerStarted(ServerSocketThread thread) {
     putLog("Server started");
   }
 
   @Override
-  public void onServerStopped() {
-    putLog("ServerSopped");
+  public void onServerStopped(ServerSocketThread thread) {
+    putLog("Server stopped");
   }
 
   @Override
-  public void onServerSocketCreated() {
+  public void onServerSocketCreated(ServerSocketThread thread, ServerSocket server) {
     putLog("Server socket created");
-  }
+  } 
 
   @Override
-  public void onServerTimeOut() { }
+  public void onServerTimeOut(ServerSocketThread thread, ServerSocket server) { }
 
   @Override
   public void onSocketAccepted(ServerSocketThread thread, ServerSocket server, Socket socket) {
@@ -55,32 +59,33 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
   }
 
   @Override
-  public void onServerException() {
-    putLog("Exception happened");
+  public void onServerException(ServerSocketThread thread, Throwable e) {
+    e.printStackTrace();
   }
 
   @Override
-  public void onSocketStarted() {
-    putLog("socket started on server");    
+  public void onSocketStarted(SocketThread thread, Socket socket) {
+    putLog("Setting communication with client");    
   }
 
   @Override
-  public void onSocketReady() {
-    putLog("socket ready on server");
+  public void onSocketReady(SocketThread thread, Socket socket) {
+    putLog("Client is ready to chat");
   }
 
   @Override
-  public void onReceivedString(String str) {
-    putLog(str);
+  public void onReceivedString(SocketThread thread, Socket socket, String msg) {
+    thread.sendMessage("s: " + msg);
   }
 
   @Override
-  public void onSocketStopped() {
-    putLog("socket stopped on server");
+  public void onSocketStopped(SocketThread thread) {
+    putLog("Client disconnected");
   }
 
   @Override
-  public void onSocketException() {
-    putLog("socket exception on server");
+  public void onSocketException(SocketThread thread, Throwable e) {
+    putLog("Oops! Exception happend");
+    e.printStackTrace();
   }
 }

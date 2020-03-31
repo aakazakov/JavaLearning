@@ -19,19 +19,19 @@ public class SocketThread extends Thread {
   @Override
   public void run() {
     try {
-      listener.onSocketStarted();
+      listener.onSocketStarted(this, socket);
       in = new DataInputStream(socket.getInputStream());
       out = new DataOutputStream(socket.getOutputStream());
-      listener.onSocketReady();
+      listener.onSocketReady(this, socket);
       while(!isInterrupted()) {
         String str = in.readUTF();
-        listener.onReceivedString(str);
+        listener.onReceivedString(this, socket, str);
       }
     } catch (IOException e) {
-      listener.onSocketException();
+      listener.onSocketException(this, e);
     } finally {
       close();
-      listener.onSocketStopped();
+      listener.onSocketStopped(this);
     }
   }
 
@@ -40,7 +40,19 @@ public class SocketThread extends Thread {
     try {
       socket.close();
     } catch (IOException e) {
-      listener.onSocketException();
+      listener.onSocketException(this, e);
+    }
+  }
+  
+  public synchronized boolean sendMessage(String msg) {
+    try {
+      out.writeUTF(msg);
+      out.flush();
+      return true;
+    } catch (IOException e) {
+      listener.onSocketException(this, e);
+      close();
+      return false;
     }
   }
 
