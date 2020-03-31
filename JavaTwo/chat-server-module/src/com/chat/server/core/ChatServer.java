@@ -6,8 +6,12 @@ import java.net.Socket;
 import com.chat.network.*;
 
 public class ChatServer implements ServerSocketThreadListener, SocketThreadListener {
-  ServerSocketThread server;
-  SocketThread socketThread; 
+  private ServerSocketThread server;
+  private ChatServerListener listener;
+  
+  public ChatServer(ChatServerListener listener) {
+    this.listener = listener;
+  }
   
   public void start(int port) {
     if (server == null || !server.isAlive()) {
@@ -22,7 +26,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
   }
   
   private void putLog(String str) {
-    System.out.println(str);
+    listener.onChatServerMessage(str);
   }
 
   @Override
