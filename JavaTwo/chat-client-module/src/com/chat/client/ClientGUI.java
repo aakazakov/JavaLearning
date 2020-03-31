@@ -16,10 +16,10 @@ Thread.UncaughtExceptionHandler {
   
   private final JPanel panelTop = new JPanel(new GridLayout(2, 3));
   private final JTextField tfIPAdress = new JTextField("127.0.0.1");
-  private final JTextField tfPort = new JTextField("8080");
+  private final JTextField tfPort = new JTextField("8189");
   private final JCheckBox cbAlwaysOnTop = new JCheckBox("Always on top");
-  private final JTextField tfLogin = new JTextField("User");
-  private final JTextField tfPassword = new JTextField("123");
+  private final JTextField tfLogin = new JTextField("Login");
+  private final JTextField tfPassword = new JTextField("Password");
   private final JButton btnLogin = new JButton("Login");
   
   private final JTextArea log = new JTextArea();
@@ -71,6 +71,7 @@ Thread.UncaughtExceptionHandler {
     add(panelBottom, BorderLayout.SOUTH);
     
     cbAlwaysOnTop.addActionListener(this);
+    btnLogin.addActionListener(this);
     btnSend.addActionListener(this);
     tfMessage.addActionListener(this);
     
@@ -82,11 +83,24 @@ Thread.UncaughtExceptionHandler {
     Object src = e.getSource();
     if (src == cbAlwaysOnTop) {
       setAlwaysOnTop(cbAlwaysOnTop.isSelected());
+    } else if (src == btnLogin) {
+      connect();
     } else if (src == btnSend || src == tfMessage) {
       sendMassage();
     } else {
       throw new UnknownSourceException("Unknown source: " + src);
     }
+  }
+
+  private void connect() {
+    String login = tfLogin.getText();
+    String pass = tfPassword.getText();
+    System.out.printf("User: %s, pass: %s connected%n", login, pass);
+    
+    String ip = tfIPAdress.getText();
+    String port = tfPort.getText();
+    
+    System.out.printf("%s:%s%n", ip, port);
   }
 
   private void sendMassage() {
