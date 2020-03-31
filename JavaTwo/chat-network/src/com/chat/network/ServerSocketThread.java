@@ -32,9 +32,13 @@ public class ServerSocketThread extends Thread {
           listener.onServerTimeOut();
           continue;
         }
+        listener.onSocketAccepted();
       }
     } catch (IOException e) {
+      listener.onServerException();
       e.printStackTrace();
+    } finally {
+      listener.onServerStopped();
     }
   }
 }

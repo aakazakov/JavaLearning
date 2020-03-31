@@ -36,4 +36,14 @@ public class ChatServer implements ServerSocketThreadListener {
 
   @Override
   public void onServerTimeOut() { }
+
+  @Override
+  public void onSocketAccepted() {
+    System.out.println("Server accepted");
+  }
+
+  @Override
+  public void onServerException() {
+    System.out.println("Exception happened");
+  }
 }
