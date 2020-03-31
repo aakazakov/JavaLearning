@@ -3,12 +3,16 @@ package com.chat.client;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.Socket;
+
 import javax.swing.*;
 
 import com.chat.library.exceptions.UnknownSourceException;
+import com.chat.network.*;
 
 public class ClientGUI extends JFrame implements ActionListener,
-Thread.UncaughtExceptionHandler {
+Thread.UncaughtExceptionHandler, SocketThreadListener {
   private static final int WIDTH = 400;
   private static final int HEIGHT = 300;
   private static final int USERS_LIST_WIDTH = WIDTH / 4;
@@ -29,6 +33,8 @@ Thread.UncaughtExceptionHandler {
   private final JButton btnDisconnect = new JButton("Disconnect");
   private final JTextField tfMessage = new JTextField();
   private final JButton btnSend = new JButton("Send");
+  
+  private SocketThread socketThread;
   
   public static void main(String[] args) {
     SwingUtilities.invokeLater(new Runnable() {
@@ -92,15 +98,13 @@ Thread.UncaughtExceptionHandler {
     }
   }
 
-  private void connect() {
-    String login = tfLogin.getText();
-    String pass = tfPassword.getText();
-    System.out.printf("User: %s, pass: %s connected%n", login, pass);
-    
-    String ip = tfIPAdress.getText();
-    String port = tfPort.getText();
-    
-    System.out.printf("%s:%s%n", ip, port);
+  private void connect() {   
+    try {
+      Socket socket = new Socket(tfIPAdress.getText(), Integer.parseInt(tfPort.getText()));
+      socketThread = new SocketThread(this, "Client", socket);
+    } catch (NumberFormatException | IOException e) {
+      showException(Thread.currentThread(), e);
+    }
   }
 
   private void sendMassage() {
@@ -150,5 +154,31 @@ Thread.UncaughtExceptionHandler {
     e.printStackTrace();
     showException(t, e);
     System.exit(1);
+  }
+
+  @Override
+  public void onSocketStarted() {
+    System.out.println("Client socket started");
+  }
+
+  @Override
+  public void onSocketReady() {
+    System.out.println("Client socket ready");
+    
+  }
+
+  @Override
+  public void onReceivedString(String str) {
+    System.out.println(str);
+  }
+
+  @Override
+  public void onSocketStopped() {
+    System.out.println("Client socket stopped");    
+  }
+
+  @Override
+  public void onSocketException() {
+    System.out.println("client socket thread exception");
   }
 }

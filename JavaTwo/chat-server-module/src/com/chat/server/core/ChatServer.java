@@ -1,49 +1,82 @@
 package com.chat.server.core;
 
-import com.chat.network.ServerSocketThread;
-import com.chat.network.ServerSocketThreadListener;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-public class ChatServer implements ServerSocketThreadListener {
+import com.chat.network.*;
+
+public class ChatServer implements ServerSocketThreadListener, SocketThreadListener {
   ServerSocketThread server;
+  SocketThread socketThread; 
   
   public void start(int port) {
     if (server == null || !server.isAlive()) {
       server = new ServerSocketThread(this, "Server", port, 2000);
     } else {
-      System.out.println("Server has already been started");
+      putLog("Server has already been started");
     }
   }
   
   public void stop() {
-    System.out.println("Server stopped");
+    putLog("Server stopped");
+  }
+  
+  private void putLog(String str) {
+    System.out.println(str);
   }
 
   @Override
   public void onServerStarted() {
-    System.out.println("Server started");
-    
+    putLog("Server started");
   }
 
   @Override
   public void onServerStopped() {
-    System.out.println("ServerSopped");
+    putLog("ServerSopped");
   }
 
   @Override
   public void onServerSocketCreated() {
-    System.out.println("Server socket created");
+    putLog("Server socket created");
   }
 
   @Override
   public void onServerTimeOut() { }
 
   @Override
-  public void onSocketAccepted() {
-    System.out.println("Server accepted");
+  public void onSocketAccepted(ServerSocketThread thread, ServerSocket server, Socket socket) {
+    putLog("Client connected");
+    String name = "Socket Thread " + socket.getInetAddress() + ":" + socket.getPort();
+    new SocketThread(this, name, socket);
   }
 
   @Override
   public void onServerException() {
-    System.out.println("Exception happened");
+    putLog("Exception happened");
+  }
+
+  @Override
+  public void onSocketStarted() {
+    putLog("socket started on server");    
+  }
+
+  @Override
+  public void onSocketReady() {
+    putLog("socket ready on server");
+  }
+
+  @Override
+  public void onReceivedString(String str) {
+    putLog(str);
+  }
+
+  @Override
+  public void onSocketStopped() {
+    putLog("socket stopped on server");
+  }
+
+  @Override
+  public void onSocketException() {
+    putLog("socket exception on server");
   }
 }
