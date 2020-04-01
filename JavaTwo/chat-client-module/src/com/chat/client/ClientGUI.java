@@ -8,6 +8,7 @@ import java.net.Socket;
 
 import javax.swing.*;
 
+import com.chat.library.Library;
 import com.chat.library.exceptions.UnknownSourceException;
 import com.chat.network.*;
 
@@ -151,7 +152,9 @@ Thread.UncaughtExceptionHandler, SocketThreadListener {
   @Override
   public void onSocketReady(SocketThread thread, Socket socket) {
     putLog("Ready");
-    
+    String login = tfLogin.getText();
+    String password = tfPassword.getText();
+    thread.sendMessage(Library.getAuthRequest(login, password));
   }
 
   @Override
