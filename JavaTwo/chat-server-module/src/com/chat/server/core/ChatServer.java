@@ -55,7 +55,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
   public void onSocketAccepted(ServerSocketThread thread, ServerSocket server, Socket socket) {
     putLog("Client connected");
     String name = "Socket Thread " + socket.getInetAddress() + ":" + socket.getPort();
-    new SocketThread(this, name, socket);
+    new ClientThread(this, name, socket);
   }
 
   @Override
@@ -75,7 +75,8 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
 
   @Override
   public void onReceivedString(SocketThread thread, Socket socket, String msg) {
-    thread.sendMessage("s: " + msg);
+    ClientThread client = (ClientThread) thread;
+    client.sendMessage(msg);
   }
 
   @Override
