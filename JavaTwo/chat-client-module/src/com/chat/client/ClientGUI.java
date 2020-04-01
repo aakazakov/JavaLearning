@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
+import java.text.*;
+import java.util.Arrays;
 
 import javax.swing.*;
 
@@ -27,6 +29,9 @@ Thread.UncaughtExceptionHandler, SocketThreadListener {
   private final JTextField tfLogin = new JTextField("Login");
   private final JTextField tfPassword = new JTextField("Password");
   private final JButton btnLogin = new JButton("Login");
+  
+  private final DateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss: ");
+  private final String WINDOW_TITLE = "Chat";
   
   private final JTextArea log = new JTextArea();
   private final JList<String> userList = new JList<>();
@@ -55,9 +60,6 @@ Thread.UncaughtExceptionHandler, SocketThreadListener {
     setSize(WIDTH, HEIGHT);
     setTitle("Funny chat )");
     
-    String[] users = {"User1", "User2", "User3", "User4",
-        "user_with_an_exceptionally_very_super_long_name"};
-    userList.setListData(users);
     log.setEditable(false);
     JScrollPane scrollLog = new JScrollPane(log);
     JScrollPane scrollUsers = new JScrollPane(userList);
@@ -80,6 +82,7 @@ Thread.UncaughtExceptionHandler, SocketThreadListener {
     
     cbAlwaysOnTop.addActionListener(this);
     btnLogin.addActionListener(this);
+    btnDisconnect.addActionListener(this);
     btnSend.addActionListener(this);
     tfMessage.addActionListener(this);
     
@@ -95,6 +98,8 @@ Thread.UncaughtExceptionHandler, SocketThreadListener {
       connect();
     } else if (src == btnSend || src == tfMessage) {
       sendMessage();
+    } else if (src == btnDisconnect) {
+      socketThread.close();
     } else {
       throw new UnknownSourceException("Unknown source: " + src);
     }
@@ -114,7 +119,7 @@ Thread.UncaughtExceptionHandler, SocketThreadListener {
     if (msg.isEmpty()) return;
     tfMessage.setText(null);
     tfMessage.grabFocus();
-    socketThread.sendMessage(msg);
+    socketThread.sendMessage(Library.getTypeBcastClient(msg));
   }
 
   private void putLog(String msg) {
@@ -152,19 +157,51 @@ Thread.UncaughtExceptionHandler, SocketThreadListener {
   @Override
   public void onSocketReady(SocketThread thread, Socket socket) {
     putLog("Ready");
+    panelBottom.setVisible(true);
+    panelTop.setVisible(false);
     String login = tfLogin.getText();
     String password = tfPassword.getText();
     thread.sendMessage(Library.getAuthRequest(login, password));
   }
 
   @Override
-  public void onReceivedString(SocketThread thread, Socket socket, String str) {
-    putLog(str);
+  public void onReceivedString(SocketThread thread, Socket socket, String msg) {
+    String[] arr = msg.split(Library.DELIMITER);
+    String msgType = arr[0];
+    switch (msgType) {
+      case Library.AUTH_ACCEPT:
+        setTitle(WINDOW_TITLE + " entered with nickname: " + arr[1]);
+        break;
+      case Library.AUTH_DENIED:
+        putLog("Authentication failed");
+        break;
+      case Library.MSG_FORMAT_ERROR:
+        putLog(msg);
+        socketThread.close();
+        break;
+      case Library.TYPE_BROADCAST:
+        putLog(DATE_FORMAT.format(Long.parseLong(arr[1])) +
+          arr[2] + ": " + arr[3]);
+        break;
+      case Library.USER_LIST:
+        String users = msg.substring(Library.USER_LIST.length() +
+          Library.DELIMITER.length());
+        String[] usersArr = users.split(Library.DELIMITER);
+        Arrays.sort(usersArr);
+        userList.setListData(usersArr);
+        break;     
+      default:
+        throw new RuntimeException("Unknown message type: " + msg);
+    }
   }
 
   @Override
   public void onSocketStopped(SocketThread thread) {
-    putLog("Stopped");    
+    putLog("Stopped");
+    panelBottom.setVisible(false);
+    panelTop.setVisible(true);
+    setTitle(WINDOW_TITLE);
+    userList.setListData(new String[0]);
   }
 
   @Override

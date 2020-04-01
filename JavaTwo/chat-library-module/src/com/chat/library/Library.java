@@ -6,7 +6,9 @@ public class Library {
   public static final String AUTH_ACCEPT = "/auth_accept";
   public static final String AUTH_DENIED = "/auth_denide";
   public static final String TYPE_BROADCAST = "/bcast";
+  public static final String TYPE_BCAST_CLIENT = "/client_msg";
   public static final String MSG_FORMAT_ERROR = "/msg_format_error";
+  public static final String USER_LIST = "/user_list";
   
   public static String getAuthRequest(String login, String password) {
     return AUTH_REQUEST + DELIMITER + login + DELIMITER + password;
@@ -27,5 +29,13 @@ public class Library {
   public static String getTypeBroadcast(String src, String message) {
     return TYPE_BROADCAST + DELIMITER + System.currentTimeMillis() +
             DELIMITER + src + DELIMITER + message;
+  }
+  
+  public static String getTypeBcastClient(String msg) {
+    return TYPE_BCAST_CLIENT + DELIMITER + msg;
+  }
+
+  public static String getUserList(String users) {
+      return USER_LIST + DELIMITER + users;
   }
 }

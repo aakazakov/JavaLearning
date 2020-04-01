@@ -11,6 +11,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
   private ServerSocketThread server;
   private ChatServerListener listener;
   private Vector<SocketThread> clients = new Vector<>();
+  
   public ChatServer(ChatServerListener listener) {
     this.listener = listener;
   }
@@ -44,6 +45,9 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
   @Override
   public void onServerStopped(ServerSocketThread thread) {
     putLog("Server stopped");
+    for (int i = 0; i < clients.size(); i++) {
+      clients.get(i).close();
+    }
     SqlClient.disconnect();
   }
 
@@ -80,8 +84,14 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
   
   @Override
   public void onSocketStopped(SocketThread thread) {
-    putLog("Client disconnected");
+    ClientThread client = (ClientThread) thread;
     clients.remove(thread);
+    if (client.isAuthorized() && !client.isReconnected()) {
+      sendToAllAuthorizedClients(Library.getTypeBroadcast("Server speak ",
+          client.getNickname() + " is no longer with us"));
+    }
+    putLog(client.getNickname() + " disconnected");
+    sendToAllAuthorizedClients(Library.getUserList(getUsers()));
   }
 
   @Override
@@ -93,16 +103,16 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
   @Override
   public void onReceivedString(SocketThread thread, Socket socket, String msg) {
     ClientThread client = (ClientThread) thread;
+    System.out.println(msg);
     if (client.isAuthorized()) {
       handleAuthorizedMessage(client, msg);
     } else {
       handleNonAuthorizedMassage(client, msg);
     }
-    client.sendMessage(msg);
   }
   
   private void handleNonAuthorizedMassage(ClientThread client, String msg) {
-    String[] arr = msg.split(Library.DELIMITER);
+    String[] arr = msg.split(Library.DELIMITER);   
     if (arr.length != 3 || !arr[0].equals(Library.AUTH_REQUEST)) {
       client.msgFormatError(msg);
       return;
@@ -114,20 +124,55 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
       putLog("Invalid credantials for user " + login);
       client.authFail();
       return;
+    } else {
+      ClientThread oldClient = findClientByNickname(nickname);
+      client.authAccept(nickname);
+      if (oldClient == null) {
+        sendToAllAuthorizedClients(Library.getTypeBroadcast("Server speak ", nickname + " with us"));
+      } else {
+        oldClient.reconnect();
+        clients.remove(oldClient);
+      }
     }
-    client.authAccept(nickname);
-    sendToAllAuthorizedClients(Library.getTypeBroadcast("Server speak: ", nickname + " with us"));
+    sendToAllAuthorizedClients(Library.getUserList(getUsers()));
   }
   
   private void handleAuthorizedMessage(ClientThread client, String msg) {
-    sendToAllAuthorizedClients(msg);
+    String[] arr = msg.split(Library.DELIMITER);
+    String msgType = arr[0];
+    switch (msgType) {
+      case Library.TYPE_BCAST_CLIENT:
+        sendToAllAuthorizedClients(Library.getTypeBroadcast(client.getNickname(), arr[1]));
+        break;
+      default:
+        client.sendMessage(Library.getMsgFormatError(msg));
+    }
   }
   
-  private void sendToAllAuthorizedClients(String msg) {
+  private synchronized void sendToAllAuthorizedClients(String msg) {
     for (int i = 0; i < clients.size(); i++) {
       ClientThread client = (ClientThread) clients.get(i);
       if (!client.isAuthorized()) continue;
       client.sendMessage(msg);
     }
+  }
+  
+  private synchronized String getUsers() {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < clients.size(); i++) {
+      ClientThread client = (ClientThread) clients.get(i);
+      if (!client.isAuthorized()) continue;
+      sb.append(client.getNickname()).append(Library.DELIMITER);
+    }
+    return sb.toString();
+  }
+  
+  private synchronized ClientThread findClientByNickname(String nickname) {
+    for (int i = 0; i < clients.size(); i++) {
+      ClientThread client = (ClientThread) clients.get(i);
+      if (!client.isAuthorized()) continue;
+      if (client.getNickname().equals(nickname)) return client;
+    }
+    return null;
   }
 }

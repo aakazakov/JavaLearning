@@ -81,5 +81,4 @@ public class ServerGUI extends JFrame implements ActionListener, Thread.Uncaught
       log.append("> " + msg + "...\n")
     );
   }
-  
 }

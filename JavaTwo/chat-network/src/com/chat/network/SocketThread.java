@@ -35,7 +35,7 @@ public class SocketThread extends Thread {
     }
   }
 
-  protected synchronized void close() {
+  public synchronized void close() {
     interrupt();
     try {
       socket.close();
