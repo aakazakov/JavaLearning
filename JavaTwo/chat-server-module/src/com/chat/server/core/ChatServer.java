@@ -38,11 +38,13 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
   @Override
   public void onServerStarted(ServerSocketThread thread) {
     putLog("Server started");
+    SqlClient.connect();
   }
 
   @Override
   public void onServerStopped(ServerSocketThread thread) {
     putLog("Server stopped");
+    SqlClient.disconnect();
   }
 
   @Override
@@ -107,7 +109,14 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     }
     String login = arr[1];
     String password = arr[2];
-    // SQL HERE
+    String nickname = SqlClient.getNickname(login, password);
+    if (nickname == null) {
+      putLog("Invalid credantials for user " + login);
+      client.authFail();
+      return;
+    }
+    client.authAccept(nickname);
+    sendToAllAuthorizedClients(Library.getTypeBroadcast("Server speak: ", nickname + " with us"));
   }
   
   private void handleAuthorizedMessage(ClientThread client, String msg) {
