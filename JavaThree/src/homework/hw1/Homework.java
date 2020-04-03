@@ -13,14 +13,10 @@ public class Homework {
     
     // #1.
     String[] arrStr = new String[] {"a", "b" , "c" , "d", "e"};  
-    System.out.println("Before: " + Arrays.toString(arrStr));
+    System.out.println("Before swap: " + Arrays.toString(arrStr));
     
     method.swap(arrStr, 0, 4);
-    System.out.println("After: " + Arrays.toString(arrStr));
-    
-    List<String> list = Arrays.asList(arrStr);
-    method.swap(list, 1, 3);
-    System.out.println("And after another swap: " + list + "\n");
+    System.out.println("After swap: " + Arrays.toString(arrStr) + "\n");
     
     // #2.
     Integer[] arrInt = new Integer[] {1, 2, 3, 4, 5};
