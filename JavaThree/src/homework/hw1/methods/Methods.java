@@ -22,6 +22,8 @@ public class Methods {
   // Я посмотрел реализацию метода Arrays.asList, там переданный массив
   // преобразуется в последовательность аргументов (T ...arr). Не пойму, почему 
   // в случае с (T ...arr) можно передать массив примитивов, а в моём случае нет).
+  // То есть я понимаю, что должен принимать массив ссылок, тк так указано в параметре, но
+  // почему это работает в Arrays.asList ?
   public <T> ArrayList<T> makeArrayList(T[] arr) {
     ArrayList<T> arrList = new ArrayList<>(arr.length);
     for (int i = 0; i < arr.length; i++) {
