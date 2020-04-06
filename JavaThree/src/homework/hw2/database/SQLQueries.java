@@ -1,12 +1,12 @@
-package homework.hw2;
+package homework.hw2.database;
 
 import java.sql.*;
 
-public class SQLDBMethods {
+public class SQLQueries {
   Connection connection;
   String tableName = "Students";
   
-  public SQLDBMethods(Connection connection) {
+  public SQLQueries (Connection connection) {
     this.connection = connection;
   }
   
