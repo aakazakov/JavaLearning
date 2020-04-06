@@ -3,20 +3,21 @@ package homework.hw2;
 import java.sql.SQLException;
 
 import homework.hw2.database.DBConnector;
-import homework.hw2.database.SQLQueries;
 
 public class Homework {
 
   public static void main(String[] args) {
     
+    DBConnector connector = new DBConnector();
+    
     try {
-      DBConnector connector = new DBConnector();
-      SQLQueries queries = new SQLQueries(connector.getConnection());
-      
-      
+      connector.connect();
     } catch (ClassNotFoundException | SQLException e) {
       e.printStackTrace();
+      return;
     }
+    
+    connector.disconnect();
   }
 
 }

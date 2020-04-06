@@ -7,10 +7,6 @@ public class DBConnector {
   private final String connectionString = "jdbc:sqlite:mainDB.db";
   private Connection connection;
   
-  public DBConnector() throws ClassNotFoundException, SQLException {
-    connect();
-  }
-  
   public void connect() throws ClassNotFoundException, SQLException {
     Class.forName(driverName);
     connection = DriverManager.getConnection(connectionString);
@@ -19,7 +15,7 @@ public class DBConnector {
   public void disconnect() {
     try {
       connection.close();
-    } catch (SQLException e) {
+    } catch (SQLException | NullPointerException e) {
       e.printStackTrace();
     }
   }
