@@ -12,7 +12,7 @@ public class Homework {
     Methods method = new Methods();
     
     // #1.
-    String[] arrStr = new String[] {"a", "b" , "c" , "d", "e"};  
+    Object[] arrStr = new String[] {"a", "b" , "c" , "d", "e"};
     System.out.println("Before swap: " + Arrays.toString(arrStr));
     
     method.swap(arrStr, 0, 4);

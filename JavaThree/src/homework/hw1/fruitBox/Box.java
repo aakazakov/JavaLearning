@@ -22,10 +22,8 @@ public class Box<T extends Fruit> {
   }
   
   public void moveFruitsToAnother(Box<T> box) {
-    for (T fruit : fruits) {
-      box.put(fruit);
-    }
-    fruits.clear();
+    box.fruits.addAll(this.fruits);
+    this.fruits.clear();
   }
 
 }
