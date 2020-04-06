@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DBConnector {
   private final String driverName = "org.sqlite.JDBC";
-  private final String connectionString = "jdbc:sqlite:mainDB.db";
+  private final String connectionString = "jdbc:sqlite:src/homework/hw2/mainDB.db";
   private Connection connection;
   
   public void connect() throws ClassNotFoundException, SQLException {
