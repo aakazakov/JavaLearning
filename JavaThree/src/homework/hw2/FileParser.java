@@ -1,23 +1,29 @@
 package homework.hw2;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
+import java.util.regex.Pattern;
 
 public class FileParser {
   
-  public static void scanFile(String path) {
+  private static final String REGEXP = "\\d+\\s+\\w+\\s+\\d+";
+  
+  public static List<String> getDataStringsFromFile(String path) {
+    List<String> dataStrings = new ArrayList<>();
     try {
       File file = new File(path);
       Scanner sc = new Scanner(file, "utf8");
       while (sc.hasNextLine()) {
-        String str = sc.nextLine();
-        System.out.println(str);
+        sc.nextLine();
+        String str = sc.findInLine(Pattern.compile(REGEXP, Pattern.CASE_INSENSITIVE));
+        if (str == null) continue;
+        dataStrings.add(str);
       }
       sc.close();
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
+    return dataStrings;
   }
 
 }

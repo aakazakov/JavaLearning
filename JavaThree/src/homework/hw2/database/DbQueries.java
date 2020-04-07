@@ -1,6 +1,7 @@
 package homework.hw2.database;
 
 import java.sql.*;
+import java.util.List;
 
 public class DbQueries {
   private Connection connection;
@@ -41,12 +42,29 @@ public class DbQueries {
     }
   }
   
-  public void updateScoreValue(int newValue, int id) {
+  public void updateScoreValueAtOne(int newValue, int id) {
     String query = String.format("UPDATE %s SET score = ? WHERE id = ?;", tableName);
     try (PreparedStatement ps = connection.prepareStatement(query)) {
       ps.setInt(1, newValue);
       ps.setInt(2,id);
       ps.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+  
+  public void updateScoreValueAtAllFromList(List<String> dataList) {
+    String query = String.format("UPDATE %s SET score = ? WHERE id = ?;", tableName);
+    try (PreparedStatement ps = connection.prepareStatement(query)) {
+      for (int i = 0; i < dataList.size(); i++) {
+        
+        String[] data = dataList.get(i).split("  ");
+        ps.setInt(1, Integer.parseInt(data[data.length - 1]));
+        ps.setInt(2, Integer.parseInt(data[0]));
+        ps.addBatch();
+        
+      }
+      ps.executeBatch();
     } catch (SQLException e) {
       e.printStackTrace();
     }
