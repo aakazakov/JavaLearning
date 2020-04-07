@@ -2,7 +2,7 @@ package homework.hw2.database;
 
 import java.sql.*;
 
-public class DBConnector {
+public class DbConnector {
   private final String driverName = "org.sqlite.JDBC";
   private final String connectionString = "jdbc:sqlite:src/homework/hw2/mainDB.db";
   private Connection connection;
@@ -19,7 +19,7 @@ public class DBConnector {
       e.printStackTrace();
     }
   }
-
+  
   public Connection getConnection() {
     return connection;
   }
