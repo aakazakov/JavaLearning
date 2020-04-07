@@ -2,11 +2,11 @@ package homework.hw2.database;
 
 import java.sql.*;
 
-public class SQLQueries {
+public class DbQueries {
   private Connection connection;
   private String tableName = "students";
   
-  public SQLQueries (Connection connection) {
+  public DbQueries (Connection connection) {
     this.connection = connection;
   }
   
