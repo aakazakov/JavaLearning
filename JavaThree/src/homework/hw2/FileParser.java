@@ -15,7 +15,7 @@ public class FileParser {
       Scanner sc = new Scanner(file, "utf8");
       while (sc.hasNextLine()) {
         sc.nextLine();
-        String str = sc.findInLine(Pattern.compile(REGEXP, Pattern.CASE_INSENSITIVE));
+        String str = sc.findInLine(REGEXP);
         if (str == null) continue;
         dataStrings.add(str);
       }

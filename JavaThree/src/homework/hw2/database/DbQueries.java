@@ -58,7 +58,7 @@ public class DbQueries {
     try (PreparedStatement ps = connection.prepareStatement(query)) {
       for (int i = 0; i < dataList.size(); i++) {
         
-        String[] data = dataList.get(i).split("  ");
+        String[] data = dataList.get(i).split("\\s+");
         ps.setInt(1, Integer.parseInt(data[data.length - 1]));
         ps.setInt(2, Integer.parseInt(data[0]));
         ps.addBatch();
@@ -71,7 +71,7 @@ public class DbQueries {
   }
   
   public ResultSet getMainDataAboutOne(int id) {
-    String query = String.format("Select id, name, score FROM %s WHERE id = ?", tableName);
+    String query = String.format("SELECT id, name, score FROM %s WHERE id = ?", tableName);
     try (PreparedStatement ps = connection.prepareStatement(query)) {
       ps.setInt(1,id);
       return ps.executeQuery();
