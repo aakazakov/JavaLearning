@@ -13,7 +13,9 @@ public class Homework {
 //     File file = new File(DIR + "file0.txt");
 //     System.out.println(file.length());
     
-    FileViewer.readStreamAndShowInConsole(DIR + "file0.txt");
+//    FileViewer.readStreamAndShowInConsole(DIR + "file0.txt");
+    
+    FileViewer.writeStreamInOneFile(DIR + "out.txt", DIR + "in0.txt", DIR + "in1.txt");
     
   }
   
