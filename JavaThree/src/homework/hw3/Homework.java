@@ -13,7 +13,7 @@ public class Homework {
 //     File file = new File(DIR + "file0.txt");
 //     System.out.println(file.length());
     
-    FileViewer.readAndShowInConsole(DIR + "file0.txt");    
+    FileViewer.readStreamAndShowInConsole(DIR + "file0.txt");
     
   }
   
