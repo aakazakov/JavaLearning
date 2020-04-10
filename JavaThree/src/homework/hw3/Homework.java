@@ -10,12 +10,17 @@ public class Homework {
   
   public static void main(String[] args) {
      
-//     File file = new File(DIR + "file0.txt");
+//     File file = new File(DIR + "in4.txt");
 //     System.out.println(file.length());
     
 //    FileViewer.readStreamAndShowInConsole(DIR + "file0.txt");
     
-    FileViewer.writeStreamInOneFile(DIR + "out.txt", DIR + "in0.txt", DIR + "in1.txt");
+    FileViewer.writeStreamInOneFile(DIR + "out.txt",
+        DIR + "in0.txt",
+        DIR + "in1.txt",
+        DIR + "in2.txt",
+        DIR + "in3.txt",
+        DIR + "in4.txt");
     
   }
   

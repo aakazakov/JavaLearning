@@ -17,11 +17,10 @@ public class FileViewer {
     }
   }
   
-  // FIXME add EOL ?
   public static void writeStreamInOneFile(String out, String...in) {
     try (SequenceInputStream sis = new SequenceInputStream(Collections.enumeration(getInputStreamList(in)));
         FileOutputStream fos = new FileOutputStream(out)) {
-      byte[] arr = new byte[256];
+      byte[] arr = new byte[1024];
       int x;
       while ((x = sis.read(arr)) > 0) {
         fos.write(arr, 0, x);
