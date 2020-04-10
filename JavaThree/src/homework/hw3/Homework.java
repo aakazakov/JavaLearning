@@ -10,32 +10,30 @@ public class Homework {
   
   public static void main(String[] args) {
      
-     File file = new File(DIR + "bigIn.txt");
-     System.out.println(file.length());
-  
-//      createVeryLargeFIle();
-    
+//    File file = new File(DIR + "bigIn.txt");
+//    System.out.println(file.length());
+
+//    // #1
 //    FileViewer.readStreamAndShowInConsole(DIR + "file0.txt");
-    
+//
+//    // #2
 //    FileViewer.writeStreamInOneFile(DIR + "out.txt",
-//        DIR + "in0.txt",
-//        DIR + "in1.txt",
-//        DIR + "in2.txt",
-//        DIR + "in3.txt",
-//        DIR + "in4.txt");
-//    
+//      DIR + "in0.txt",
+//      DIR + "in1.txt",
+//      DIR + "in2.txt",
+//      DIR + "in3.txt",
+//      DIR + "in4.txt");
+
+    // #3
+    // createVeryLargeFIle();
+    
+    
   }
   
   public static void createVeryLargeFIle() {
     File file = new File(DIR + "bigIn.txt");
-    if (!file.exists()) {
-      try {
-        file.createNewFile();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+      if (!file.exists()) file.createNewFile();
       while (file.length() < 11e+6) {
         bw.write("FromJavaWithLove\n");
       }
