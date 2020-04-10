@@ -22,25 +22,23 @@ public class Homework {
 //      DIR + "in4.txt");
 
 //    // #3
-//    // System.out.println(createVeryLargeFIle()); // 647650
-//    
-//    FileViewer.readLargeFileInConsole(DIR + "bigIn.txt");
+//    FileViewer.readLargeFileInConsole(getVeryLargeFIle());
+//    getVeryLargeFIle().delete();
   }
   
   // Создает файл размером около 11 Мб.
-  public static int createVeryLargeFIle() {
-    File file = new File(DIR + "bigIn.txt");
-    int stringsCounter = 0;
+  public static File getVeryLargeFIle() {
+    File file = new File(DIR + "largeFile.txt");
+    if (file.exists() && file.length() > 10e+6) return file;
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
       if (!file.exists()) file.createNewFile();
       while (file.length() < 11e+6) {
         bw.write("FromJavaWithLove\n");
-        stringsCounter++;
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return stringsCounter;
+    return file;
   }
   
 }

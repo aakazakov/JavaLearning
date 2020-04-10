@@ -44,7 +44,7 @@ public class FileViewer {
   
   
   // Читает большой файл и порциями чаров выводит в консоль.
-  public static void readLargeFileInConsole(String file) {
+  public static void readLargeFileInConsole(File file) {
     
     long start1 = System.currentTimeMillis(); // test
     
