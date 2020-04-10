@@ -42,4 +42,29 @@ public class FileViewer {
     return list;
   }
   
+  
+  // Читает большой файл и порциями чаров выводит в консоль.
+  public static void readLargeFileInConsole(String file) {
+    
+    long start1 = System.currentTimeMillis(); // test
+    
+    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+      char[] chars = new char[1802];
+      int x;
+      while((x = br.read(chars)) != -1) {
+        
+        long start2 = System.currentTimeMillis(); // test
+        
+        System.out.println(new String(chars, 0, x));
+        
+        System.out.printf("PAGE OUTPUT: %d s%n", (System.currentTimeMillis() - start2) / 1000); // 0s
+        
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    
+    System.out.printf("PROGRAM ENDED: %d s%n", (System.currentTimeMillis() - start1) / 1000); // 3s
+  }
+  
 }

@@ -10,9 +10,6 @@ public class Homework {
   
   public static void main(String[] args) {
      
-//    File file = new File(DIR + "bigIn.txt");
-//    System.out.println(file.length());
-
 //    // #1
 //    FileViewer.readStreamAndShowInConsole(DIR + "file0.txt");
 //
@@ -24,22 +21,26 @@ public class Homework {
 //      DIR + "in3.txt",
 //      DIR + "in4.txt");
 
-    // #3
-    // createVeryLargeFIle();
-    
-    
+//    // #3
+//    // System.out.println(createVeryLargeFIle()); // 647650
+//    
+//    FileViewer.readLargeFileInConsole(DIR + "bigIn.txt");
   }
   
-  public static void createVeryLargeFIle() {
+  // Создает файл размером около 11 Мб.
+  public static int createVeryLargeFIle() {
     File file = new File(DIR + "bigIn.txt");
+    int stringsCounter = 0;
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
       if (!file.exists()) file.createNewFile();
       while (file.length() < 11e+6) {
         bw.write("FromJavaWithLove\n");
+        stringsCounter++;
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
+    return stringsCounter;
   }
   
 }
