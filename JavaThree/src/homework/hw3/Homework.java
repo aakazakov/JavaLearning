@@ -27,7 +27,7 @@ public class Homework {
 
   }
   
-  // Создает файл размером около 11 Мб.
+  // Return large file (more then 10Mb).
   public static File getVeryLargeFIle() {
     File file = new File(DIR + "largeFile.txt");
     if (file.exists() && file.length() > 10e+6) return file;

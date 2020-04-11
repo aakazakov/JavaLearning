@@ -2,7 +2,7 @@ package homework.hw3.serializzz;
 
 import java.io.Serializable;
 
-// Каша из всего)
+// kasha ))
 public class Entity implements Serializable {
   private static final long serialVersionUID = 1L;
   private String name;
@@ -19,7 +19,7 @@ public class Entity implements Serializable {
   
   public int computeFactorial(int number) {
     if (number == 1) return number;
-    return number * (number - 1);
+    return number * computeFactorial(number - 1);
   }
   
   @Override

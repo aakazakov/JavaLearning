@@ -43,7 +43,7 @@ public class FileViewer {
   }
   
   
-  // Читает большой файл и порциями чаров выводит в консоль.
+  // Read large file in chunks
   public static void readLargeFileInConsole(File file) {
     
     long start1 = System.currentTimeMillis(); // test
