@@ -16,9 +16,14 @@ public class Entity implements Serializable {
     this.weight = weight;
   }
   
+  public int computeFactorial(int number) {
+    if (number == 1) return number;
+    return number * (number - 1);
+  }
+  
   @Override
   public String toString() {
-    return String.format("This is a certain entity called %s, %s shape, %s color, weighs %d",
+    return String.format("This is a certain entity called %s, %s shape, %s color, weighs %d )).",
         name, shape, color, weight);
   }
   
