@@ -2,6 +2,7 @@ package homework.hw3;
 
 import java.io.*;
 
+import homework.hw3.serializzz.*;
 import homework.hw3.work_with_files.FileViewer;
 
 public class Homework {
@@ -24,6 +25,9 @@ public class Homework {
 //    // #3
 //    FileViewer.readLargeFileInConsole(getVeryLargeFIle());
 //    getVeryLargeFIle().delete();
+    
+    // #4
+
   }
   
   // Создает файл размером около 11 Мб.
