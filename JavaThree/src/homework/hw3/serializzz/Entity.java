@@ -2,6 +2,7 @@ package homework.hw3.serializzz;
 
 import java.io.Serializable;
 
+// Каша из всего)
 public class Entity implements Serializable {
   private static final long serialVersionUID = 1L;
   private String name;

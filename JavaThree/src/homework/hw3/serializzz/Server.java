@@ -7,24 +7,21 @@ public class Server {
   public static final int PORT = 8189;
   
   public static void main(String[] args) {
-    
+
     try (ServerSocket server = new ServerSocket(PORT)) {
-      System.out.println("Server created");
-      
       Socket socket = server.accept();
-      System.out.println("Connection accepted");
-      
       DataInputStream in = new DataInputStream(socket.getInputStream());
-      System.out.println("Input stream opened");
       
-      String entry = in.readUTF();
-      System.out.println(entry);
+      byte[] inBytes = in.readAllBytes();
+      ByteArrayInputStream inStream = new ByteArrayInputStream(inBytes);
+      ObjectInputStream inObj = new ObjectInputStream(inStream);
+      
+      Entity entity = (Entity) inObj.readObject();
+      System.out.println(entity);
+      System.out.println(entity.computeFactorial(5));
       
       in.close();
-      System.out.println("Input stream closed");
-      
-      socket.close();
-      System.out.println("Connection ended");
+      socket.close();      
     } catch (Exception e) {
       e.printStackTrace();
     }
