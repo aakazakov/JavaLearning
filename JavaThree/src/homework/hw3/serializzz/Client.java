@@ -10,16 +10,11 @@ public class Client {
   public static void main(String[] args) {
     
     try (Socket socket = new Socket(HOST, Server.PORT);
-        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-        ObjectOutputStream outObj = new ObjectOutputStream(outStream)) {
+        ObjectOutputStream outObj = new ObjectOutputStream(socket.getOutputStream())) {
       
       Entity entity = new Entity("Substance", "square", "green", 10);
       
       outObj.writeObject(entity);
-      byte[] outBytes = outStream.toByteArray();
-      
-      out.write(outBytes);    
       
     } catch (Exception e) {
       e.printStackTrace();
