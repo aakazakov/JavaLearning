@@ -22,13 +22,19 @@ public class Launcher {
     for (int i = 0; i < cars.length; i++) {
       cars[i] = new Car(race, 20 + (int) (Math.random() * 10), "Car #" + (i + 1));
     }
+    
     for (int i = 0; i < cars.length; i++) {
       pool.execute(cars[i]);
     }
     
     pool.shutdown();
     
-    System.out.println("== Race started ==");
+    while (true) {
+      if (Car.isAllReadyToStart()) {
+        System.out.println("== Race started ==");
+        break;
+      }
+    }
     
     while (true) {
       if (pool.isTerminated()) {

@@ -41,4 +41,8 @@ public class Car implements Runnable {
       race.getStages().get(i).go(this);
     }
   }
+  
+  public static boolean isAllReadyToStart() {
+    return (int) LATCH.getCount() == 0;
+  }
 }
