@@ -29,7 +29,13 @@ public class Launcher {
     pool.shutdown();
     
     System.out.println("== Race started ==");
-    System.out.println("== Race ended ==");
+    
+    while (true) {
+      if (pool.isTerminated()) {
+        System.out.println("== Race ended ==");
+        break;
+      }
+    }
   }
 
 }
