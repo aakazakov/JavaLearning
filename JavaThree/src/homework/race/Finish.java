@@ -10,6 +10,8 @@ public class Finish extends Stage {
     if (haveWinner.get() == 0) {
       haveWinner.incrementAndGet();
       System.out.println(c.getName() + " WINNER !!!");
+    } else {
+      System.out.println(c.getName() + " in " + haveWinner.incrementAndGet() + " place");
     }
   }
   
