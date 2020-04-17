@@ -1,6 +1,9 @@
 package homework.race;
 
+import java.util.concurrent.*;
+
 public class Car implements Runnable {
+  private static final CountDownLatch LATCH = new CountDownLatch(Launcher.NUMBER_OF_CARS);
   private Race race;
   private int speed;
   private String name;
@@ -25,6 +28,12 @@ public class Car implements Runnable {
       System.out.println(this.name + " is getting ready...");
       Thread.sleep(500 + (int)(Math.random() * 800));
       System.out.println(this.name + " is ready...");
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    LATCH.countDown();
+    try {
+      LATCH.await();
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
