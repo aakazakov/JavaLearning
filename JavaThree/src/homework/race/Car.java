@@ -3,13 +3,13 @@ package homework.race;
 import java.util.concurrent.*;
 
 public class Car implements Runnable {
-  private static final CountDownLatch LATCH = new CountDownLatch(Launcher.NUMBER_OF_CARS);
-  private Race race;
+  private static final CountDownLatch LATCH = new CountDownLatch(Launcher.NUMBER_OF_CARS + 1);
+  private Track track;
   private int speed;
   private String name;
   
-  public Car(Race race, int speed, String name) {
-    this.race = race;
+  public Car(Track race, int speed, String name) {
+    this.track = race;
     this.speed = speed;
     this.name = name;
   }
@@ -37,12 +37,16 @@ public class Car implements Runnable {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    for (int i = 0; i < race.getStages().size(); i++) {
-      race.getStages().get(i).go(this);
+    for (int i = 0; i < track.getStages().size(); i++) {
+      track.getStages().get(i).go(this);
     }
   }
   
-  public static boolean isAllReadyToStart() {
-    return (int) LATCH.getCount() == 0;
+  public static boolean areAllCarsReadyToStart() {
+    return (int) LATCH.getCount() == 1;
+  }
+  
+  public static void launch() {
+    LATCH.countDown();
   }
 }

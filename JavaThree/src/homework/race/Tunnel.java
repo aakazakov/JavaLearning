@@ -3,10 +3,10 @@ package homework.race;
 import java.util.concurrent.Semaphore;
 
 public class Tunnel extends Stage {
-  private Semaphore semaphore = new Semaphore((int)Launcher.NUMBER_OF_CARS / 2);
+  private Semaphore semaphore = new Semaphore((int) Launcher.NUMBER_OF_CARS / 2);
   
-  public Tunnel() {
-    this.length = 80;
+  public Tunnel(int length) {
+    this.length = length;
     this.description = "tunnel " + length + "m";
   }
   
