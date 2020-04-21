@@ -9,7 +9,7 @@ import org.junit.runners.Parameterized;
 import homework.hw5.ArrayMethods;
 
 @RunWith(Parameterized.class)
-public class ItemsAfterLastFourTest {
+public class ItemsAfterLastFourTests {
   
   @Parameterized.Parameters
   public static Collection<Integer[][]> data() {
@@ -26,7 +26,7 @@ public class ItemsAfterLastFourTest {
   private int[] inArr;
   private int[] outArr;
   
-  public ItemsAfterLastFourTest(Integer[] inArr, Integer[] outArr) {
+  public ItemsAfterLastFourTests(Integer[] inArr, Integer[] outArr) {
     
     this.inArr = new int[inArr.length];
     this.outArr = new int[outArr.length];

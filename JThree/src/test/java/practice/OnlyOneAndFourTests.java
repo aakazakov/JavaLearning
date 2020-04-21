@@ -9,20 +9,20 @@ import org.junit.runners.Parameterized;
 import homework.hw5.ArrayMethods;
 
 @RunWith(Parameterized.class)
-public class OnlyOneAndFour {
+public class OnlyOneAndFourTests {
 
   @Parameterized.Parameters
   public static Collection<Integer[][]> data() {
     return Arrays.asList(new Integer[][][] {
-      {{1, 4, 4, 1, 4, 1, 4, 4, 1}},
-      {{1, 1, 1, 1, 1, 1, 4}},
-      {{4, 4, 4, 4, 4, 4, 4, 1}}
+      { {1, 4, 4, 1, 4, 1, 4, 4, 1} },
+      { {1, 1, 1, 1, 1, 1, 4} },
+      { {4, 4, 4, 4, 4, 4, 4, 1} }
     });
   }
 
   private int[] inArr;
   
-  public OnlyOneAndFour(Integer[] inArr) {
+  public OnlyOneAndFourTests(Integer[] inArr) {
     this.inArr = new int[inArr.length];
     
     for (int i = 0; i < inArr.length; i++) {
