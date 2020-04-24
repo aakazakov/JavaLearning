@@ -12,22 +12,18 @@ import homework.hw5.ArrayMethods;
 public class OnlyOneAndFourTests {
 
   @Parameterized.Parameters
-  public static Collection<Integer[][]> data() {
-    return Arrays.asList(new Integer[][][] {
-      { {1, 4, 4, 1, 4, 1, 4, 4, 1} },
-      { {1, 1, 1, 1, 1, 1, 4} },
-      { {4, 4, 4, 4, 4, 4, 4, 1} }
+  public static Collection<Object[]> data() {
+    return Arrays.asList(new Object[][] {
+      { new int[] {1, 4, 4, 1, 4, 1, 4, 4, 1} },
+      { new int[] {1, 1, 1, 1, 1, 1, 4} },
+      { new int[] {4, 4, 4, 4, 4, 4, 4, 1} }
     });
   }
 
   private int[] inArr;
   
-  public OnlyOneAndFourTests(Integer[] inArr) {
-    this.inArr = new int[inArr.length];
-    
-    for (int i = 0; i < inArr.length; i++) {
-      this.inArr[i] = inArr[i].intValue();
-    }
+  public OnlyOneAndFourTests(int[] inArr) {
+    this.inArr = inArr;
   }
   
   private ArrayMethods am;
