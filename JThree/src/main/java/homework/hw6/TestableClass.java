@@ -10,7 +10,7 @@ public class TestableClass {
   private int secondOperand;
   
   @BeforeSuite
-  public TestableClass(int firstOperand, int secondOrerand) {
+  public void init(int firstOperand, int secondOrerand) {
     this.firstOperand = firstOperand;
     this.secondOperand = secondOrerand;
   }
