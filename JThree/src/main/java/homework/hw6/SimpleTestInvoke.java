@@ -1,9 +1,9 @@
-package homework.hw6.testing;
+package homework.hw6;
 
-import java.lang.reflect.*;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
-public class Tester {
+public class SimpleTestInvoke {
   
   public static void start(String className) throws ClassNotFoundException {
     Class<?> testClass = Class.forName(className);
@@ -13,4 +13,5 @@ public class Tester {
       System.out.println(m.getName() + " " + Arrays.toString(m.getAnnotations()));
     }
   }
+  
 }

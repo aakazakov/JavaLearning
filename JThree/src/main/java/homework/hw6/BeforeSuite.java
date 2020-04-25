@@ -1,4 +1,4 @@
-package homework.hw6.testing;
+package homework.hw6;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -8,6 +8,4 @@ import java.lang.annotation.Target;
 
 @Retention(RUNTIME)
 @Target(METHOD)
-public @interface Test {
-
-}
+public @interface BeforeSuite { }
