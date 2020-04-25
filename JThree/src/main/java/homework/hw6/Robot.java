@@ -12,17 +12,17 @@ public class Robot {
     System.out.println("Robot is OFF");
   }
   
-  @Test
+  @Test(priority = 3)
   void makeBeep() {
     System.out.println("Beeeeep...");
   }
   
-  @Test
+  @Test(priority = 1)
   void takeStep() {
     System.out.println("Robot took a step");
   }
   
-  @Test
+  @Test(priority = 5)
   void raiseHand() {
     System.out.println("Robot raised his hand");
   }
