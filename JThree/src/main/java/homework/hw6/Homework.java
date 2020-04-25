@@ -6,7 +6,7 @@ public class Homework {
     
     try {
       SimpleTestInvoke.start("homework.hw6.Robot");
-    } catch (ClassNotFoundException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }  
     
