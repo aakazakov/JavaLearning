@@ -19,7 +19,7 @@ public class Homework {
       int y = 0;
       
       // left -> right
-      while (x < matrix[y].length - 1) {
+      while (true) {
         
         if (matrix[y][x] != 0) break;
         
@@ -28,10 +28,11 @@ public class Homework {
         x++;
         counter++;
         
+        if (x == matrix[y].length - 1) break;
       }
            
       // up -> down
-      while (y < matrix.length - 1) {
+      while (true) {
         
         if (matrix[y][x] != 0) break;
         
@@ -40,10 +41,12 @@ public class Homework {
         y++;
         counter++;
         
+        if (y == matrix.length - 1) break;
+        
       }
       
       // right -> left
-      while (x >= 1) {
+      while (true) {
         
         if (matrix[y][x] != 0) break;
         
@@ -52,10 +55,12 @@ public class Homework {
         x--;
         counter++;
         
+        if (x == 0) break;
+        
       }
       
       // down -> up
-      while (y >= 1) {
+      while (true) {
         
         if (matrix[y][x] != 0) break;
         
@@ -63,6 +68,83 @@ public class Homework {
         
         y--;
         counter++;
+        
+        if (y == 0) break;
+        
+      }
+      
+      x++; y++;
+      
+      
+      // left -> right
+      while (true) {
+        
+        if (matrix[y][x] != 0) break;
+        
+        matrix[y][x] = counter;
+        
+        x++;
+        counter++;
+        
+        if (x == matrix[y].length - 2) break;
+        
+      }
+           
+      // up -> down
+      while (true) {
+        
+        if (matrix[y][x] != 0) break;
+        
+        matrix[y][x] = counter;
+        
+        y++;
+        counter++;
+        
+        if (y == matrix[y].length - 2) break;
+        
+      }
+      
+      // right -> left
+      while (true) {
+        
+        if (matrix[y][x] != 0) break;
+        
+        matrix[y][x] = counter;
+        
+        x--;
+        counter++;
+        
+        if (x == 1) break;
+        
+      }
+      
+      // down -> up
+      while (true) {
+        
+        if (matrix[y][x] != 0) break;
+        
+        matrix[y][x] = counter;
+        
+        y--;
+        counter++;
+        
+        if (y == 1) break;
+        
+      }
+      
+      x++; y++;
+      
+      // left -> right
+      while (true) {
+        
+        if (matrix[y][x] != 0) break;
+        
+        matrix[y][x] = counter;
+        
+        x++;
+        counter++;
+        
+        if (x == matrix[y].length - 3) break;
         
       }
       
