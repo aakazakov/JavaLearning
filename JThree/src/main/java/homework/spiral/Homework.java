@@ -15,28 +15,55 @@ public class Homework {
         Arrays.fill(row, 0);
       }
       
-      // left -> right
-      for (int i = 0; i < matrix[0].length; i++) {
-        matrix[0][i] = counter;
-        counter++;
-      }
+      int x = 0;
+      int y = 0;
       
-      // up -> down
-      for (int i = 1; i < matrix.length; i++) {
-        matrix[i][matrix[i].length - 1] = counter;
+      // left -> right
+      while (x < matrix[y].length - 1) {
+        
+        if (matrix[y][x] != 0) break;
+        
+        matrix[y][x] = counter;
+        
+        x++;
         counter++;
+        
+      }
+           
+      // up -> down
+      while (y < matrix.length - 1) {
+        
+        if (matrix[y][x] != 0) break;
+        
+        matrix[y][x] = counter;
+        
+        y++;
+        counter++;
+        
       }
       
       // right -> left
-      for (int i = matrix[0].length - 2; i >= 0; i--) {
-        matrix[matrix[0].length - 1][i] = counter;
+      while (x >= 1) {
+        
+        if (matrix[y][x] != 0) break;
+        
+        matrix[y][x] = counter;
+        
+        x--;
         counter++;
+        
       }
       
       // down -> up
-      for (int i = matrix.length - 2; i > 0; i--) {
-        matrix[i][matrix[i][0]] = counter;
+      while (y >= 1) {
+        
+        if (matrix[y][x] != 0) break;
+        
+        matrix[y][x] = counter;
+        
+        y--;
         counter++;
+        
       }
       
       return matrix;
