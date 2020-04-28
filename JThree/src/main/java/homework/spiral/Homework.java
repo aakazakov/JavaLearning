@@ -8,69 +8,47 @@ public class Homework {
     
     int[][] getSpiralOfNumbers(int[][] matrix, int counter, int x, int y) {
       
-      // left -> right
-      
-      while (true) {
-        
-        if (x + 1 == matrix.length || matrix[y][x + 1] != 0) {
-          break;
-        }
-        
+      if (matrix.length == 1) {
         matrix[y][x] = counter;
-        
+        return matrix;
+      }
+      
+      // left -> right
+      while (true) {
+        if (x + 1 == matrix.length || matrix[y][x + 1] != 0) break;
+        matrix[y][x] = counter;
         x++;
         counter++;
-        
       }
       
       // up -> down
-      
       while (true) {
-        
-        if (y + 1 == matrix.length || matrix[y + 1][x] != 0) {
-          break;
-        }
-        
+        if (y + 1 == matrix.length || matrix[y + 1][x] != 0) break;
         matrix[y][x] = counter;
-        
         y++;
         counter++;
-        
       }
       
       // right -> left
-      
       while (true) {
-        
-        if (x == 0 || matrix[y][x - 1] != 0) {
-          break;
-        }
-        
+        if (x == 0 || matrix[y][x - 1] != 0) break;
         matrix[y][x] = counter;
-        
         x--;
         counter++;
-        
       }
       
       // down -> up
-      
       while (true) {
-        
-        if (y == 0 || matrix[y][x] != 0) {
-          break;
-        }
-        
+        if (y == 0 || matrix[y][x] != 0) break;
         matrix[y][x] = counter;
-        
         y--;
         counter++;
-        
       }
       
-      System.out.println(x + " " + y);
+      // exit from recursion
+      if (counter == matrix.length * matrix.length + 1) return matrix;
       
-      return matrix;
+      return getSpiralOfNumbers(matrix, counter, ++x, ++y);
     }
     
   }
@@ -79,7 +57,7 @@ public class Homework {
 
     Spiral spiral = new Spiral();
     
-    int size = 4;
+    int size = 1;
     
     int[][] square = new int[size][size];
     
