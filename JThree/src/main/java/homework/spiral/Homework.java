@@ -1,75 +1,69 @@
 package homework.spiral;
 
-import java.util.Arrays;
-
 public class Homework {
   
   public static class Spiral {
     
-    int[][] getSpiralOfNumbers(int[][] matrix, int counter, int x, int y) {
+    int[][] getSpiralOfNumbers(int[][] squareMatrix, int x, int y, int number) {
       
-      if (matrix.length == 1) {
-        matrix[y][x] = counter;
-        return matrix;
+      if (squareMatrix.length == 1) {
+        squareMatrix[y][x] = number;
+        return squareMatrix;
       }
       
       // left -> right
       while (true) {
-        if (x + 1 == matrix.length || matrix[y][x + 1] != 0) break;
-        matrix[y][x] = counter;
+        if (x + 1 == squareMatrix.length || squareMatrix[y][x + 1] != 0) break;
+        squareMatrix[y][x] = number;
         x++;
-        counter++;
+        number++;
       }
       
       // up -> down
       while (true) {
-        if (y + 1 == matrix.length || matrix[y + 1][x] != 0) break;
-        matrix[y][x] = counter;
+        if (y + 1 == squareMatrix.length || squareMatrix[y + 1][x] != 0) break;
+        squareMatrix[y][x] = number;
         y++;
-        counter++;
+        number++;
       }
       
       // right -> left
       while (true) {
-        if (x == 0 || matrix[y][x - 1] != 0) break;
-        matrix[y][x] = counter;
+        if (x == 0 || squareMatrix[y][x - 1] != 0) break;
+        squareMatrix[y][x] = number;
         x--;
-        counter++;
+        number++;
       }
       
       // down -> up
       while (true) {
-        if (y == 0 || matrix[y][x] != 0) break;
-        matrix[y][x] = counter;
+        if (y == 0 || squareMatrix[y][x] != 0) break;
+        squareMatrix[y][x] = number;
         y--;
-        counter++;
+        number++;
       }
       
       // exit from recursion
-      if (counter == matrix.length * matrix.length + 1) return matrix;
+      if (number - 1 == squareMatrix.length * squareMatrix.length) return squareMatrix;
       
-      return getSpiralOfNumbers(matrix, counter, ++x, ++y);
+      x++;
+      y++;
+      return getSpiralOfNumbers(squareMatrix, x, y, number);
     }
     
   }
 
   public static void main(String[] args) {
-
+    
+    int size = 6;
+    int[][] squareMatrix = new int[size][size];
+    
     Spiral spiral = new Spiral();
+    spiral.getSpiralOfNumbers(squareMatrix, 0, 0, 1);
     
-    int size = 1;
-    
-    int[][] square = new int[size][size];
-    
-    for (int[] row : square) {
-      Arrays.fill(row, 0);
-    }
-    
-    spiral.getSpiralOfNumbers(square, 1, 0, 0);
-    
-    for (int i = 0; i < square.length; i++) {
-      for (int j = 0; j < square[i].length; j++) {
-        System.out.printf("%2d ", square[i][j]);
+    for (int i = 0; i < squareMatrix.length; i++) {
+      for (int j = 0; j < squareMatrix[i].length; j++) {
+        System.out.printf("%2d ", squareMatrix[i][j]);
       }
       System.out.println();
     }
