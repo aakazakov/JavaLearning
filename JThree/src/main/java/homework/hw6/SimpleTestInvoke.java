@@ -2,6 +2,7 @@ package homework.hw6;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
+import java.util.*;
 
 public class SimpleTestInvoke {
   private static Class<?> testClass;
@@ -39,28 +40,24 @@ public class SimpleTestInvoke {
   
   private static void launchAllTestsByPriority()
       throws IllegalAccessException, InvocationTargetException {
-    sortByPriorirty();
-    for (int i = 0; i < methods.length; i++) {
-      if (!methods[i].isAnnotationPresent(Test.class)) { continue; }
-      methods[i].setAccessible(true);
-      methods[i].invoke(object);
+    List<Method> testList = new ArrayList<>();
+    
+    for (Method m : methods) {
+      if (!m.isAnnotationPresent(Test.class)) { continue; }
+      testList.add(m);
     }
-  }
+    
+    testList.sort(new Comparator<Method>() {
 
-  private static void sortByPriorirty() {
-    for (int i = 0; i < methods.length - 1; i++) {
-      for (int j = 0; j < methods.length - i - 1; j++) {
-        if (!methods[j].isAnnotationPresent(Test.class)) { continue; }
-        for (int k = j + 1; k < methods.length - i; k++) {
-          if (!methods[k].isAnnotationPresent(Test.class)) { continue; }
-          if (methods[j].getAnnotation(Test.class).priority() < methods[k].getAnnotation(Test.class).priority()) {
-            Method tmp = methods[j];
-            methods[j] = methods[k];
-            methods[k] = tmp;
-          }
-          break;
-        }
+      @Override
+      public int compare(Method m1, Method m2) {
+        return m2.getAnnotation(Test.class).priority() - m1.getAnnotation(Test.class).priority();
       }
+    });
+    
+    for (Method m : testList) {
+      m.setAccessible(true);
+      m.invoke(object);
     }
   }
   
