@@ -6,24 +6,15 @@ public class Homework {
   
   public static class Spiral {
     
-    int[][] getSpiralOfNumbers(int[][] matrix, int counter, int x, int y, int delta) {
-      
-      System.out.println(x + " " + y + " " + counter + " " + delta);
-      
-      if ( x > 0 
-          && y > 0 
-          && x < matrix.length 
-          && y < matrix.length 
-          && matrix[y][x - 1] != 0 
-          && matrix[y][x + 1] != 0 
-          && matrix[y - 1][x] != 0 
-          && matrix[y + 1][x] != 0) {
-        matrix[y][x] = counter;
-        return matrix;        
-      }
+    int[][] getSpiralOfNumbers(int[][] matrix, int counter, int x, int y) {
       
       // left -> right
-      while (x < matrix[y].length - delta) {
+      
+      while (true) {
+        
+        if (x + 1 == matrix.length || matrix[y][x + 1] != 0) {
+          break;
+        }
         
         matrix[y][x] = counter;
         
@@ -31,9 +22,14 @@ public class Homework {
         counter++;
         
       }
-           
+      
       // up -> down
-      while (y < matrix.length - delta) {
+      
+      while (true) {
+        
+        if (y + 1 == matrix.length || matrix[y + 1][x] != 0) {
+          break;
+        }
         
         matrix[y][x] = counter;
         
@@ -43,7 +39,12 @@ public class Homework {
       }
       
       // right -> left
-      while (x > delta - 1) {
+      
+      while (true) {
+        
+        if (x == 0 || matrix[y][x - 1] != 0) {
+          break;
+        }
         
         matrix[y][x] = counter;
         
@@ -53,8 +54,13 @@ public class Homework {
       }
       
       // down -> up
-      while (y > delta - 1) {
-                
+      
+      while (true) {
+        
+        if (y == 0 || matrix[y][x] != 0) {
+          break;
+        }
+        
         matrix[y][x] = counter;
         
         y--;
@@ -62,10 +68,9 @@ public class Homework {
         
       }
       
-      ++x; ++y; ++delta;
+      System.out.println(x + " " + y);
       
-      return getSpiralOfNumbers(matrix, counter, x, y, delta);
-      
+      return matrix;
     }
     
   }
@@ -74,7 +79,7 @@ public class Homework {
 
     Spiral spiral = new Spiral();
     
-    int size = 7;
+    int size = 4;
     
     int[][] square = new int[size][size];
     
@@ -82,7 +87,7 @@ public class Homework {
       Arrays.fill(row, 0);
     }
     
-    spiral.getSpiralOfNumbers(square, 1, 0, 0, 1);
+    spiral.getSpiralOfNumbers(square, 1, 0, 0);
     
     for (int i = 0; i < square.length; i++) {
       for (int j = 0; j < square[i].length; j++) {
